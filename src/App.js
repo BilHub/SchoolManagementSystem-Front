@@ -1,4 +1,3 @@
-import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
@@ -9,19 +8,23 @@ import HomePage from "./pages/HomePage";
 import Layout from "./components/layout/Layout";
 import RegisterForm from "./components/account/RegisterForm";
 import LoginForm from "./components/account/LoginForm";
+import Dashboard from "./components/accountPanel/Dashboard";
 
 function App() {
   return (
-    <Router>
-      <Layout>
+    <div>
+      <Router>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="*" element={<Navigate to="/" />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginForm />} />
+          <Route path="/admin_panel" element={<Dashboard />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<HomePage />} />
+            {/* <Route path="*" element={<Navigate to="/" />} /> */}
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/login" element={<LoginForm />} />
+          </Route>
         </Routes>
-      </Layout>
-    </Router>
+      </Router>
+    </div>
   );
 }
 
