@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { register } from "../../redux/authSlice";
 
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [registerData, setRegisterData] = useState({
     school_name: "",
     subdomain: "",
@@ -12,9 +15,10 @@ const RegisterForm = () => {
     password: "",
     email: "",
   });
+  const dispatch = useDispatch();
 
   const Register = () => {
-    console.log("registerData: ", registerData);
+    console.log("register button clicked");
     const payload = {
       school_name: registerData.school_name,
       subdomain: registerData.subdomain,
@@ -28,16 +32,8 @@ const RegisterForm = () => {
         },
       ],
     };
-    console.log("PAYLOAD : ", payload);
-    axios
-      .post("http://127.0.0.1:8000/api/v1/school/create_account/", payload, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-        },
-      })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+    dispatch(register(payload));
+    navigate("/login");
   };
 
   return (

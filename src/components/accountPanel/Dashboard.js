@@ -1,12 +1,14 @@
 import React from "react";
-import accountHeader from "./accountLayout/accountHeader";
-import AccountSidebar from "./accountLayout/AccountSidebar";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
+
 const Dashboard = () => {
+  const { isLoggedIn } = useSelector((state) => state.auth);
+  console.log("isLoggedIn: ", isLoggedIn);
   return (
-    <>
-      {/* <accountHeader /> */}
-      <AccountSidebar />
-    </>
+    <div className="ml-80">
+      {isLoggedIn ? "Dashboard" : <Navigate to="/login" />}
+    </div>
   );
 };
 
