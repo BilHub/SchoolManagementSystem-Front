@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <div className="sticky top-[32px] flex justify-between p-3 items-center bg-white">
+    <div className="sticky top-[32px] flex justify-between p-3 items-center bg-white z-10">
       <div className="text-5xl">
         <Link to="/">LOGO</Link>
       </div>
