@@ -1,8 +1,8 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../redux/authSlice";
+import { useOnKeyPress } from "../../hooks/useOnKeyPress";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -16,6 +16,7 @@ const LoginForm = () => {
     navigate(`${user.subdomain}/admin_panel`);
   };
 
+  useOnKeyPress(Login, "Enter");
   return (
     <div className="flex flex-col bg-primary-green h-screen items-center">
       <div className="flex flex-col bg-white gap-3 p-5 mt-20 w-96 text-xs">

@@ -20,21 +20,17 @@ const AddStudent = () => {
       </div>
       <div className="flex gap-3 ml-14 text-xl italic my-5 text-white">
         <button
-          className={
-            main
-              ? "bg-primary-yellow p-1 rounded-lg"
-              : "bg-gray-400 p-1 rounded-lg"
-          }
+          className={` p-1 rounded-lg ${
+            main ? "bg-primary-yellow" : "bg-gray-400 "
+          }`}
           onClick={() => setMain(true)}
         >
           Main
         </button>
         <button
-          className={
-            main
-              ? "bg-gray-400 p-1 rounded-lg"
-              : "bg-primary-yellow p-1 rounded-lg"
-          }
+          className={` p-1 rounded-lg ${
+            main ? "bg-gray-400 " : "bg-primary-yellow"
+          }`}
           onClick={() => setMain(false)}
         >
           Details

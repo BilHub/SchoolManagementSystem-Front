@@ -47,7 +47,7 @@ const Class = () => {
           <p>Number of students</p>
           <p>Action</p>
         </div>
-        <ul className="">
+        <ul>
           {classList.map((item, index) => {
             return (
               <li

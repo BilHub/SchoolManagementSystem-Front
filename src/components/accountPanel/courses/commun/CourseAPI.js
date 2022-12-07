@@ -30,11 +30,11 @@ const getLevelListAPI = (id) => {
   );
 };
 
-const getClassListAPI = (cycle_id, level_id) => {
+const getClassListAPI = (id1, id2) => {
   return (
     axios
       .get(
-        `http://127.0.0.1:8000/api/v1/subject/?cycle_id=${cycle_id}&level_id=${level_id}`,
+        `http://127.0.0.1:8000/api/v1/subject/?cycle_id=${id1}&level_id=${id2}`,
         {
           headers: {
             "Content-type": "application/json",

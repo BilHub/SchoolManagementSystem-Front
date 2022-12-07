@@ -18,8 +18,8 @@ export const UserTypeData = [
     link: "/admin_panel/parents",
   },
   {
-    title: "Admins",
+    title: "Staff",
     icon: <FaUserTie />,
-    link: "/admin_panel/admins",
+    link: "/admin_panel/staff",
   },
 ];

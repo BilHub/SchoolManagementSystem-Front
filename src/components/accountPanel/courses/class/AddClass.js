@@ -32,7 +32,9 @@ const AddClass = ({ addNewClass }) => {
           accept: "application/json",
         },
       })
-      .then((response) => setLevelList(response.data))
+      .then((response) => {
+        setLevelList(response.data);
+      })
       .catch((error) => console.log(error));
   };
 

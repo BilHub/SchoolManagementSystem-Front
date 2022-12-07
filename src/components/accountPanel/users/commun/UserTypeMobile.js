@@ -6,18 +6,14 @@ import { UserTypeData } from "../../../../data/AdminPanel/UsersTypeData";
 const UserTypeMobile = () => {
   const location = useLocation();
   const prsentLink = location.pathname;
-  const [showUserType, setShowUsertype] = useState(false);
 
   return (
     <div className="relative flex justify-center">
-      <button
-        className="absolute top-2 right-4 inline-flex peer text-4xl text-primary-yellow"
-        onClick={() => setShowUsertype(!showUserType)}
-      >
+      <button className="absolute top-2 right-4 inline-flex peer text-4xl text-primary-yellow">
         <AiOutlineMenuFold className="block md:hidden" />
       </button>
 
-      <ul className="fixed pt-10 bottom-[300px] peer-focus:top-10 h-screen peer-focus:w-full peer-focus:backdrop-blur-md">
+      <ul className="fixed h-screen pt-10 bottom-[300px] peer-focus:top-10  peer-focus:w-full peer-focus:backdrop-blur-md">
         {UserTypeData.map((value, index) => {
           return (
             <Link

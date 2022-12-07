@@ -4,57 +4,22 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import "../../../../index.css";
 import UserType from "../commun/UserType";
-import { useEffect, useState } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import PageNotFound from "../../PageNotFound";
+import { useQuery } from "@tanstack/react-query";
+import studentsService from "../../../../services/studentsService";
 
 const Students = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user } = useSelector((state) => state.auth);
   const pathSubdomain = "/" + location.pathname.split("/")[1];
-  console.log("pathSubdomain: ", pathSubdomain);
-  console.log("userSubdomain: ", user.subdomain);
 
-  const [studentsList, setStudentsList] = useState([]);
-
-  useEffect(() => {
-    getStudentsList();
-  }, []);
-
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  const getStudentsList = () => {
-    axios
-      .get("http://127.0.0.1:8000/api/v1/students/", {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
-      .then((res) => {
-        setStudentsList(res.data);
-      })
-      .catch((err) => console.log(err));
-  };
-
-  const deleteStudent = (id) => {
-    axios
-      .delete(`http://127.0.0.1:8000/api/v1/students/${id}/`, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        window.location.reload(false);
-      })
-      .catch((err) => console.log(err));
-  };
+  const {
+    data: studentsList = [],
+    isLoading,
+    error,
+  } = useQuery(["students-list"], studentsService.fetchStudentsList);
 
   return (
     <>
@@ -86,7 +51,7 @@ const Students = () => {
                   <p className="col-span-2">Action</p>
                 </div>
                 <ul>
-                  {studentsList.map((value, index) => {
+                  {studentsList?.map((value, index) => {
                     return (
                       <li className="odd:bg-gray-200 p-2">
                         <div
@@ -115,7 +80,11 @@ const Students = () => {
                             >
                               <AiFillEdit className="text-primary-yellow" />
                             </button>
-                            <button onClick={() => deleteStudent(value.id)}>
+                            <button
+                              onClick={() =>
+                                studentsService.deleteStudent(value.id)
+                              }
+                            >
                               <AiFillDelete className="text-red-500" />
                             </button>
                           </p>
