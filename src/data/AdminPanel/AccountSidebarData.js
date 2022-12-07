@@ -1,6 +1,5 @@
 import { RiDashboardFill } from "react-icons/ri";
-import { FaUserGraduate } from "react-icons/fa";
-import { ImUserTie } from "react-icons/im";
+import { FaUsers } from "react-icons/fa";
 import { GiBookCover } from "react-icons/gi";
 import { BsCalendarCheck, BsChatDotsFill } from "react-icons/bs";
 import { MdAttachMoney } from "react-icons/md";
@@ -9,48 +8,51 @@ import { MdSchedule } from "react-icons/md";
 
 export const AccountSidebarData = [
   {
+    id: 1,
     title: "Dashboard",
     icon: <RiDashboardFill />,
-    link: "/admin_panel",
+    link: "admin_panel",
   },
   {
-    title: "Students",
-    icon: <FaUserGraduate />,
-    link: "/admin_panel",
+    id: 2,
+    title: "Users",
+    icon: <FaUsers />,
+    link: "admin_panel/students",
   },
   {
-    title: "Teachers",
-    icon: <ImUserTie />,
-    link: "/admin_panel",
-  },
-  {
+    id: 3,
     title: "Courses",
     icon: <GiBookCover />,
-    link: "/admin_panel",
+    link: "admin_panel/class",
   },
   {
+    id: 4,
     title: "Schedule",
     icon: <MdSchedule />,
-    link: "/admin_panel",
+    link: "admin_panel/schedule",
   },
   {
+    id: 5,
     title: "Attendance",
     icon: <BsCalendarCheck />,
-    link: "/admin_panel",
+    link: "admin_panel/attendance/students",
   },
   {
+    id: 6,
     title: "Finance",
     icon: <MdAttachMoney />,
-    link: "/admin_panel",
+    link: "admin_panel/finance",
   },
   {
+    id: 7,
     title: "Library",
     icon: <HiLibrary />,
-    link: "/admin_panel",
+    link: "admin_panel/library",
   },
   {
+    id: 8,
     title: "Chat",
     icon: <BsChatDotsFill />,
-    link: "/admin_panel",
+    link: "admin_panel/chat",
   },
 ];
