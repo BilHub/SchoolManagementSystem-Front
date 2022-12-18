@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import "../../../../index.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -22,6 +22,9 @@ const schema = yup.object().shape({
 });
 
 const MainAddStudent = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log("location: ", location);
   // USERFORM STATE
   const {
     handleSubmit,
@@ -49,7 +52,9 @@ const MainAddStudent = () => {
           Authorization: "JWT " + token,
         },
       })
-      .then((res) => console.log("student added: ", res))
+      .then((res) => {
+        navigate(location.state.previousUrl);
+      })
       .catch((err) => console.log(err));
     reset();
   };

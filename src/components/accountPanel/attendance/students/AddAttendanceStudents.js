@@ -22,15 +22,39 @@ const AddAttendanceStudents = () => {
     useSelector((state) => state.courses);
   const { studentsAttendance } = useSelector((state) => state.attendance);
 
+  // const handleSelectStatus = (e, item) => {
+  //   const i = studentsAttendance.find((element) => element.id == item.id);
+  //   const updatedItem = { ...i, status: e.target.value };
+  //   const newList = studentsAttendance.filter(
+  //     (element) => element.id !== item.id
+  //   );
+  //   const lastList = [...newList, updatedItem];
+  //   const lastListSorted = lastList.sort((a, b) => a.id - b.id);
+  //   dispatch(updateStudentsAttendanceRedux(lastListSorted));
+  // };
+
   const handleSelectStatus = (e, item) => {
-    const i = studentsAttendance.find((element) => element.id == item.id);
-    const updatedItem = { ...i, status: e.target.value };
-    const newList = studentsAttendance.filter(
-      (element) => element.id !== item.id
-    );
-    const lastList = [...newList, updatedItem];
-    const lastListSorted = lastList.sort((a, b) => a.id - b.id);
-    dispatch(updateStudentsAttendanceRedux(lastListSorted));
+    const updatedList = studentsAttendance.map((element) => {
+      if (element.id == item.id) {
+        return {
+          ...element,
+          status: e.target.value,
+        };
+      } else return element;
+    });
+    dispatch(updateStudentsAttendanceRedux(updatedList));
+  };
+
+  const handleComment = (e, item) => {
+    const updatedList = studentsAttendance.map((element) => {
+      if (element.id == item.id) {
+        return {
+          ...element,
+          comment: e.target.value,
+        };
+      } else return element;
+    });
+    dispatch(updateStudentsAttendanceRedux(updatedList));
   };
 
   const attendanceItems = studentsAttendance.map((item) => {
@@ -51,7 +75,9 @@ const AddAttendanceStudents = () => {
   const createAttendance = async () => {
     await axios
       .post("http://127.0.0.1:8000/api/v1/attendance/", payload)
-      .then((response) => console.log(response))
+      .then((response) =>
+        navigate(`${user.subdomain}/admin_panel/attendance/students`)
+      )
       .catch((error) => console.log(error));
   };
 
@@ -84,7 +110,7 @@ const AddAttendanceStudents = () => {
             className="flex gap-5 items-center text-primary-yellow font-semibold"
             onClick={() =>
               navigate(`${user.subdomain}/admin_panel/students/add_student`, {
-                state: { message: "Failed to submit form" },
+                state: { previousUrl: location.pathname },
               })
             }
             // onClick={() =>
@@ -114,7 +140,7 @@ const AddAttendanceStudents = () => {
                 <select
                   className="w-[100px] bg-gray-200 p-1"
                   defaultValue={item.status}
-                  value={item.status}
+                  // value={item.status}
                   onChange={(e) => handleSelectStatus(e, item)}
                   name="status"
                 >
@@ -125,6 +151,7 @@ const AddAttendanceStudents = () => {
                 <input
                   type="text"
                   placeholder="comment"
+                  onChange={(e) => handleComment(e, item)}
                   className="grid col-span-3 p-1 truncate odd:bg-gray-200"
                 />
                 <div className="flex text-xl justify-center items-center">
