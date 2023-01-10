@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AttendancePart from "../commun/AttendancePart";
 import { AiFillDelete } from "react-icons/ai";
 import SelectCourses from "../../courses/commun/SelectCourses";
@@ -12,8 +12,12 @@ import {
 import axios from "axios";
 import DateSelectCourses from "../../courses/commun/DateSelectCourses";
 import { useLocation, useNavigate } from "react-router-dom";
+import ModalAddStudent from "./ModalAddStudent";
+import Header from "../../../layout/Header";
 
 const AddAttendanceStudents = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [studentsLevelList, setStudentsLevelList] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
@@ -22,16 +26,7 @@ const AddAttendanceStudents = () => {
     useSelector((state) => state.courses);
   const { studentsAttendance } = useSelector((state) => state.attendance);
 
-  // const handleSelectStatus = (e, item) => {
-  //   const i = studentsAttendance.find((element) => element.id == item.id);
-  //   const updatedItem = { ...i, status: e.target.value };
-  //   const newList = studentsAttendance.filter(
-  //     (element) => element.id !== item.id
-  //   );
-  //   const lastList = [...newList, updatedItem];
-  //   const lastListSorted = lastList.sort((a, b) => a.id - b.id);
-  //   dispatch(updateStudentsAttendanceRedux(lastListSorted));
-  // };
+  const closeModal = () => setShowModal(false);
 
   const handleSelectStatus = (e, item) => {
     const updatedList = studentsAttendance.map((element) => {
@@ -71,7 +66,6 @@ const AddAttendanceStudents = () => {
     date: date,
     attendance_items: attendanceItems,
   };
-  console.log("payload is: ", payload);
   const createAttendance = async () => {
     await axios
       .post("http://127.0.0.1:8000/api/v1/attendance/", payload)
@@ -81,7 +75,68 @@ const AddAttendanceStudents = () => {
       .catch((error) => console.log(error));
   };
 
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const getStudentsList = async () => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_level/?level_id=${selectedLevelId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+            Authorization: "JWT " + token,
+          },
+        }
+      )
+      .then((response) => {
+        const dataList = response.data.map((item) => {
+          const new_item = {
+            id: item.id,
+            value: item.first_name + " " + item.last_name,
+            label: item.first_name + " " + item.last_name,
+          };
+          return new_item;
+        });
+        setStudentsLevelList(dataList);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const deleteStudentAttendance = async () => {
+    await axios.delete(
+      `http://127.0.0.1:8000/api/v1/students/subject/${1}/`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      },
+      { data: { subject_id: 1 } }
+    );
+    // dispatch(getStudentsAttendanceRedux(selectedClassId));
+  };
+
+  // const deleteStudentAttendance = async (id) => {
+  //   await axios
+  //     .delete(
+  //       `http://127.0.0.1:8000/api/v1/students/subject/${id}/`,
+  //       { subject_id: selectedClassId },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //           accept: "application/json",
+  //           Authorization: "JWT " + token,
+  //         },
+  //       }
+  //     )
+  //     .then((response) => navigate("/"))
+  //     .catch((error) => console.log(error));
+  // };
+
   useEffect(() => {
+    getStudentsList();
     if (selectedClassId) {
       dispatch(getStudentsAttendanceRedux(selectedClassId));
     } else {
@@ -91,6 +146,13 @@ const AddAttendanceStudents = () => {
 
   return (
     <div className="ml-52 mt-22 mr-10">
+      <ModalAddStudent
+        closeModal={closeModal}
+        visible={showModal}
+        list={studentsLevelList}
+        subject_id={selectedClassId}
+        subdomain={user.subdomain}
+      />
       <AttendancePart />
       <SelectCourses />
       <div className="flex flex-col my-5 gap-3">
@@ -99,7 +161,6 @@ const AddAttendanceStudents = () => {
             <option>Teacher1</option>
             <option>Teacher2</option>
           </select>
-          {/* <input type="date" name="date" /> */}
           <DateSelectCourses />
         </div>
       </div>
@@ -108,16 +169,7 @@ const AddAttendanceStudents = () => {
           <p className="text-primary-green text-3xl ">Student's Attendance</p>
           <button
             className="flex gap-5 items-center text-primary-yellow font-semibold"
-            onClick={() =>
-              navigate(`${user.subdomain}/admin_panel/students/add_student`, {
-                state: { previousUrl: location.pathname },
-              })
-            }
-            // onClick={() =>
-            //   navigate("/login", {
-            //     state: { message: "Failed to submit form" },
-            //   })
-            // }
+            onClick={() => setShowModal(true)}
           >
             <p>Add Student</p>
             <BsFillPlusCircleFill className="text-3xl" />
@@ -133,14 +185,16 @@ const AddAttendanceStudents = () => {
         <ul>
           {studentsAttendance?.map((item, index) => {
             return (
-              <li className="grid grid-cols-7 gap-3 items-center odd:bg-gray-200 m-1">
+              <li
+                key={item.id}
+                className="grid grid-cols-7 gap-3 items-center odd:bg-gray-200 m-1"
+              >
                 <p className="grid col-span-2">
                   {item.last_name} {item.first_name}
                 </p>
                 <select
                   className="w-[100px] bg-gray-200 p-1"
                   defaultValue={item.status}
-                  // value={item.status}
                   onChange={(e) => handleSelectStatus(e, item)}
                   name="status"
                 >
@@ -155,7 +209,12 @@ const AddAttendanceStudents = () => {
                   className="grid col-span-3 p-1 truncate odd:bg-gray-200"
                 />
                 <div className="flex text-xl justify-center items-center">
-                  <button>
+                  <button
+                    onClick={() => {
+                      const student_id = item.id.toString();
+                      deleteStudentAttendance();
+                    }}
+                  >
                     <AiFillDelete className="text-red-500" />
                   </button>
                 </div>

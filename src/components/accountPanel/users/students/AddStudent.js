@@ -4,6 +4,8 @@ import { BsArrowLeft } from "react-icons/bs";
 import DetailAddStudent from "./DetailAddStudent";
 import MainAddStudent from "./MainAddStudent";
 import { useSelector } from "react-redux";
+import SelectLevel from "../../courses/commun/SelectLevel";
+import MultiSelectClass from "../../courses/commun/MultiSelectClass";
 
 const AddStudent = () => {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ const AddStudent = () => {
         />
         <p className="flex mt-auto text-3xl">Add Student</p>
       </div>
+      <MultiSelectClass />
       <div className="flex gap-3 ml-14 text-xl italic my-5 text-white">
         <button
           className={` p-1 rounded-lg ${

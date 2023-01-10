@@ -3,6 +3,7 @@ import coursesAPI from "../../courses/commun/CourseAPI";
 import attendanceService from "../../../../services/attendanceService";
 import SelectCourses from "../../courses/commun/SelectCourses";
 import DateSelectCourses from "../../courses/commun/DateSelectCourses";
+import MultiSelectClass from "../../courses/commun/MultiSelectClass";
 
 const SearchAttendanceStudents = ({ refetch }) => {
   const [cycleList, setCycleList] = useState([]);

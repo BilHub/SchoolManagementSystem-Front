@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getClassListRedux,
   getCycleListRedux,
   getLevelListRedux,
   setSelectedClassIdRedux,
@@ -11,7 +12,7 @@ import {
 const SelectLevel = () => {
   const dispatch = useDispatch();
 
-  const { cycleList, levelList, selectedCycleId, selectedLevelId } =
+  const { cycleList, levelList, classList, selectedCycleId, selectedLevelId } =
     useSelector((state) => state.courses);
 
   useEffect(() => {
@@ -22,12 +23,22 @@ const SelectLevel = () => {
     dispatch(getLevelListRedux(selectedCycleId));
   }, [selectedCycleId]);
 
+  useEffect(() => {
+    dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
+  }, [selectedCycleId, selectedLevelId]);
+
+  useEffect(() => {
+    if (classList.length != 0) {
+      const subject_id = classList[0].id.toString();
+      dispatch(setSelectedClassIdRedux(subject_id));
+    }
+  }, [classList]);
+
   return (
     <div className="flex gap-10">
       <select
         onChange={(e) => {
-          dispatch(setSelectedCycleIdRedux(e));
-          dispatch(setSelectedClassIdRedux(""));
+          dispatch(setSelectedCycleIdRedux(e.target.value));
         }}
         value={selectedCycleId}
         className="p-1 bg-gray-100"
@@ -42,8 +53,7 @@ const SelectLevel = () => {
       </select>
       <select
         onChange={(e) => {
-          dispatch(setSelectedLevelIdRedux(e));
-          dispatch(setSelectedClassIdRedux(""));
+          dispatch(setSelectedLevelIdRedux(e.target.value));
         }}
         value={selectedLevelId}
         className="p-1 bg-gray-100"

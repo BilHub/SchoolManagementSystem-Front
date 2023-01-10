@@ -6,24 +6,16 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch, useSelector } from "react-redux";
-import { setDateRedux } from "../../../../redux/courseSlice";
+import {
+  setDateRedux,
+  setSelectedClassIdRedux,
+} from "../../../../redux/courseSlice";
 
 const AttendanceStudents = () => {
   const navigate = useNavigate();
-  const { selectedCycleId, selectedLevelId, selectedClassId, date } =
+  const { selectedCycleId, selectedLevelId, selectedClassId, date, classList } =
     useSelector((state) => state.courses);
   const dispatch = useDispatch();
-
-  // const fetchingAttendance = (id1, id2, id3, d) => {
-  //   return axios
-  //     .get(
-  //       `http://127.0.0.1:8000/api/v1/attendance/?cycle_id=${id1}&level_id=${id2}&subject_id=${id3}&date=${d}`,
-  //       {
-  //         headers: authHeader(),
-  //       }
-  //     )
-  //     .then((response) => response.data);
-  // };
 
   const {
     data: attendanceList = [],
@@ -50,15 +42,12 @@ const AttendanceStudents = () => {
     // }
   );
 
-  // const [dailyAttendanceList, setDailyAttendanceList] = useState([]);
-
-  // useEffect(() => {
-  //   attendanceService.getDailyAttendance().then((response) => {
-  //     if (response) {
-  //       setDailyAttendanceList(response.data);
-  //     }
-  //   });
-  // }, []);
+  useEffect(() => {
+    if (classList.length) {
+      const value = classList[0].id;
+      dispatch(setSelectedClassIdRedux(value.toString()));
+    }
+  }, []);
 
   return (
     <div className="ml-52 mt-22 mr-10">

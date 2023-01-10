@@ -1,24 +1,16 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SelectLevel from "../../courses/commun/SelectLevel";
 
-import {
-  getClassListRedux,
-  setSelectedClassIdRedux,
-} from "../../../../redux/courseSlice";
+import { setSelectedClassIdRedux } from "../../../../redux/courseSlice";
 
 const SelectCourses = () => {
   const dispatch = useDispatch();
 
-  const { classList, selectedCycleId, selectedLevelId, selectedClassId } =
-    useSelector((state) => state.courses);
-
-  useEffect(() => {
-    dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
-  }, [selectedCycleId, selectedLevelId]);
+  const { classList, selectedClassId } = useSelector((state) => state.courses);
 
   return (
-    <div className="flex gap-10">
+    <div className="flex gap-10 justify-center">
       <SelectLevel />
       <select
         onChange={(e) => dispatch(setSelectedClassIdRedux(e.target.value))}
