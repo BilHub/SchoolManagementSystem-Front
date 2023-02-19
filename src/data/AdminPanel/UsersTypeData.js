@@ -5,21 +5,21 @@ export const UserTypeData = [
   {
     title: "Students",
     icon: <FaUserGraduate />,
-    link: "/admin_panel/students",
+    link: "/admin_panel/users/students",
   },
   {
     title: "Teachers",
     icon: <FaUser />,
-    link: "/admin_panel/teachers",
+    link: "/admin_panel/users/teachers",
   },
   {
     title: "Parents",
     icon: <RiParentFill />,
-    link: "/admin_panel/parents",
+    link: "/admin_panel/users/parents",
   },
   {
     title: "Staff",
     icon: <FaUserTie />,
-    link: "/admin_panel/staff",
+    link: "/admin_panel/users/staff",
   },
 ];

@@ -1,16 +1,11 @@
 import axios from "axios";
+import axiosInstance from "../apis";
 
 const token = JSON.parse(localStorage.getItem("token"));
 
 const fetchStudentsList = () => {
-  return axios
-    .get("http://127.0.0.1:8000/api/v1/students/", {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    })
+  return axiosInstance
+    .get("students/")
     .then((response) => response.data);
 };
 

@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import AttendancePart from "../commun/AttendancePart";
-import SearchAttendanceStudents from "./SearchAttendanceStudents";
+import React, { useEffect } from "react";
 import attendanceService from "../../../../services/attendanceService";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +8,8 @@ import {
   setDateRedux,
   setSelectedClassIdRedux,
 } from "../../../../redux/courseSlice";
+import StudentTeacherSelect from "../../sharedComponents/StudentTeacherSelect";
+import FilterClassAttendance from "./FilterClassAttendance";
 
 const AttendanceStudents = () => {
   const navigate = useNavigate();
@@ -37,6 +37,7 @@ const AttendanceStudents = () => {
         selectedClassId,
         date
       )
+
     // {
     //   enabled: false,
     // }
@@ -51,7 +52,7 @@ const AttendanceStudents = () => {
 
   return (
     <div className="ml-52 mt-22 mr-10">
-      <AttendancePart />
+      <StudentTeacherSelect />
       <div className="flex justify-center w-full">
         <button
           className="w-[200px] bg-primary-yellow text-white p-1 rounded-full hover:scale-90 "
@@ -63,7 +64,7 @@ const AttendanceStudents = () => {
           Add New Attendance
         </button>
       </div>
-      <SearchAttendanceStudents refetch={refetch} />
+      <FilterClassAttendance refetch={refetch} />
       <div>
         <p className="text-3xl text-primary-green">Attendance List</p>
         <div className="grid grid-cols-6 mt-5">

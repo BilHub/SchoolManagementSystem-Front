@@ -2,13 +2,16 @@ import { AccountSidebarData } from "../../../data/AdminPanel/AccountSidebarData"
 import { GoPrimitiveDot } from "react-icons/go";
 import admin1 from "../../../images/admin1.jpeg";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useContext } from "react";
-import { AdminContext } from "../../../context/AdminContext";
+// import { AdminContext } from "../../../context/AdminContext";
 import { useSelector } from "react-redux";
 
 const AccountSidebar = () => {
-  const { headerTitle } = useContext(AdminContext);
+  const location = useLocation();
+  const headerTitle = location.pathname.split("/")[3];
+  console.log("headerTitle: ", headerTitle);
+  // const { headerTitle } = useContext(AdminContext);
   const { user } = useSelector((state) => state.auth);
   return (
     <div className="relative z-50">
@@ -30,7 +33,7 @@ const AccountSidebar = () => {
                 state={value.title}
                 className="flex flex-row justify-center items-center p-2 cursor-pointer "
               >
-                {headerTitle == value.title && (
+                {headerTitle == value.title.toLowerCase() && (
                   <div className="text-primary-yellow">
                     <GoPrimitiveDot />
                   </div>

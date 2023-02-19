@@ -43,7 +43,6 @@ const AddClass = ({ addNewClass }) => {
   };
 
   const addClass = (data) => {
-    console.log(data);
     axios
       .post("http://127.0.0.1:8000/api/v1/subject/", data, {
         headers: {
@@ -67,16 +66,11 @@ const AddClass = ({ addNewClass }) => {
       className=" flex justify-between items-center my-10"
       onSubmit={handleSubmit(addClass)}
     >
-      <button
-        type="submit"
-        className="rounded-md text-white bg-primary-yellow p-2 font-semibold"
-      >
-        Add a Class
-      </button>
+     
       <div>
         <label>Cycle: </label>
         <select
-          {...register("cycle", { required: true })}
+          {...register("cycle_id", { required: true })}
           className="p-1 bg-gray-100"
           value={selectedCycleId}
           onChange={handleSelectedCycle}
@@ -93,7 +87,7 @@ const AddClass = ({ addNewClass }) => {
       <div>
         <label>Level: </label>
         <select
-          {...register("level", { required: true })}
+          {...register("level_id", { required: true })}
           className="p-1 bg-gray-100"
         >
           {levelList.map((item) => {
@@ -106,7 +100,7 @@ const AddClass = ({ addNewClass }) => {
         </select>
       </div>
       <div className="flex gap-3 items-center">
-        <label>Class: </label>
+        <label>Subject: </label>
         <input
           {...register("subject_name", { required: true })}
           type="text"
@@ -114,6 +108,12 @@ const AddClass = ({ addNewClass }) => {
           className="border border-gray-200 p-1 focus:outline-none"
         />
       </div>
+      <button
+        type="submit"
+        className="rounded-md text-white bg-primary-yellow p-2 font-semibold"
+      >
+        Add a Subject
+      </button>
     </form>
   );
 };

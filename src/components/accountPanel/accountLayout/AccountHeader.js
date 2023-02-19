@@ -1,14 +1,16 @@
-import { useContext } from "react";
 import { IoSettingsSharp } from "react-icons/io5";
 import { IoMdLogOut } from "react-icons/io";
-import { AdminContext } from "../../../context/AdminContext";
+// import { AdminContext } from "../../../context/AdminContext";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/authSlice";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AccountHeader = () => {
   const navigate = useNavigate();
-  const { headerTitle } = useContext(AdminContext);
+  // const { headerTitle } = useContext(AdminContext);
+  const location = useLocation();
+  let headerTitle = location.pathname.split("/")[3];
+  headerTitle = headerTitle.charAt(0).toUpperCase() + headerTitle.slice(1);
   const dispatch = useDispatch();
 
   return (

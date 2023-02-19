@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import attendanceService from "../../../../services/attendanceService";
+import { useLocation } from "react-router-dom";
+import Select from "react-select";
+import teachersService from "../../../../services/teachersService";
 
-const EditDailyAttendance = () => {
+const EditDailyAttendance = ({
+  date,
+  setDate,
+  currentTeacher,
+  setCurrentTeacher,
+}) => {
+  const { data: teachersList = [] } = useQuery(
+    ["teachers-list"],
+    teachersService.fetchTeachersList
+  );
+
   return (
     <div className="flex flex-col mt-10 gap-3">
       <div className="flex justify-around">
@@ -18,11 +33,22 @@ const EditDailyAttendance = () => {
         </div>
       </div>
       <div className="flex justify-around">
-        <select className="">
-          <option>Teacher1</option>
-          <option>Teacher2</option>
-        </select>
-        <input className="" type="date" name="date" />
+        <Select
+          options={teachersList}
+          className="w-[300px]"
+          onChange={(value) => {
+            setCurrentTeacher(value);
+          }}
+          value={currentTeacher}
+        />
+        <input
+          className=""
+          type="date"
+          name="date"
+          // defaultValue={date}
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
         <button className="bg-primary-green rounded-md w-[100px] text-white font-semibold hover:bg-primary-yellow">
           Modify
         </button>

@@ -33,7 +33,9 @@ const Students = () => {
                 className="text-4xl text-primary-yellow cursor-pointer
              hover:text-primary-green"
                 onClick={() =>
-                  navigate(`${user.subdomain}/admin_panel/students/add_student`)
+                  navigate(
+                    `${user.subdomain}/admin_panel/users/students/add_student`
+                  )
                 }
               />
             </div>

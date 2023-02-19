@@ -54,10 +54,8 @@ const ModalAddStudent = ({
           <button
             className="bg-primary-yellow rounded rounded-md p-1 text-white"
             onClick={() =>
-              navigate(`${subdomain}/admin_panel/students/add_student`, {
-                state: {
-                  previousUrl: `${subdomain}/admin_panel/attendance/students/add_attendance`,
-                },
+              navigate(`${subdomain}/admin_panel/users/students/add_student`, {
+                state: [window.location.pathname],
               })
             }
           >

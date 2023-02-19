@@ -17,6 +17,9 @@ import AttendanceStudents from "./components/accountPanel/attendance/students/At
 import AttendanceTeachers from "./components/accountPanel/attendance/teachers/AttendanceTeachers";
 import EditAttendance from "./components/accountPanel/attendance/students/EditAttendance";
 import AddAttendanceStudents from "./components/accountPanel/attendance/students/AddAttendanceStudents";
+import SchoolCalendar from "./components/accountPanel/schedule/SchoolCalendar";
+import FinanceStudents from "./components/accountPanel/finance/FinanceStudents";
+import FinanceStudentDetail from "./components/accountPanel/finance/FinanceStudentDetail";
 
 function App() {
   return (
@@ -24,24 +27,27 @@ function App() {
       <AdminProvider>
         <Routes>
           <Route element={<AccountLayout />}>
-            <Route path="/:subdomain/admin_panel" element={<Dashboard />} />
             <Route
-              path="/:subdomain/admin_panel/students"
+              path="/:subdomain/admin_panel/dashboard"
+              element={<Dashboard />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/users/students"
               element={<Students />}
             />
             <Route
-              path="/:subdomain/admin_panel/teachers"
+              path="/:subdomain/admin_panel/users/teachers"
               element={<Teachers />}
             />
             <Route
-              path="/:subdomain/admin_panel/students/add_student"
+              path="/:subdomain/admin_panel/users/students/add_student"
               element={<AddStudent />}
             />
             <Route
-              path="/:subdomain/admin_panel/students/edit_student/:id"
+              path="/:subdomain/admin_panel/users/students/edit_student/:id"
               element={<EditStudent />}
             />
-            <Route path="/:subdomain/admin_panel/class" element={<Class />} />
+            <Route path="/:subdomain/admin_panel/courses" element={<Class />} />
             <Route path="/:subdomain/admin_panel/level" element={<Level />} />
             <Route
               path="/:subdomain/admin_panel/section"
@@ -62,6 +68,18 @@ function App() {
             <Route
               path="/:subdomain/admin_panel/attendance/students/add_attendance"
               element={<AddAttendanceStudents />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/schedule"
+              element={<SchoolCalendar />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/finance/students"
+              element={<FinanceStudents />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/finance/students/:id"
+              element={<FinanceStudentDetail />}
             />
           </Route>
           <Route element={<Layout />}>

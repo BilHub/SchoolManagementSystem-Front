@@ -51,7 +51,6 @@ const MainAddStudent = () => {
       level: selectedLevelId,
       subjects: selectedClassId,
     };
-    console.log("payload: ", payload);
 
     await axios
       .post("http://127.0.0.1:8000/api/v1/students/", payload, {
@@ -62,10 +61,11 @@ const MainAddStudent = () => {
         },
       })
       .then((res) => {
+        console.log("location for state is: ", location);
         navigate(
-          location?.state?.previousUrl
-            ? location.state.previousUrl
-            : `${user.subdomain}/admin_panel/students/`
+          location?.state
+            ? location.state[0]
+            : `${user.subdomain}/admin_panel/users/students/`
         );
       })
       .catch((err) => console.log(err));

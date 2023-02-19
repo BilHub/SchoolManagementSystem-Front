@@ -11,19 +11,19 @@ export const AccountSidebarData = [
     id: 1,
     title: "Dashboard",
     icon: <RiDashboardFill />,
-    link: "admin_panel",
+    link: "admin_panel/dashboard",
   },
   {
     id: 2,
     title: "Users",
     icon: <FaUsers />,
-    link: "admin_panel/students",
+    link: "admin_panel/users/students",
   },
   {
     id: 3,
     title: "Courses",
     icon: <GiBookCover />,
-    link: "admin_panel/class",
+    link: "admin_panel/courses",
   },
   {
     id: 4,
@@ -41,7 +41,7 @@ export const AccountSidebarData = [
     id: 6,
     title: "Finance",
     icon: <MdAttachMoney />,
-    link: "admin_panel/finance",
+    link: "admin_panel/finance/students",
   },
   {
     id: 7,

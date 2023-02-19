@@ -41,8 +41,8 @@ const Class = () => {
         <p className="text-primary-green text-3xl my-5">Class List</p>
         <div className="grid grid-cols-6 text-center font-bold italic my-2">
           <p>Class Name</p>
+          <p>Cycle</p>
           <p>Level</p>
-          <p>Section</p>
           <p>Teacher</p>
           <p>Number of students</p>
           <p>Action</p>
@@ -55,8 +55,8 @@ const Class = () => {
                 className="grid grid-cols-6 text-center p-1 odd:bg-gray-200"
               >
                 <p>{item.subject_name}</p>
-                <p>{item.level}</p>
-                <p>{item.level}</p>
+                <p>{item.cycle.name}</p>
+                <p>{item.level.name}</p>
                 <p>
                   {item.teachers_list.map((teacher, index) => (
                     <p>{teacher}</p>

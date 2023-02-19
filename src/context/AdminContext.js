@@ -9,8 +9,8 @@ export const AdminProvider = ({ children }) => {
   //   location.state = "Dashboard";
   // }
   // const headerTitle = location.state;
-  // const headerTitle = location.state ? location.state : "Dashboard";
-  const headerTitle = "Dashboard";
+  const headerTitle = location.state ? location.state : "Dashboard";
+  // const headerTitle = "Dashboard";
 
   return (
     <AdminContext.Provider value={{ headerTitle }}>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import AttendancePart from "../commun/AttendancePart";
 import { AiFillDelete } from "react-icons/ai";
 import SelectCourses from "../../courses/commun/SelectCourses";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,15 +10,14 @@ import {
 } from "../../../../redux/attendanceSlice";
 import axios from "axios";
 import DateSelectCourses from "../../courses/commun/DateSelectCourses";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ModalAddStudent from "./ModalAddStudent";
-import Header from "../../../layout/Header";
+import StudentTeacherSelect from "../../sharedComponents/StudentTeacherSelect";
 
 const AddAttendanceStudents = () => {
   const [showModal, setShowModal] = useState(false);
   const [studentsLevelList, setStudentsLevelList] = useState([]);
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { selectedCycleId, selectedLevelId, selectedClassId, date } =
@@ -103,37 +101,19 @@ const AddAttendanceStudents = () => {
       .catch((error) => console.log(error));
   };
 
-  const deleteStudentAttendance = async () => {
+  const deleteStudentAttendance = async (student_id) => {
     await axios.delete(
-      `http://127.0.0.1:8000/api/v1/students/subject/${1}/`,
+      `http://127.0.0.1:8000/api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`,
       {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
           Authorization: "JWT " + token,
         },
-      },
-      { data: { subject_id: 1 } }
+      }
     );
-    // dispatch(getStudentsAttendanceRedux(selectedClassId));
+    dispatch(getStudentsAttendanceRedux(selectedClassId));
   };
-
-  // const deleteStudentAttendance = async (id) => {
-  //   await axios
-  //     .delete(
-  //       `http://127.0.0.1:8000/api/v1/students/subject/${id}/`,
-  //       { subject_id: selectedClassId },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           accept: "application/json",
-  //           Authorization: "JWT " + token,
-  //         },
-  //       }
-  //     )
-  //     .then((response) => navigate("/"))
-  //     .catch((error) => console.log(error));
-  // };
 
   useEffect(() => {
     getStudentsList();
@@ -153,7 +133,7 @@ const AddAttendanceStudents = () => {
         subject_id={selectedClassId}
         subdomain={user.subdomain}
       />
-      <AttendancePart />
+      <StudentTeacherSelect />
       <SelectCourses />
       <div className="flex flex-col my-5 gap-3">
         <div className="flex justify-around">
@@ -212,7 +192,7 @@ const AddAttendanceStudents = () => {
                   <button
                     onClick={() => {
                       const student_id = item.id.toString();
-                      deleteStudentAttendance();
+                      deleteStudentAttendance(student_id);
                     }}
                   >
                     <AiFillDelete className="text-red-500" />

@@ -13,7 +13,7 @@ const LoginForm = () => {
   const Login = async () => {
     dispatch(login({ username, password }));
     const user = JSON.parse(localStorage.getItem("user"));
-    navigate(`${user.subdomain}/admin_panel`);
+    navigate(`${user.subdomain}/admin_panel/dashboard`);
   };
 
   useOnKeyPress(Login, "Enter");

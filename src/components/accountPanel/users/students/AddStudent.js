@@ -16,7 +16,9 @@ const AddStudent = () => {
       <div className="flex flex-row items-center gap-5 text-primary-green">
         <BsArrowLeft
           className="text-3xl font-bold cursor-pointer hover:text-primary-yellow"
-          onClick={() => navigate(`${user.subdomain}/admin_panel/students`)}
+          onClick={() =>
+            navigate(`${user.subdomain}/admin_panel/users/students`)
+          }
         />
         <p className="flex mt-auto text-3xl">Add Student</p>
       </div>
