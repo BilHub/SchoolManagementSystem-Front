@@ -5,19 +5,11 @@ import SelectCourses from "../../courses/commun/SelectCourses";
 import DateSelectCourses from "../../courses/commun/DateSelectCourses";
 import MultiSelectClass from "../../courses/commun/MultiSelectClass";
 
-const FilterClassAttendance = ({ refetch }) => {
+const FilterClassAttendance = () => {
   return (
-    <div>
+    <div className="flex items-center justify-center gap-10">
       <SelectCourses />
-      <div className="flex gap-10 items-center my-5">
-        <DateSelectCourses />
-        <button
-          className="bg-primary-green rounded-md px-2 text-white hover:bg-primary-yellow"
-          onClick={refetch}
-        >
-          View
-        </button>
-      </div>
+      <DateSelectCourses />
     </div>
   );
 };

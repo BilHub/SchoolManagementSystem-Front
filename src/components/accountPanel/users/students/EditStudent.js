@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
 const EditStudent = () => {
+  const location = useLocation();
   const { user } = useSelector((state) => state.auth);
   const [first_name, setFirst_name] = useState("");
   const [last_name, setLast_name] = useState("");
@@ -35,6 +36,8 @@ const EditStudent = () => {
     date_of_birth: date_of_birth ? date_of_birth : studentInfo.date_of_birth,
     city: city ? city : studentInfo.city,
     state: state ? state : studentInfo.state,
+    cycle_id: studentInfo?.cycle?.id,
+    level_id: studentInfo?.level?.id,
     // zip: zip ? : studentInfo.,
     // address: address ? : studentInfo.,
     // fatherName: fatherName ? : studentInfo.,
@@ -78,18 +81,18 @@ const EditStudent = () => {
           Authorization: "JWT " + token,
         },
       })
-      .then((res) => console.log(res))
+      .then((res) => navigate(location.state))
       .catch((err) => console.log(err));
   };
 
   return (
     <section className="ml-5 md:ml-44 mt-5">
-      <div className="flex flex-row items-center gap-5 text-primary-green">
-        <BsArrowLeft
-          className="text-3xl font-bold cursor-pointer hover:text-primary-yellow"
-          onClick={() => navigate(`${user.subdomain}/admin_panel/students`)}
-        />
-        <p className="flex mt-auto text-3xl">Edit Student</p>
+      <div
+        className="flex flex-row items-center gap-3 mb-5 text-primary-green cursor-pointer hover:text-primary-yellow"
+        onClick={() => navigate(`${user.subdomain}/admin_panel/users/students`)}
+      >
+        <BsArrowLeft className="text-3xl font-bold " />
+        <p className="italic text-2xl">Back</p>
       </div>
       <form className="flex flex-col ml-14 mr-28 gap-5" onSubmit={edit}>
         <div className="flex flex-col gap-2">

@@ -4,7 +4,6 @@ import { BsArrowLeft } from "react-icons/bs";
 import DetailAddStudent from "./DetailAddStudent";
 import MainAddStudent from "./MainAddStudent";
 import { useSelector } from "react-redux";
-import SelectLevel from "../../courses/commun/SelectLevel";
 import MultiSelectClass from "../../courses/commun/MultiSelectClass";
 
 const AddStudent = () => {
@@ -20,7 +19,7 @@ const AddStudent = () => {
             navigate(`${user.subdomain}/admin_panel/users/students`)
           }
         />
-        <p className="flex mt-auto text-3xl">Add Student</p>
+        <p className="flex mt-auto text-2xl">Back</p>
       </div>
       <MultiSelectClass />
       <div className="flex gap-3 ml-14 text-xl italic my-5 text-white">

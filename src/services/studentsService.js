@@ -4,9 +4,7 @@ import axiosInstance from "../apis";
 const token = JSON.parse(localStorage.getItem("token"));
 
 const fetchStudentsList = () => {
-  return axiosInstance
-    .get("students/")
-    .then((response) => response.data);
+  return axiosInstance.get("students/").then((response) => response.data);
 };
 
 const deleteStudent = (id) => {

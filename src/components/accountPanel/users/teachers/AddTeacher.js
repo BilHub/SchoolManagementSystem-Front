@@ -1,34 +1,30 @@
-import axios from "axios";
-import { useForm } from "react-hook-form";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import "../../../../index.css";
+import { BsArrowLeft } from "react-icons/bs";
+import { useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import axios from "axios";
 
-const schema = yup.object().shape({
-  first_name: yup
-    .string()
-    .min(5, "minimum length is 5")
-    .required("this field is required"),
-  last_name: yup.string().min(5).required("this field is required"),
-  email: yup
-    .string("email not valid")
-    .email("please provid a valid address")
-    .required("this field is required"),
-  phone: yup
-    .number("phone should be number !!")
-    .positive("phone not valid can't be negatif")
-    .required("this field is required"),
-});
-
-const MainAddStudent = () => {
-  const navigate = useNavigate();
+const AddTeacher = () => {
   const location = useLocation();
-  const { selectedClassId, selectedCycleId, selectedLevelId } = useSelector(
-    (state) => state.courses
-  );
-  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const schema = yup.object().shape({
+    first_name: yup
+      .string()
+      .min(5, "minimum length is 5")
+      .required("this field is required"),
+    last_name: yup.string().min(5).required("this field is required"),
+    email: yup
+      .string("email not valid")
+      .email("please provid a valid address")
+      .required("this field is required"),
+    phone: yup
+      .number("phone should be number !!")
+      .positive("phone not valid can't be negatif")
+      .required("this field is required"),
+  });
 
   const {
     handleSubmit,
@@ -38,22 +34,9 @@ const MainAddStudent = () => {
   } = useForm({
     resolver: yupResolver(schema),
   });
-
-  const token = JSON.parse(localStorage.getItem("token"));
-
-  // const token = useState(() => localStrorage.get("item "))
-  // lazy state initializer (React)
-
-  const save = async (data) => {
-    const payload = {
-      ...data,
-      cycle_id: selectedCycleId,
-      level_id: selectedLevelId,
-      subjects: selectedClassId,
-    };
-
+  const addTeacher = async (data) => {
     await axios
-      .post("http://127.0.0.1:8000/api/v1/students/", payload, {
+      .post("http://127.0.0.1:8000/api/v1/teachers/", data, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -61,20 +44,21 @@ const MainAddStudent = () => {
         },
       })
       .then((res) => {
-        console.log("location for state is: ", location);
-        navigate(
-          location?.state
-            ? location.state[0]
-            : `${user.subdomain}/admin_panel/users/students/`
-        );
+        navigate(location.state);
       })
       .catch((err) => console.log(err));
     reset();
   };
-
   return (
-    <div>
-      <form onSubmit={handleSubmit(save)}>
+    <section className="ml-5 md:ml-44 mt-5">
+      <div className="flex flex-row items-center gap-5 text-primary-green">
+        <BsArrowLeft
+          className="text-3xl font-bold cursor-pointer hover:text-primary-yellow"
+          onClick={() => navigate(location.state)}
+        />
+        <p className="flex mt-auto text-2xl">Back</p>
+      </div>
+      <form onSubmit={handleSubmit(addTeacher)}>
         <div className="flex flex-col ml-14 mr-32 gap-3">
           <div className="flex gap-3 items-center">
             <label className="w-[200px]">Gender :</label>
@@ -160,8 +144,8 @@ const MainAddStudent = () => {
           </button>
         </div>
       </form>
-    </div>
+    </section>
   );
 };
 
-export default MainAddStudent;
+export default AddTeacher;

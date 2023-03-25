@@ -24,5 +24,32 @@ const fetchTeachersList = async () => {
     });
 };
 
-const teachersService = { fetchTeachersList };
+const getTeachersList = async () => {
+  return await axios
+    .get("http://127.0.0.1:8000/api/v1/teachers/", {
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "JWT " + token,
+      },
+    })
+    .then((response) => response.data);
+};
+
+const deleteTeacher = async (id) => {
+  return await axios
+    .delete(`http://127.0.0.1:8000/api/v1/teachers/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        accept: "application/json",
+        Authorization: "JWT " + token,
+      },
+    })
+    .then((res) => {
+      window.location.reload(false);
+    })
+    .catch((err) => console.log(err));
+};
+
+const teachersService = { fetchTeachersList, getTeachersList, deleteTeacher };
 export default teachersService;

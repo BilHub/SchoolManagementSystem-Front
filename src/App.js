@@ -12,14 +12,22 @@ import { AdminProvider } from "./context/AdminContext";
 import EditStudent from "./components/accountPanel/users/students/EditStudent";
 import Class from "./components/accountPanel/courses/class/Class";
 import Level from "./components/accountPanel/courses/level/Level";
-import Section from "./components/accountPanel/courses/section/Section";
 import AttendanceStudents from "./components/accountPanel/attendance/students/AttendanceStudents";
 import AttendanceTeachers from "./components/accountPanel/attendance/teachers/AttendanceTeachers";
-import EditAttendance from "./components/accountPanel/attendance/students/EditAttendance";
 import AddAttendanceStudents from "./components/accountPanel/attendance/students/AddAttendanceStudents";
 import SchoolCalendar from "./components/accountPanel/schedule/SchoolCalendar";
 import FinanceStudents from "./components/accountPanel/finance/FinanceStudents";
 import FinanceStudentDetail from "./components/accountPanel/finance/FinanceStudentDetail";
+import FinanceStudentEdit from "./components/accountPanel/finance/FinanceStudentEdit";
+import AddTeacher from "./components/accountPanel/users/teachers/AddTeacher";
+import EditTeacher from "./components/accountPanel/users/teachers/EditTeacher";
+import EditLevel from "./components/accountPanel/courses/level/EditLevel";
+import EditSubject from "./components/accountPanel/courses/class/EditSubject";
+import Cycle from "./components/accountPanel/courses/section/Cycle";
+import EditCycle from "./components/accountPanel/courses/section/EditCycle";
+import Parents from "./components/accountPanel/users/parents/Parents";
+import Staff from "./components/accountPanel/users/staff/Staff";
+import EditStudentAttendance from "./components/accountPanel/attendance/students/EditStudentAttendance";
 
 function App() {
   return (
@@ -36,22 +44,56 @@ function App() {
               element={<Students />}
             />
             <Route
+              path="/:subdomain/admin_panel/users/students/add_student"
+              element={<AddStudent />}
+            />
+            <Route
               path="/:subdomain/admin_panel/users/teachers"
               element={<Teachers />}
             />
             <Route
-              path="/:subdomain/admin_panel/users/students/add_student"
-              element={<AddStudent />}
+              path="/:subdomain/admin_panel/users/parents"
+              element={<Parents />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/users/staff"
+              element={<Staff />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/users/teachers/add_teacher"
+              element={<AddTeacher />}
             />
             <Route
               path="/:subdomain/admin_panel/users/students/edit_student/:id"
               element={<EditStudent />}
             />
-            <Route path="/:subdomain/admin_panel/courses" element={<Class />} />
-            <Route path="/:subdomain/admin_panel/level" element={<Level />} />
             <Route
-              path="/:subdomain/admin_panel/section"
-              element={<Section />}
+              path="/:subdomain/admin_panel/users/teachers/edit_teacher/:id"
+              element={<EditTeacher />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/courses/subject"
+              element={<Class />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/courses/subject/edit_subject/:id"
+              element={<EditSubject />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/courses/level"
+              element={<Level />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/courses/level/edit_level/:id"
+              element={<EditLevel />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/courses/cycle"
+              element={<Cycle />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/courses/cycle/edit_cycle/:id"
+              element={<EditCycle />}
             />
             <Route
               path="/:subdomain/admin_panel/attendance/students"
@@ -63,7 +105,7 @@ function App() {
             />
             <Route
               path="/:subdomain/admin_panel/attendance/students/edit_attendance/:id"
-              element={<EditAttendance />}
+              element={<EditStudentAttendance />}
             />
             <Route
               path="/:subdomain/admin_panel/attendance/students/add_attendance"
@@ -80,6 +122,10 @@ function App() {
             <Route
               path="/:subdomain/admin_panel/finance/students/:id"
               element={<FinanceStudentDetail />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/finance/students/:id/edit"
+              element={<FinanceStudentEdit />}
             />
           </Route>
           <Route element={<Layout />}>

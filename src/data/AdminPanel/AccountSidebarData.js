@@ -23,7 +23,7 @@ export const AccountSidebarData = [
     id: 3,
     title: "Courses",
     icon: <GiBookCover />,
-    link: "admin_panel/courses",
+    link: "admin_panel/courses/subject",
   },
   {
     id: 4,
@@ -43,16 +43,16 @@ export const AccountSidebarData = [
     icon: <MdAttachMoney />,
     link: "admin_panel/finance/students",
   },
-  {
-    id: 7,
-    title: "Library",
-    icon: <HiLibrary />,
-    link: "admin_panel/library",
-  },
-  {
-    id: 8,
-    title: "Chat",
-    icon: <BsChatDotsFill />,
-    link: "admin_panel/chat",
-  },
+  // {
+  //   id: 7,
+  //   title: "Library",
+  //   icon: <HiLibrary />,
+  //   link: "admin_panel/library",
+  // },
+  // {
+  //   id: 8,
+  //   title: "Chat",
+  //   icon: <BsChatDotsFill />,
+  //   link: "admin_panel/chat",
+  // },
 ];

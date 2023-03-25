@@ -13,6 +13,7 @@ import DateSelectCourses from "../../courses/commun/DateSelectCourses";
 import { useNavigate } from "react-router-dom";
 import ModalAddStudent from "./ModalAddStudent";
 import StudentTeacherSelect from "../../sharedComponents/StudentTeacherSelect";
+import FilterClassAttendance from "./FilterClassAttendance";
 
 const AddAttendanceStudents = () => {
   const [showModal, setShowModal] = useState(false);
@@ -25,6 +26,7 @@ const AddAttendanceStudents = () => {
   const { studentsAttendance } = useSelector((state) => state.attendance);
 
   const closeModal = () => setShowModal(false);
+  const openModal = () => setShowModal(true);
 
   const handleSelectStatus = (e, item) => {
     const updatedList = studentsAttendance.map((element) => {
@@ -134,14 +136,16 @@ const AddAttendanceStudents = () => {
         subdomain={user.subdomain}
       />
       <StudentTeacherSelect />
-      <SelectCourses />
-      <div className="flex flex-col my-5 gap-3">
-        <div className="flex justify-around">
-          <select className="">
-            <option>Teacher1</option>
-            <option>Teacher2</option>
-          </select>
-          <DateSelectCourses />
+      <div className="flex gap-10 justify-center items-center">
+        <FilterClassAttendance />
+        <div className="flex flex-col my-5 gap-3">
+          <div className="flex gap-1">
+            <span className="text-primary-green font-semibold">Teacher:</span>
+            <select>
+              <option>Teacher1</option>
+              <option>Teacher2</option>
+            </select>
+          </div>
         </div>
       </div>
       <div>

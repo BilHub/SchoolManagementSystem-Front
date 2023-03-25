@@ -36,36 +36,42 @@ const SelectLevel = () => {
 
   return (
     <div className="flex gap-10">
-      <select
-        onChange={(e) => {
-          dispatch(setSelectedCycleIdRedux(e.target.value));
-        }}
-        value={selectedCycleId}
-        className="p-1 bg-gray-100"
-      >
-        {cycleList.map((item, index) => {
-          return (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          );
-        })}
-      </select>
-      <select
-        onChange={(e) => {
-          dispatch(setSelectedLevelIdRedux(e.target.value));
-        }}
-        value={selectedLevelId}
-        className="p-1 bg-gray-100"
-      >
-        {levelList.map((item, index) => {
-          return (
-            <option key={item.id} value={item.id}>
-              {item.name}
-            </option>
-          );
-        })}
-      </select>
+      <div>
+        <span className="text-primary-green font-semibold">Cycle: </span>
+        <select
+          onChange={(e) => {
+            dispatch(setSelectedCycleIdRedux(e.target.value));
+          }}
+          value={selectedCycleId}
+          className="p-1 bg-gray-100"
+        >
+          {cycleList.map((item, index) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      <div>
+        <span className="text-primary-green font-semibold">Level: </span>
+        <select
+          onChange={(e) => {
+            dispatch(setSelectedLevelIdRedux(e.target.value));
+          }}
+          value={selectedLevelId}
+          className="p-1 bg-gray-100"
+        >
+          {levelList.map((item, index) => {
+            return (
+              <option key={item.id} value={item.id}>
+                {item.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
     </div>
   );
 };

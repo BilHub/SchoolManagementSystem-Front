@@ -6,12 +6,12 @@ const axiosInstance = axios.create({
   baseURL: API_URL,
 });
 
+const Token = JSON.parse(localStorage.getItem("token"));
+
 axiosInstance.interceptors.request.use(
   (config) => {
     if (config.headers) {
-      config.headers.Authorization = `JWT ${localStorage.getItem(
-        "token"
-      )}`;
+      config.headers.Authorization = `JWT ${Token}`;
     }
     return config;
   },
