@@ -1,21 +1,13 @@
 import axios from "axios";
 import authHeader from "./authHeader";
 
-const getDailyAttendance = () => {
-  return axios.get("http://127.0.0.1:8000/api/v1/attendance/", {
-    headers: authHeader(),
-  });
+const getStudentsDailyAttendance = (id) => {
+  return axios
+    .get(`http://127.0.0.1:8000/api/v1/attendance/${id}`, {
+      headers: authHeader(),
+    })
+    .then((response) => response.data);
 };
-
-// const viewAttendance = (cycle_id, level_id, subject_id, date) => {
-//   return axios.get(
-//     `http://127.0.0.1:8000/api/v1/attendance/?
-//   cycle_id=${cycle_id}&level_id=${level_id}&subject_id=${subject_id}&date=${date}`,
-//     {
-//       headers: authHeader(),
-//     }
-//   );
-// };
 
 export const fetchingAttendance = (id1, id2, id3, d) => {
   return axios
@@ -28,5 +20,5 @@ export const fetchingAttendance = (id1, id2, id3, d) => {
     .then((response) => response.data);
 };
 
-const attendanceService = { getDailyAttendance, fetchingAttendance };
+const attendanceService = { getStudentsDailyAttendance, fetchingAttendance };
 export default attendanceService;

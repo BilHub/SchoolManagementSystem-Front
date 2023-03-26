@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import { useLocation } from "react-router-dom";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import "../../../../index.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useSelector } from "react-redux";
 
 const schema = yup.object().shape({
   first_name: yup
@@ -22,7 +23,13 @@ const schema = yup.object().shape({
 });
 
 const MainAddStudent = () => {
-  // USERFORM STATE
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { selectedClassId, selectedCycleId, selectedLevelId } = useSelector(
+    (state) => state.courses
+  );
+  const { user } = useSelector((state) => state.auth);
+
   const {
     handleSubmit,
     register,
@@ -32,24 +39,35 @@ const MainAddStudent = () => {
     resolver: yupResolver(schema),
   });
 
-  // const location = useLocation();
-  // const addingStudent = location.pathname.split("/").includes("add_student");
-
   const token = JSON.parse(localStorage.getItem("token"));
 
   // const token = useState(() => localStrorage.get("item "))
   // lazy state initializer (React)
 
   const save = async (data) => {
+    const payload = {
+      ...data,
+      cycle_id: selectedCycleId,
+      level_id: selectedLevelId,
+      subjects: selectedClassId,
+    };
+
     await axios
-      .post("http://127.0.0.1:8000/api/v1/students/", data, {
+      .post("http://127.0.0.1:8000/api/v1/students/", payload, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
           Authorization: "JWT " + token,
         },
       })
-      .then((res) => console.log("student added: ", res))
+      .then((res) => {
+        console.log("location for state is: ", location);
+        navigate(
+          location?.state
+            ? location.state[0]
+            : `${user.subdomain}/admin_panel/users/students/`
+        );
+      })
       .catch((err) => console.log(err));
     reset();
   };
@@ -62,25 +80,11 @@ const MainAddStudent = () => {
             <label className="w-[200px]">Gender :</label>
             <div className="flex items-center gap-2 mr-5">
               <p>Male</p>
-              <input
-                className=""
-                type="radio"
-                // name="gender"
-                // onChange={(e) => setGender(e.target.value)}
-                value="MALE"
-                // {...register("gender")}
-              />
+              <input className="" type="radio" value="MALE" />
             </div>
             <div className="flex items-center gap-2">
               <p>Female</p>
-              <input
-                className=""
-                type="radio"
-                // name="gender"
-                // onChange={(e) => setGender(e.target.value)}
-                // {...register("gender")}
-                value="FEMALE"
-              />
+              <input className="" type="radio" value="FEMALE" />
             </div>
           </div>
           <div className="flex flex-col">
@@ -91,9 +95,6 @@ const MainAddStudent = () => {
                 type="text"
                 id="first_name"
                 name="first_name"
-                // ref={register}
-                // defaultValue={studentInfo ? studentInfo.first_name : ""}
-                // onChange={(e) => setFirst_name(e.target.value)}
                 required
                 {...register("first_name")}
               />
@@ -110,9 +111,6 @@ const MainAddStudent = () => {
                 type="text"
                 id="last_name"
                 name="last_name"
-                // inputRef={register}
-                // onChange={(e) => setLast_name(e.target.value)}
-                // value={last_name}
                 {...register("last_name")}
                 required
               />
@@ -129,9 +127,6 @@ const MainAddStudent = () => {
                 type="email"
                 id="email"
                 name="email"
-                // inputRef={register}
-                // onChange={(e) => setEmail(e.target.value)}
-                // value={email}
                 {...register("email")}
                 required
               />
@@ -148,38 +143,18 @@ const MainAddStudent = () => {
                 type="text"
                 id="phone"
                 name="phone"
-                // inputRef={register}
-                // onChange={(e) => setPhone(e.target.value)}
-                // value={phone}
                 {...register("phone")}
                 required
               />
             </div>
             <p>{errors.phone?.message}</p>
           </div>
-          {/* <div className="flex gap-3">
-            <label className="w-[200px]">Class :</label>
-            <select
-              value={classLevel}
-              onChange={(e) => setClassLevel(e.target.value)}
-              className="w-[300px] bg-white outline outline-gray-200"
-              placeholder="class level"
-            >
-              <option value="" disabled className="text-gray-400">
-                --- select a class level ---
-              </option>
-              <option>primary-1</option>
-              <option>primary-2</option>
-              <option>primary-3</option>
-            </select>
-          </div> */}
         </div>
         <div className="flex justify-center m-5">
           <button
             className="bg-primary-green w-[80px] p-1 rounded-lg text-white
            text-xl hover:bg-primary-yellow"
             type="submit"
-            // onClick={save}
           >
             Save
           </button>

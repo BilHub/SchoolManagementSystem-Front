@@ -7,7 +7,11 @@ const Dashboard = () => {
   console.log("isLoggedIn: ", isLoggedIn);
   return (
     <div className="ml-80">
-      {isLoggedIn ? "Dashboard" : <Navigate to="/login" />}
+      {isLoggedIn ? (
+        <div className="text-5xl mt-52 ml-64">ON DEVELOPEMENT ...</div>
+      ) : (
+        <Navigate to="/login" />
+      )}
     </div>
   );
 };

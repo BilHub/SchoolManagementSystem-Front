@@ -10,6 +10,7 @@ export const AdminProvider = ({ children }) => {
   // }
   // const headerTitle = location.state;
   const headerTitle = location.state ? location.state : "Dashboard";
+  // const headerTitle = "Dashboard";
 
   return (
     <AdminContext.Provider value={{ headerTitle }}>

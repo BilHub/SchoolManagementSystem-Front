@@ -8,7 +8,7 @@ const initialState = {
   classList: [],
   selectedCycleId: "",
   selectedLevelId: "",
-  selectedClassId: "",
+  selectedClassId: "" | [],
   date: "",
 };
 
@@ -53,16 +53,16 @@ export const getClassListRedux = createAsyncThunk(
 
 export const setSelectedCycleIdRedux = createAsyncThunk(
   "courses/selectedCycleId",
-  async (e) => {
-    const id = e.target.value;
+  async (value) => {
+    const id = value;
     return { cycle_id: id };
   }
 );
 
 export const setSelectedLevelIdRedux = createAsyncThunk(
   "courses/selectedLevelId",
-  async (e) => {
-    const id = e.target.value;
+  async (value) => {
+    const id = value;
     return { level_id: id };
   }
 );

@@ -4,6 +4,7 @@ import { BsArrowLeft } from "react-icons/bs";
 import DetailAddStudent from "./DetailAddStudent";
 import MainAddStudent from "./MainAddStudent";
 import { useSelector } from "react-redux";
+import MultiSelectClass from "../../courses/commun/MultiSelectClass";
 
 const AddStudent = () => {
   const navigate = useNavigate();
@@ -14,10 +15,13 @@ const AddStudent = () => {
       <div className="flex flex-row items-center gap-5 text-primary-green">
         <BsArrowLeft
           className="text-3xl font-bold cursor-pointer hover:text-primary-yellow"
-          onClick={() => navigate(`${user.subdomain}/admin_panel/students`)}
+          onClick={() =>
+            navigate(`${user.subdomain}/admin_panel/users/students`)
+          }
         />
-        <p className="flex mt-auto text-3xl">Add Student</p>
+        <p className="flex mt-auto text-2xl">Back</p>
       </div>
+      <MultiSelectClass />
       <div className="flex gap-3 ml-14 text-xl italic my-5 text-white">
         <button
           className={` p-1 rounded-lg ${

@@ -11,9 +11,9 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const Login = async () => {
-    await dispatch(login({ username, password }));
+    dispatch(login({ username, password }));
     const user = JSON.parse(localStorage.getItem("user"));
-    navigate(`${user.subdomain}/admin_panel`);
+    navigate(`${user.subdomain}/admin_panel/dashboard`);
   };
 
   useOnKeyPress(Login, "Enter");
