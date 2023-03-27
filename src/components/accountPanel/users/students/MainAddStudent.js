@@ -30,6 +30,13 @@ const MainAddStudent = () => {
   );
   const { user } = useSelector((state) => state.auth);
 
+  console.log(
+    "selectedClassId, selectedCycleId, selectedLevelId: ",
+    selectedClassId,
+    selectedCycleId,
+    selectedLevelId
+  );
+
   const {
     handleSubmit,
     register,

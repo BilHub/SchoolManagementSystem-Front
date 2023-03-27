@@ -7,16 +7,19 @@ import coursesService from "../../../../services/coursesService";
 
 const AddClass = ({ refetch }) => {
   const { cycleList } = useSelector((state) => state.courses);
+  console.log("cycleList: ", cycleList);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [selectedCycleId, setSelectedCycleId] = useState(cycleList[0].id);
-  const { data: cycleListResponse = [] } = useQuery(
-    ["cycle-list"],
-    coursesService.getCycleList
+  const [selectedCycleId, setSelectedCycleId] = useState(
+    cycleList.length ? cycleList[0].id : null
   );
+  // const { data: cycleListResponse = [] } = useQuery(
+  //   ["cycle-list"],
+  //   coursesService.getCycleList
+  // );
   const { data: levelListResponse = [] } = useQuery(
     ["level-list", selectedCycleId],
     () => coursesService.getLevelList(selectedCycleId)
@@ -55,7 +58,7 @@ const AddClass = ({ refetch }) => {
           value={selectedCycleId}
           onChange={handleSelectedCycle}
         >
-          {cycleListResponse.map((item) => {
+          {cycleList.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.name}

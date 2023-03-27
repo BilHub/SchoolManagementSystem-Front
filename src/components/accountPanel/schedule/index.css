@@ -1,0 +1,23 @@
+.rbc-event {
+  background-color: #036069;
+  margin: 3px;
+  padding: 5px;
+  border: 1px solid white !important;
+  display: flex !important;
+  flex-direction: column !important;
+  /* align-items: center !important; */
+  justify-content: center !important;
+  /* align-content: center !important; */
+  text-align: center;
+}
+
+.rbc-event-label {
+  color: #eab308;
+  /* text-align: center !important; */
+  padding-right: 0px !important;
+  margin: 3px auto !important;
+}
+
+.rbc-event-content {
+  font-size: large !important;
+}
