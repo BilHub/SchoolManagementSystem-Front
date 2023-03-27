@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import Layout from "./components/layout/Layout";
 import RegisterForm from "./components/account/RegisterForm";
 import LoginForm from "./components/account/LoginForm";
-import Dashboard from "./components/accountPanel/Dashboard";
+import Dashboard from "./components/accountPanel/dashboard/Dashboard";
 import AccountLayout from "./components/accountPanel/accountLayout/AccountLayout";
 import Students from "./components/accountPanel/users/students/Students";
 import Teachers from "./components/accountPanel/users/teachers/Teachers";

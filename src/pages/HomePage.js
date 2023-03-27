@@ -9,7 +9,7 @@ const HomePage = () => {
           <p className="text-3xl text-white">
             Welcome to the platform for School Management System
           </p>
-          <Link to="/register">
+          <Link to="/login">
             <p className="bg-white rounded-md p-1 text-lg text-primary-green font-semibold">
               Getting Started
             </p>

@@ -72,13 +72,13 @@ const FinanceStudentDetail = () => {
           <p>email: {studentInfos.email}</p>
         </div>
         <div>
-          <p>Cycle: {studentInfos.cycle.name}</p>
-          <p>Level: {studentInfos.level.name}</p>
+          <p>Cycle: {studentInfos?.cycle?.name}</p>
+          <p>Level: {studentInfos?.level?.name}</p>
         </div>
         <div>
           <p>
             Classes:
-            {studentInfos.subjects.map((subject) => {
+            {studentInfos?.subjects?.map((subject) => {
               return <p>{subject.subject_name}</p>;
             })}
           </p>
