@@ -13,6 +13,7 @@ import axios from "axios";
 import "./index.css";
 import SelectCourses from "../courses/commun/SelectCourses";
 import { useSelector } from "react-redux";
+import SelectLevel from "../courses/commun/SelectLevel";
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -69,14 +70,15 @@ const SchoolCalendar = ({ showToolBar }) => {
   }
 
   useEffect(() => {
-    scheduleService.getEventList(selectedClassId).then((response) => {
+    scheduleService.getEventList(selectedLevelId).then((response) => {
       setEventList(response.data);
     });
   }, [selectedClassId]);
 
   return (
     <div className="ml-10 mt-5 h-screen flex flex-col justify-center items-center gap-10 w-full">
-      <SelectCourses />
+      {/* <SelectCourses /> */}
+      <SelectLevel />
       <Calendar
         className="w-4/5"
         localizer={localizer}

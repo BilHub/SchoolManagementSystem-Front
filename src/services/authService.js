@@ -6,7 +6,10 @@ const API_URL = "http://127.0.0.1:8000/api/v1/";
 
 const registerAPI = (body) => {
   return axios.post(API_URL + "school/create_school_account/", body, {
-    headers: authHeader(),
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
   });
 };
 

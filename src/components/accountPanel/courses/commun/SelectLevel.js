@@ -36,6 +36,7 @@ const SelectLevel = () => {
 
   return (
     <div className="flex gap-10">
+      <p className="text-xl font-semibold italic">Filter</p>
       <div>
         <span className="text-primary-green font-semibold">Cycle: </span>
         <select

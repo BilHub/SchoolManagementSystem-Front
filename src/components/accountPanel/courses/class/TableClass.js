@@ -57,10 +57,6 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
         <p>{item.students_number}</p>
         <div className="flex gap-3 text-xl justify-center">
           <button
-            // onClick={() => {
-            //   openModal();
-            //   setSelectedSubject(item);
-            // }}
             onClick={() => {
               navigate(`edit_subject/${item.id}`, {
                 state: {
