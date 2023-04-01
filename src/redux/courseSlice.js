@@ -51,6 +51,13 @@ export const getClassListRedux = createAsyncThunk(
   }
 );
 
+export const resetClassListRedux = createAsyncThunk(
+  "courses/resetClassList",
+  async () => {
+    return { class_list: [] };
+  }
+);
+
 export const setSelectedCycleIdRedux = createAsyncThunk(
   "courses/selectedCycleId",
   async (value) => {
@@ -103,6 +110,12 @@ export const courseSlice = createSlice({
       state.classList = action.payload.class_list;
     },
     [getClassListRedux.rejected]: (state, action) => {
+      state.error = true;
+    },
+    [resetClassListRedux.fulfilled]: (state, action) => {
+      state.classList = action.payload.class_list;
+    },
+    [resetClassListRedux.rejected]: (state, action) => {
       state.error = true;
     },
     [setSelectedCycleIdRedux.fulfilled]: (state, action) => {

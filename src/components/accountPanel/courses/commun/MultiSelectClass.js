@@ -5,6 +5,7 @@ import SelectLevel from "./SelectLevel";
 
 import {
   getClassListRedux,
+  resetClassListRedux,
   setSelectedClassIdRedux,
 } from "../../../../redux/courseSlice";
 
@@ -28,12 +29,18 @@ const MultiSelectClass = () => {
     const idList = selected.map((item) => {
       return item.id;
     });
-    console.log("selected: ", idList);
     dispatch(setSelectedClassIdRedux(idList));
   };
 
   useEffect(() => {
-    dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
+    if (
+      selectedCycleId != null &&
+      selectedLevelId != null &&
+      selectedCycleId != "default" &&
+      selectedLevelId != "default"
+    ) {
+      dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
+    } else dispatch(resetClassListRedux());
   }, [selectedCycleId, selectedLevelId]);
 
   return (

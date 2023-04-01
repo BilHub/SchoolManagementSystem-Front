@@ -7,6 +7,7 @@ import coursesService from "../../../../services/coursesService";
 
 const AddLevel = ({ refetch }) => {
   const { cycleList } = useSelector((state) => state.courses);
+  const { user } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -23,8 +24,12 @@ const AddLevel = ({ refetch }) => {
   //   };
 
   const addLevel = (data) => {
+    const payload = {
+      ...data,
+      school_id: user.school,
+    };
     axios
-      .post("http://127.0.0.1:8000/api/v1/level/", data, {
+      .post("http://127.0.0.1:8000/api/v1/level/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",

@@ -80,7 +80,7 @@ const Students = () => {
   const fetchStudentsCycleList = async (id1) => {
     await axios
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}`,
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
         {
           headers: authHeader(),
         }
@@ -96,7 +96,7 @@ const Students = () => {
   const fetchStudentsLevelList = async (id1, id2) => {
     await axios
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}`,
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
         {
           headers: authHeader(),
         }
@@ -110,7 +110,7 @@ const Students = () => {
   const fetchStudentsSubjectList = async (id1, id2, id3) => {
     await axios
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
         {
           headers: authHeader(),
         }
@@ -123,11 +123,9 @@ const Students = () => {
   };
 
   useEffect(() => {
-    getAllStudents();
-  }, []);
-
-  useEffect(() => {
-    fetchStudentsCycleList(selectedCycleId);
+    if (selectedCycleId == "default") {
+      getAllStudents();
+    } else fetchStudentsCycleList(selectedCycleId);
   }, [selectedCycleId]);
 
   useEffect(() => {
@@ -146,6 +144,10 @@ const Students = () => {
         selectedClassId
       );
   }, [selectedClassId]);
+
+  useEffect(() => {
+    getAllStudents();
+  }, []);
 
   return (
     <>

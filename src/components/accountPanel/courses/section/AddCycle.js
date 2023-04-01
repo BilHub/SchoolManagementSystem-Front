@@ -4,8 +4,10 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import coursesService from "../../../../services/coursesService";
+import UserType from "../../users/commun/UserType";
 
-const AddLevel = ({ refetch }) => {
+const AddCycle = ({ refetch }) => {
+  const { user } = useSelector((state) => state.auth);
   const {
     register,
     handleSubmit,
@@ -13,8 +15,12 @@ const AddLevel = ({ refetch }) => {
   } = useForm();
 
   const addCycle = (data) => {
+    const payload = {
+      ...data,
+      school: user.school,
+    };
     axios
-      .post("http://127.0.0.1:8000/api/v1/cycle/", data, {
+      .post("http://127.0.0.1:8000/api/v1/cycle/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
@@ -48,4 +54,4 @@ const AddLevel = ({ refetch }) => {
   );
 };
 
-export default memo(AddLevel);
+export default memo(AddCycle);

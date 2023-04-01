@@ -23,11 +23,19 @@ const SelectLevel = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getLevelListRedux(selectedCycleId));
+    if (selectedCycleId != null && selectedCycleId != "default")
+      dispatch(getLevelListRedux(selectedCycleId));
   }, [selectedCycleId]);
 
   useEffect(() => {
-    dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
+    if (
+      selectedCycleId != null &&
+      selectedLevelId != null &&
+      selectedCycleId != "default" &&
+      selectedLevelId != "default"
+    ) {
+      dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
+    }
   }, [selectedCycleId, selectedLevelId]);
 
   // useEffect(() => {

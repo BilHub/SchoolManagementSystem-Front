@@ -1,5 +1,7 @@
 import axios from "axios";
 
+const token = JSON.parse(localStorage.getItem("token"));
+
 const getCyclelListAPI = () => {
   return (
     axios
@@ -7,6 +9,7 @@ const getCyclelListAPI = () => {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
+          Authorization: "JWT " + token,
         },
       })
       // .then((res) => {
@@ -23,6 +26,7 @@ const getLevelListAPI = (id) => {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
+          Authorization: "JWT " + token,
         },
       })
       // .then((response) => setLevelList(response.data))
@@ -39,6 +43,7 @@ const getClassListAPI = (id1, id2) => {
           headers: {
             "Content-type": "application/json",
             accept: "application/json",
+            Authorization: "JWT " + token,
           },
         }
       )
