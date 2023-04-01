@@ -20,6 +20,8 @@ const SelectCourses = () => {
           value={selectedClassId}
           className="p-1 bg-gray-100"
         >
+          <option value="default">Select subject...</option>
+
           {classList.map((item, index) => {
             return (
               <option key={item.id} value={item.id}>

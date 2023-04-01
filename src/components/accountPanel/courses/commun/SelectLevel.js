@@ -17,6 +17,9 @@ const SelectLevel = () => {
 
   useEffect(() => {
     dispatch(getCycleListRedux());
+    dispatch(setSelectedCycleIdRedux("default"));
+    dispatch(setSelectedLevelIdRedux("default"));
+    dispatch(setSelectedClassIdRedux("default"));
   }, []);
 
   useEffect(() => {
@@ -27,12 +30,12 @@ const SelectLevel = () => {
     dispatch(getClassListRedux({ selectedCycleId, selectedLevelId }));
   }, [selectedCycleId, selectedLevelId]);
 
-  useEffect(() => {
-    if (classList.length != 0) {
-      const subject_id = classList[0].id.toString();
-      dispatch(setSelectedClassIdRedux(subject_id));
-    }
-  }, [classList]);
+  // useEffect(() => {
+  //   if (classList.length != 0) {
+  //     const subject_id = classList[0].id.toString();
+  //     dispatch(setSelectedClassIdRedux(subject_id));
+  //   }
+  // }, [classList]);
 
   return (
     <div className="flex gap-10">
@@ -43,9 +46,11 @@ const SelectLevel = () => {
           onChange={(e) => {
             dispatch(setSelectedCycleIdRedux(e.target.value));
           }}
+          defaultValue="default"
           value={selectedCycleId}
           className="p-1 bg-gray-100"
         >
+          <option value="default">Select cycle...</option>
           {cycleList.map((item, index) => {
             return (
               <option key={item.id} value={item.id}>
@@ -58,12 +63,15 @@ const SelectLevel = () => {
       <div>
         <span className="text-primary-green font-semibold">Level: </span>
         <select
+          defaultValue="default"
           onChange={(e) => {
             dispatch(setSelectedLevelIdRedux(e.target.value));
           }}
           value={selectedLevelId}
           className="p-1 bg-gray-100"
         >
+          <option value="default">Select level...</option>
+
           {levelList.map((item, index) => {
             return (
               <option key={item.id} value={item.id}>

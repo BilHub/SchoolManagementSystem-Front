@@ -25,25 +25,26 @@ const Students = () => {
   const pathSubdomain = "/" + location.pathname.split("/")[1];
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const fetchStudentsList = (id1, id2, id3) => {
-    return axios
-      .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
-        {
-          headers: authHeader(),
-        }
-      )
-      .then((response) => response.data);
-  };
+  // const fetchStudentsList = (id1, id2, id3) => {
+  //   return axios
+  //     .get(
+  //       `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+  //       {
+  //         headers: authHeader(),
+  //       }
+  //     )
+  //     .then((response) => response.data);
+  // };
 
-  const { data: queryStudentsList = [] } = useQuery(
-    ["studentsListQuery", selectedCycleId, selectedLevelId, selectedClassId],
-    () =>
-      fetchStudentsList(selectedCycleId, selectedLevelId, selectedClassId, {
-        onSuccess: setStudentsList(queryStudentsList),
-      })
-  );
-  const [studentsList, setStudentsList] = useState(null);
+  // const { data: queryStudentsList = [] } = useQuery(
+  //   ["studentsListQuery", selectedCycleId, selectedLevelId, selectedClassId],
+  //   () =>
+  //     fetchStudentsList(selectedCycleId, selectedLevelId, selectedClassId, {
+  //       onSuccess: setStudentsList(queryStudentsList),
+  //     })
+  // );
+  const [studentsList, setStudentsList] = useState([]);
+  const [allStudentsList, setAllStudentsList] = useState([]);
 
   const getSelectedStudent = async (id) => {
     await axios
@@ -70,6 +71,52 @@ const Students = () => {
         },
       })
       .then((response) => {
+        console.log("all students are: ", response.data);
+        setStudentsList(response.data);
+      })
+      .catch((error) => console.log("error: ", error));
+  };
+
+  const fetchStudentsCycleList = async (id1) => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
+        console.log("all students are: ", response.data);
+        setStudentsList(response.data);
+        setAllStudentsList(response.data);
+      })
+      .catch((error) => console.log("error: ", error));
+  };
+
+  const fetchStudentsLevelList = async (id1, id2) => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
+        console.log("all students are: ", response.data);
+        setStudentsList(response.data);
+      })
+      .catch((error) => console.log("error: ", error));
+  };
+  const fetchStudentsSubjectList = async (id1, id2, id3) => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
+        console.log("all students are: ", response.data);
         setStudentsList(response.data);
       })
       .catch((error) => console.log("error: ", error));
@@ -79,13 +126,34 @@ const Students = () => {
     getAllStudents();
   }, []);
 
+  useEffect(() => {
+    fetchStudentsCycleList(selectedCycleId);
+  }, [selectedCycleId]);
+
+  useEffect(() => {
+    if (selectedLevelId == "default") {
+      fetchStudentsCycleList(selectedCycleId);
+    } else fetchStudentsLevelList(selectedCycleId, selectedLevelId);
+  }, [selectedLevelId]);
+
+  useEffect(() => {
+    if (selectedClassId == "default") {
+      fetchStudentsLevelList(selectedCycleId, selectedLevelId);
+    } else
+      fetchStudentsSubjectList(
+        selectedCycleId,
+        selectedLevelId,
+        selectedClassId
+      );
+  }, [selectedClassId]);
+
   return (
     <>
       {pathSubdomain == user.subdomain ? (
         <div className="flex flex-col relative">
           <UserType />
           <Search
-            queryList={queryStudentsList}
+            queryList={allStudentsList}
             setList={setStudentsList}
             getSelectedItem={getSelectedStudent}
             getAllItems={getAllStudents}
@@ -104,9 +172,7 @@ const Students = () => {
                 }
               />
             </div>
-            <TableStudent
-              studentsList={studentsList ? studentsList : queryStudentsList}
-            />
+            <TableStudent studentsList={studentsList} />
           </div>
         </div>
       ) : (
