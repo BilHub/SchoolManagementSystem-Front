@@ -7,9 +7,15 @@ import MultiSelectClass from "../../courses/commun/MultiSelectClass";
 
 const FilterClassAttendance = () => {
   return (
-    <div className="flex items-center justify-center gap-10">
-      <SelectCourses />
-      <DateSelectCourses />
+    <div className="flex flex-col items-center justify-center gap-5">
+      <div className="flex justify-center items-center gap-5">
+        <p className="text-xl font-semibold italic">Filter</p>
+        <SelectCourses />
+      </div>
+      <div className="flex justify-center items-center gap-5">
+        <p className="italic font-semibold text-xl mx-10">Or By</p>
+        <DateSelectCourses />
+      </div>
     </div>
   );
 };

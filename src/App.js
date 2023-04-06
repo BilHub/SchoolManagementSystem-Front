@@ -28,6 +28,8 @@ import EditCycle from "./components/accountPanel/courses/section/EditCycle";
 import Parents from "./components/accountPanel/users/parents/Parents";
 import Staff from "./components/accountPanel/users/staff/Staff";
 import EditStudentAttendance from "./components/accountPanel/attendance/students/EditStudentAttendance";
+import AddEvent from "./components/accountPanel/schedule/AddEvent";
+import EditEvent from "./components/accountPanel/schedule/EditEvent";
 
 function App() {
   return (
@@ -114,6 +116,14 @@ function App() {
             <Route
               path="/:subdomain/admin_panel/schedule"
               element={<SchoolCalendar />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/schedule/add_event"
+              element={<AddEvent />}
+            />
+            <Route
+              path="/:subdomain/admin_panel/schedule/edit_event/:id"
+              element={<EditEvent />}
             />
             <Route
               path="/:subdomain/admin_panel/finance/students"

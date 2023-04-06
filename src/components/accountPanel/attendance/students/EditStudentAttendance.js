@@ -1,22 +1,29 @@
 import axios from "axios";
 import React, { useCallback, useEffect, useState } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import EditDailyAttendance from "./EditDailyAttendance";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import Table from "../../../../utils/Table";
 import attendanceService from "../../../../services/attendanceService";
+import { useDispatch, useSelector } from "react-redux";
+import { setDateRedux } from "../../../../redux/courseSlice";
 
 const EditStudentAttendance = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
-  let attendance_id = location.pathname.charAt(location.pathname.length - 1);
+  // let attendance_id = location.pathname.charAt(location.pathname.length - 1);
+  const params = useParams();
+  const attendance_id = params.id;
   const [date, setDate] = useState("");
+  const { user } = useSelector((state) => state.auth);
   const [currentTeacher, setCurrentTeacher] = useState({
     label: "",
     value: "",
   });
   const queryClient = useQueryClient();
+  const token = JSON.parse(localStorage.getItem("token"));
 
   const getStudentsAttendance = async () => {
     return await axios
@@ -26,6 +33,7 @@ const EditStudentAttendance = () => {
           headers: {
             "Content-type": "application/json",
             accept: "application/json",
+            Authorization: "JWT " + token,
           },
         }
       )
@@ -40,15 +48,7 @@ const EditStudentAttendance = () => {
     data: queryStudentAttendance = [],
     refetch,
     isLoading,
-  } = useQuery(
-    ["student-attendance"],
-    getStudentsAttendance
-    // , {
-    //   enable: attendance_id != null,
-    // }
-  );
-
-  console.log("queryStudentAttendance: ", queryStudentAttendance);
+  } = useQuery(["student-attendance"], getStudentsAttendance);
 
   const [studentsAttendance, setStudentsAttendance] = useState(
     queryStudentAttendance
@@ -78,20 +78,20 @@ const EditStudentAttendance = () => {
     changedStudentsAttendance = newList2;
   };
 
-  // const { data: attendanceData = [], refetch: refetchAttendanceData } =
-  //   useQuery(
-  //     ["daily-attendance", attendance_id],
-  //     () => attendanceService.getStudentsDailyAttendance(attendance_id),
-  //     {
-  //       onSuccess: (attendanceData) => {
-  //         setCurrentTeacher({
-  //           label: attendanceData.teacher,
-  //           value: attendanceData.id,
-  //         });
-  //         setDate(attendanceData.date);
-  //       },
-  //     }
-  //   );
+  const { data: attendanceData = [], refetch: refetchAttendanceData } =
+    useQuery(
+      ["daily-attendance", attendance_id],
+      () => attendanceService.getStudentsDailyAttendance(attendance_id),
+      {
+        onSuccess: (attendanceData) => {
+          setCurrentTeacher({
+            label: attendanceData.teacher,
+            value: attendanceData.id,
+          });
+          setDate(attendanceData.date);
+        },
+      }
+    );
 
   const handleUpdateStudentsAttendance = () => {
     const listToUpdate = changedStudentsAttendance?.filter(
@@ -111,6 +111,7 @@ const EditStudentAttendance = () => {
             headers: {
               "Content-type": "application/json",
               accept: "application/json",
+              Authorization: "JWT " + token,
             },
           }
         )
@@ -118,32 +119,37 @@ const EditStudentAttendance = () => {
         .catch((error) => console.log(error));
     });
 
-    navigate(location.state);
-
     // refetch();
 
     // await Promise.all(requests);
 
-    // let dataToUpdate = {};
-    // if (date != attendanceData.date) {
-    //   dataToUpdate = { date: date };
-    // }
-    // if (currentTeacher.label != attendanceData.teacher) {
-    //   dataToUpdate = { ...dataToUpdate, teacher: currentTeacher.id };
-    // }
-    // await axios
-    //   .put(
-    //     `http://127.0.0.1:8000/api/v1/attendance/${attendance_id}/`,
-    //     dataToUpdate,
-    //     {
-    //       headers: {
-    //         "Content-type": "application/json",
-    //         accept: "application/json",
-    //       },
-    //     }
-    //   )
-    //   .then(() => refetchAttendanceData())
-    //   .catch((error) => console.log(error));
+    let dataToUpdate = {};
+    if (date != attendanceData.date) {
+      dataToUpdate = { date: date, school: user.school };
+    }
+    if (currentTeacher.label != attendanceData.teacher) {
+      dataToUpdate = {
+        ...dataToUpdate,
+        teacher: currentTeacher.id,
+        school: user.school,
+      };
+    }
+    axios
+      .put(
+        `http://127.0.0.1:8000/api/v1/attendance/${attendance_id}/`,
+        dataToUpdate,
+        {
+          headers: {
+            "Content-type": "application/json",
+            accept: "application/json",
+            Authorization: "JWT " + token,
+          },
+        }
+      )
+      .then(() => refetchAttendanceData())
+      .catch((error) => console.log(error));
+    dispatch(setDateRedux(""));
+    navigate(location.state);
   };
 
   const headerList = ["Student", "Status", "Comment", "Action"];

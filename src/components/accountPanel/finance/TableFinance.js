@@ -6,7 +6,7 @@ const TableFinance = ({ studentsList }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const headerList = ["Student Name", "Cycle", "Level", "class"];
+  const headerList = ["Student Name", "Cycle", "Level", "Last payement"];
   const renderStudentHeader = useCallback(() => {
     return (
       <div>
@@ -35,11 +35,7 @@ const TableFinance = ({ studentsList }) => {
         </p>
         <p>{item.cycle.name}</p>
         <p>{item.level.name}</p>
-        <p>
-          {item.subjects.map((value) => {
-            return <p> {value.subject_name}</p>;
-          })}
-        </p>
+        <p>{item.last_payement}</p>
       </div>
     );
   }, []);

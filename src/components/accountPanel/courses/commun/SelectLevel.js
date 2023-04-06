@@ -4,6 +4,9 @@ import {
   getClassListRedux,
   getCycleListRedux,
   getLevelListRedux,
+  resetClassListRedux,
+  resetCycleListRedux,
+  resetLevelListRedux,
   setSelectedClassIdRedux,
   setSelectedCycleIdRedux,
   setSelectedLevelIdRedux,
@@ -17,6 +20,8 @@ const SelectLevel = () => {
 
   useEffect(() => {
     dispatch(getCycleListRedux());
+    dispatch(resetClassListRedux());
+    dispatch(resetLevelListRedux());
     dispatch(setSelectedCycleIdRedux("default"));
     dispatch(setSelectedLevelIdRedux("default"));
     dispatch(setSelectedClassIdRedux("default"));
@@ -47,19 +52,25 @@ const SelectLevel = () => {
 
   return (
     <div className="flex gap-10">
-      <p className="text-xl font-semibold italic">Filter</p>
+      {/* <p className="text-xl font-semibold italic">Filter</p> */}
       <div>
         <span className="text-primary-green font-semibold">Cycle: </span>
         <select
           onChange={(e) => {
             dispatch(setSelectedCycleIdRedux(e.target.value));
+            if (e.target.value == "default") {
+              dispatch(setSelectedLevelIdRedux("default"));
+              dispatch(setSelectedClassIdRedux("default"));
+              dispatch(resetClassListRedux());
+              dispatch(resetLevelListRedux());
+            }
           }}
           defaultValue="default"
           value={selectedCycleId}
           className="p-1 bg-gray-100"
         >
           <option value="default">Select cycle...</option>
-          {cycleList.map((item, index) => {
+          {cycleList?.map((item, index) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.name}
@@ -74,13 +85,17 @@ const SelectLevel = () => {
           defaultValue="default"
           onChange={(e) => {
             dispatch(setSelectedLevelIdRedux(e.target.value));
+            if (e.target.value == "default") {
+              dispatch(setSelectedClassIdRedux("default"));
+              dispatch(resetClassListRedux());
+            }
           }}
           value={selectedLevelId}
           className="p-1 bg-gray-100"
         >
           <option value="default">Select level...</option>
 
-          {levelList.map((item, index) => {
+          {levelList?.map((item, index) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.name}

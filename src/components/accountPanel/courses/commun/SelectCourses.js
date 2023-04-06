@@ -11,7 +11,6 @@ const SelectCourses = () => {
 
   return (
     <div className="flex gap-10 justify-center">
-      {/* <p className="text-xl font-semibold italic">Filter</p> */}
       <SelectLevel />
       <div>
         <span className="text-primary-green font-semibold">Subject: </span>

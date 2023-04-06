@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import attendanceService from "../../../../services/attendanceService";
 import { AiFillDelete } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
@@ -20,55 +20,89 @@ const AttendanceStudents = () => {
     useSelector((state) => state.courses);
   const dispatch = useDispatch();
 
-  const {
-    data: attendanceList = [],
-    refetch,
-    isLoading,
-    error,
-  } = useQuery(
-    [
-      "daily-attendance",
-      selectedCycleId,
-      selectedLevelId,
-      selectedClassId,
-      date,
-    ],
-    () =>
-      attendanceService.fetchingAttendance(
-        selectedCycleId,
-        selectedLevelId,
-        selectedClassId,
-        date
-      )
+  const [attendanceList, setAttendanceList] = useState([]);
 
-    // {
-    //   enabled: false,
-    // }
-  );
+  // const {
+  //   data: queryAttendanceList = [],
+  //   refetch,
+  //   isLoading,
+  //   error,
+  // } = useQuery(
+  //   [
+  //     "daily-attendance",
+  //     selectedCycleId,
+  //     selectedLevelId,
+  //     selectedClassId,
+  //     date,
+  //   ],
+  //   () =>
+  //     attendanceService.fetchingAttendance(
+  //       selectedCycleId,
+  //       selectedLevelId,
+  //       selectedClassId,
+  //       date
+  //     )
+  // );
 
   useEffect(() => {
-    if (classList.length) {
-      const value = classList[0].id;
-      dispatch(setSelectedClassIdRedux(value.toString()));
-    }
+    attendanceService
+      .fetchingAllAttendance()
+      .then((response) => setAttendanceList(response.data));
   }, []);
+  useEffect(() => {
+    if (date == "") {
+      attendanceService
+        .fetchingAllAttendance()
+        .then((response) => setAttendanceList(response.data));
+    } else
+      attendanceService
+        .fetchingDateAttendance(date)
+        .then((response) => setAttendanceList(response.data));
+  }, [date]);
+  useEffect(() => {
+    if (selectedCycleId == "default") {
+      attendanceService
+        .fetchingAllAttendance()
+        .then((response) => setAttendanceList(response.data));
+    } else
+      attendanceService
+        .fetchingCycleAttendance(selectedCycleId)
+        .then((response) => setAttendanceList(response.data));
+  }, [selectedCycleId]);
+  useEffect(() => {
+    if (selectedLevelId == "default") {
+      attendanceService
+        .fetchingCycleAttendance(selectedCycleId)
+        .then((response) => setAttendanceList(response.data));
+    } else
+      attendanceService
+        .fetchingLevelAttendance(selectedCycleId, selectedLevelId)
+        .then((response) => setAttendanceList(response.data));
+  }, [selectedLevelId]);
+  useEffect(() => {
+    if (selectedClassId == "default") {
+      attendanceService
+        .fetchingLevelAttendance(selectedCycleId, selectedLevelId)
+        .then((response) => setAttendanceList(response.data));
+    } else
+      attendanceService
+        .fetchingClassAttendance(
+          selectedCycleId,
+          selectedLevelId,
+          selectedClassId
+        )
+        .then((response) => setAttendanceList(response.data));
+  }, [selectedClassId]);
 
-  console.log("attendanceList: ", attendanceList);
+  // useEffect(() => {
+  //   if (classList.length) {
+  //     const value = classList[0].id;
+  //     dispatch(setSelectedClassIdRedux(value.toString()));
+  //   }
+  // }, []);
 
   return (
     <div className="ml-52 mr-10 flex flex-col gap-5 mt-10">
-      {/* <StudentTeacherSelect /> */}
-      <div className="flex justify-center w-full">
-        <button
-          className="w-[200px] bg-primary-yellow text-white p-1 rounded-full hover:scale-90 "
-          onClick={() => {
-            dispatch(setDateRedux(""));
-            navigate("add_attendance");
-          }}
-        >
-          Add New Attendance
-        </button>
-      </div>
       <FilterClassAttendance />
       <TableStudentAttendance studentAtendanceList={attendanceList} />
     </div>

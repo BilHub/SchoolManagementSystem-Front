@@ -15,8 +15,15 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
   const openModal = () => setShowModal(true);
   console.log("table class rendered");
   const deleteSubject = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
     await axios
-      .delete(`http://127.0.0.1:8000/api/v1/subject/${id}/`)
+      .delete(`http://127.0.0.1:8000/api/v1/subject/${id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      })
       .then((response) => {
         setClassList(null);
         refetch();
@@ -46,15 +53,15 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
   const renderClassRow = useCallback((item) => {
     return (
       <div className="grid grid-cols-6 text-center p-1">
-        <p>{item.subject_name}</p>
-        <p>{item.cycle.name}</p>
-        <p>{item.level.name}</p>
+        <p>{item?.subject_name}</p>
+        <p>{item?.cycle?.name}</p>
+        <p>{item?.level?.name}</p>
         <p>
-          {item.teachers_list.map((teacher, index) => (
+          {item?.teachers_list.map((teacher, index) => (
             <p>{teacher}</p>
           ))}
         </p>
-        <p>{item.students_number}</p>
+        <p>{item?.students_number}</p>
         <div className="flex gap-3 text-xl justify-center">
           <button
             onClick={() => {

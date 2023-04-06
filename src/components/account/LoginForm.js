@@ -3,6 +3,11 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../../redux/authSlice";
 import { useOnKeyPress } from "../../hooks/useOnKeyPress";
+import {
+  resetClassListRedux,
+  resetCycleListRedux,
+  resetLevelListRedux,
+} from "../../redux/courseSlice";
 
 const LoginForm = () => {
   const [username, setUsername] = useState("");
@@ -12,6 +17,9 @@ const LoginForm = () => {
 
   const Login = async () => {
     dispatch(login({ username, password }));
+    // dispatch(resetCycleListRedux());
+    // dispatch(resetLevelListRedux());
+    // dispatch(resetClassListRedux());
     const user = JSON.parse(localStorage.getItem("user"));
     navigate(`${user.subdomain}/admin_panel/dashboard`);
   };

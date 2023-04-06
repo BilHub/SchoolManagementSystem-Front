@@ -3,6 +3,7 @@ import { AiFillDelete } from "react-icons/ai";
 import SelectCourses from "../../courses/commun/SelectCourses";
 import { useDispatch, useSelector } from "react-redux";
 import { BsFillPlusCircleFill } from "react-icons/bs";
+import { BsArrowLeft } from "react-icons/bs";
 import {
   getStudentsAttendanceRedux,
   resetStudentsListRedux,
@@ -10,16 +11,18 @@ import {
 } from "../../../../redux/attendanceSlice";
 import axios from "axios";
 import DateSelectCourses from "../../courses/commun/DateSelectCourses";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ModalAddStudent from "./ModalAddStudent";
 import StudentTeacherSelect from "../../sharedComponents/StudentTeacherSelect";
 import FilterClassAttendance from "./FilterClassAttendance";
+import AddDailyAttendance from "./AddDailyAttendance";
 
 const AddAttendanceStudents = () => {
   const [showModal, setShowModal] = useState(false);
   const [studentsLevelList, setStudentsLevelList] = useState([]);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation();
   const { user } = useSelector((state) => state.auth);
   const { selectedCycleId, selectedLevelId, selectedClassId, date } =
     useSelector((state) => state.courses);
@@ -65,13 +68,15 @@ const AddAttendanceStudents = () => {
     level: selectedLevelId,
     date: date,
     attendance_items: attendanceItems,
+    school: user.school,
   };
   const createAttendance = async () => {
     await axios
       .post("http://127.0.0.1:8000/api/v1/attendance/", payload)
-      .then((response) =>
-        navigate(`${user.subdomain}/admin_panel/attendance/students`)
-      )
+      .then((response) => {
+        navigate(`${user.subdomain}/admin_panel/attendance/students`);
+        console.log("attendance added");
+      })
       .catch((error) => console.log(error));
   };
 
@@ -119,7 +124,7 @@ const AddAttendanceStudents = () => {
 
   useEffect(() => {
     getStudentsList();
-    if (selectedClassId) {
+    if (selectedClassId && selectedClassId != "default") {
       dispatch(getStudentsAttendanceRedux(selectedClassId));
     } else {
       dispatch(resetStudentsListRedux());
@@ -128,6 +133,13 @@ const AddAttendanceStudents = () => {
 
   return (
     <div className="ml-52 mt-22 mr-10">
+      <div
+        className="flex flex-row items-center gap-3 my-5 text-primary-green cursor-pointer hover:text-primary-yellow"
+        onClick={() => navigate(location.state)}
+      >
+        <BsArrowLeft className="text-3xl font-bold " />
+        <p className="italic text-2xl">Back</p>
+      </div>
       <ModalAddStudent
         closeModal={closeModal}
         visible={showModal}
@@ -135,19 +147,9 @@ const AddAttendanceStudents = () => {
         subject_id={selectedClassId}
         subdomain={user.subdomain}
       />
-      <StudentTeacherSelect />
-      <div className="flex gap-10 justify-center items-center">
-        <FilterClassAttendance />
-        <div className="flex flex-col my-5 gap-3">
-          <div className="flex gap-1">
-            <span className="text-primary-green font-semibold">Teacher:</span>
-            <select>
-              <option>Teacher1</option>
-              <option>Teacher2</option>
-            </select>
-          </div>
-        </div>
-      </div>
+      <AddDailyAttendance />
+      {/* <FilterClassAttendance /> */}
+
       <div>
         <div className="flex justify-between items-center">
           <p className="text-primary-green text-3xl ">Student's Attendance</p>

@@ -4,6 +4,8 @@ import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
+import UserType from "../../users/commun/UserType";
+import { useSelector } from "react-redux";
 
 const EditSubject = memo(() => {
   const location = useLocation();
@@ -11,6 +13,8 @@ const EditSubject = memo(() => {
   const subject_id = params.id;
   const token = JSON.parse(localStorage.getItem("token"));
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
 
   const getSubjectInfo = async () => {
     try {
@@ -45,6 +49,7 @@ const EditSubject = memo(() => {
       ...data,
       level_id: location.state["level_id"],
       cycle_id: location.state["cycle_id"],
+      school_id: user.school,
     };
 
     await axios

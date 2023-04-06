@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const token = JSON.parse(localStorage.getItem("token"));
-
 const getCyclelListAPI = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
   return (
     axios
       .get("http://127.0.0.1:8000/api/v1/cycle/", {
@@ -20,6 +19,7 @@ const getCyclelListAPI = () => {
 };
 
 const getLevelListAPI = (id) => {
+  const token = JSON.parse(localStorage.getItem("token"));
   return (
     axios
       .get(`http://127.0.0.1:8000/api/v1/level/?cycle_id=${id}`, {
@@ -35,6 +35,7 @@ const getLevelListAPI = (id) => {
 };
 
 const getClassListAPI = (id1, id2) => {
+  const token = JSON.parse(localStorage.getItem("token"));
   return (
     axios
       .get(

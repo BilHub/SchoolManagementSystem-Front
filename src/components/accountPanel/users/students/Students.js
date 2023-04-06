@@ -4,7 +4,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import "../../../../index.css";
 import UserType from "../commun/UserType";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PageNotFound from "../../PageNotFound";
 import { useQuery } from "@tanstack/react-query";
 import studentsService from "../../../../services/studentsService";
@@ -14,6 +14,7 @@ import axios from "axios";
 import authHeader from "../../../../services/authHeader";
 import Search from "../commun/Search";
 import { useEffect, useState } from "react";
+import { getCycleListRedux } from "../../../../redux/courseSlice";
 
 const Students = () => {
   const navigate = useNavigate();
@@ -23,7 +24,6 @@ const Students = () => {
     (state) => state.courses
   );
   const pathSubdomain = "/" + location.pathname.split("/")[1];
-  const token = JSON.parse(localStorage.getItem("token"));
 
   // const fetchStudentsList = (id1, id2, id3) => {
   //   return axios
@@ -45,8 +45,11 @@ const Students = () => {
   // );
   const [studentsList, setStudentsList] = useState([]);
   const [allStudentsList, setAllStudentsList] = useState([]);
+  const dispatch = useDispatch();
 
   const getSelectedStudent = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+
     await axios
       .get(`http://127.0.0.1:8000/api/v1/students/${id}/`, {
         headers: {
@@ -62,6 +65,8 @@ const Students = () => {
   };
 
   const getAllStudents = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+
     await axios
       .get("http://127.0.0.1:8000/api/v1/students/", {
         headers: {
