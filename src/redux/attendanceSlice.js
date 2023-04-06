@@ -62,6 +62,20 @@ export const getStudentsAttendanceRedux = createAsyncThunk(
     }
   }
 );
+// export const getAllStudentsAttendanceRedux = createAsyncThunk(
+//   "attendance/AllStudentsAttendanceList",
+//   async (subjectId) => {
+//     try {
+//       const result = await getStudentsListAPI(subjectId);
+//       if (result.data) {
+//         const List = modifyStudentsList(result.data);
+//         return { attendanceList: List };
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   }
+// );
 
 export const resetStudentsListRedux = createAsyncThunk(
   "attendance/resetStudentsList",
@@ -87,6 +101,12 @@ export const attendanceSlice = createSlice({
     [getStudentsAttendanceRedux.rejected]: (state, action) => {
       state.error = true;
     },
+    // [getAllStudentsAttendanceRedux.fulfilled]: (state, action) => {
+    //   state.studentsAttendance = action.payload.attendanceList;
+    // },
+    // [getAllStudentsAttendanceRedux.rejected]: (state, action) => {
+    //   state.error = true;
+    // },
     [resetStudentsListRedux.fulfilled]: (state, action) => {
       state.studentsAttendance = action.payload.resetList;
     },

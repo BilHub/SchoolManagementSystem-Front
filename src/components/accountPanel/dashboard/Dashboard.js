@@ -53,7 +53,7 @@ const Dashboard = () => {
             })}
           </ul>
           <StudentNumberGraph />
-          <SchoolCalendar showToolBar={false} />
+          {/* <SchoolCalendar showToolBar={false} /> */}
           {/* <FinanceBarChart /> */}
         </div>
       ) : (

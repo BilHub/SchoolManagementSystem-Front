@@ -4,7 +4,7 @@ import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import "../../../../index.css";
 import UserType from "../commun/UserType";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PageNotFound from "../../PageNotFound";
 import { useQuery } from "@tanstack/react-query";
 import studentsService from "../../../../services/studentsService";
@@ -14,6 +14,7 @@ import axios from "axios";
 import authHeader from "../../../../services/authHeader";
 import Search from "../commun/Search";
 import { useEffect, useState } from "react";
+import { getCycleListRedux } from "../../../../redux/courseSlice";
 
 const Students = () => {
   const navigate = useNavigate();
@@ -23,29 +24,32 @@ const Students = () => {
     (state) => state.courses
   );
   const pathSubdomain = "/" + location.pathname.split("/")[1];
-  const token = JSON.parse(localStorage.getItem("token"));
 
-  const fetchStudentsList = (id1, id2, id3) => {
-    return axios
-      .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
-        {
-          headers: authHeader(),
-        }
-      )
-      .then((response) => response.data);
-  };
+  // const fetchStudentsList = (id1, id2, id3) => {
+  //   return axios
+  //     .get(
+  //       `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+  //       {
+  //         headers: authHeader(),
+  //       }
+  //     )
+  //     .then((response) => response.data);
+  // };
 
-  const { data: queryStudentsList = [] } = useQuery(
-    ["studentsListQuery", selectedCycleId, selectedLevelId, selectedClassId],
-    () =>
-      fetchStudentsList(selectedCycleId, selectedLevelId, selectedClassId, {
-        onSuccess: setStudentsList(queryStudentsList),
-      })
-  );
-  const [studentsList, setStudentsList] = useState(null);
+  // const { data: queryStudentsList = [] } = useQuery(
+  //   ["studentsListQuery", selectedCycleId, selectedLevelId, selectedClassId],
+  //   () =>
+  //     fetchStudentsList(selectedCycleId, selectedLevelId, selectedClassId, {
+  //       onSuccess: setStudentsList(queryStudentsList),
+  //     })
+  // );
+  const [studentsList, setStudentsList] = useState([]);
+  const [allStudentsList, setAllStudentsList] = useState([]);
+  const dispatch = useDispatch();
 
   const getSelectedStudent = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
+
     await axios
       .get(`http://127.0.0.1:8000/api/v1/students/${id}/`, {
         headers: {
@@ -61,6 +65,8 @@ const Students = () => {
   };
 
   const getAllStudents = async () => {
+    const token = JSON.parse(localStorage.getItem("token"));
+
     await axios
       .get("http://127.0.0.1:8000/api/v1/students/", {
         headers: {
@@ -70,10 +76,79 @@ const Students = () => {
         },
       })
       .then((response) => {
+        console.log("all students are: ", response.data);
         setStudentsList(response.data);
       })
       .catch((error) => console.log("error: ", error));
   };
+
+  const fetchStudentsCycleList = async (id1) => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
+        console.log("all students are: ", response.data);
+        setStudentsList(response.data);
+        setAllStudentsList(response.data);
+      })
+      .catch((error) => console.log("error: ", error));
+  };
+
+  const fetchStudentsLevelList = async (id1, id2) => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
+        console.log("all students are: ", response.data);
+        setStudentsList(response.data);
+      })
+      .catch((error) => console.log("error: ", error));
+  };
+  const fetchStudentsSubjectList = async (id1, id2, id3) => {
+    await axios
+      .get(
+        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+        {
+          headers: authHeader(),
+        }
+      )
+      .then((response) => {
+        console.log("all students are: ", response.data);
+        setStudentsList(response.data);
+      })
+      .catch((error) => console.log("error: ", error));
+  };
+
+  useEffect(() => {
+    if (selectedCycleId == "default") {
+      getAllStudents();
+    } else fetchStudentsCycleList(selectedCycleId);
+  }, [selectedCycleId]);
+
+  useEffect(() => {
+    if (selectedLevelId == "default") {
+      fetchStudentsCycleList(selectedCycleId);
+    } else fetchStudentsLevelList(selectedCycleId, selectedLevelId);
+  }, [selectedLevelId]);
+
+  useEffect(() => {
+    if (selectedClassId == "default") {
+      fetchStudentsLevelList(selectedCycleId, selectedLevelId);
+    } else
+      fetchStudentsSubjectList(
+        selectedCycleId,
+        selectedLevelId,
+        selectedClassId
+      );
+  }, [selectedClassId]);
 
   useEffect(() => {
     getAllStudents();
@@ -85,7 +160,7 @@ const Students = () => {
         <div className="flex flex-col relative">
           <UserType />
           <Search
-            queryList={queryStudentsList}
+            queryList={allStudentsList}
             setList={setStudentsList}
             getSelectedItem={getSelectedStudent}
             getAllItems={getAllStudents}
@@ -104,9 +179,7 @@ const Students = () => {
                 }
               />
             </div>
-            <TableStudent
-              studentsList={studentsList ? studentsList : queryStudentsList}
-            />
+            <TableStudent studentsList={studentsList} />
           </div>
         </div>
       ) : (

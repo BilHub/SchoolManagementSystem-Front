@@ -4,9 +4,11 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import coursesService from "../../../../services/coursesService";
+import UserType from "../../users/commun/UserType";
 
 const AddClass = ({ refetch }) => {
   const { cycleList } = useSelector((state) => state.courses);
+  const { user } = useSelector((state) => state.auth);
   console.log("cycleList: ", cycleList);
   const {
     register,
@@ -34,8 +36,12 @@ const AddClass = ({ refetch }) => {
   };
 
   const addClass = (data) => {
+    const payload = {
+      ...data,
+      school_id: user.school,
+    };
     axios
-      .post("http://127.0.0.1:8000/api/v1/subject/", data, {
+      .post("http://127.0.0.1:8000/api/v1/subject/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",

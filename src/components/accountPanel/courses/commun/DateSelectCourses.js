@@ -7,6 +7,7 @@ const DateSelectCourses = () => {
   const { date } = useSelector((state) => state.courses);
   return (
     <div className="flex items-center gap-2">
+      {/* <p className="italic font-semibold text-xl mx-10">Or By</p> */}
       <label className="text-primary-green font-semibold">Date:</label>
       <input
         placeholder="Date ..."

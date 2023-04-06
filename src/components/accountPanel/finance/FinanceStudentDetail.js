@@ -1,13 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ModalAddPayement from "./ModalAddPayement";
 import TableDetailFinance from "./TableDetailFinance";
 
 const FinanceStudentDetail = () => {
   const location = useLocation();
-  const student_id = location.pathname.charAt(location.pathname.length - 1);
+  const params = useParams();
+  const student_id = params.id;
   console.log("student_id: ", student_id);
   const token = JSON.parse(localStorage.getItem("token"));
   const [showModal, setShowModal] = useState(false);
@@ -57,6 +58,7 @@ const FinanceStudentDetail = () => {
         showModal={showModal}
         closeModal={closeModal}
         refetch={refetch}
+        studentId={student_id}
       />
       <p className="text-primary-yellow text-3xl">Student Informations</p>
       <div className="w-full border-2 rounded-lg border-primary-yellow flex justify-between p-3 text-xl">

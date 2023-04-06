@@ -17,6 +17,7 @@ export const getCycleListRedux = createAsyncThunk(
   async () => {
     try {
       const cycleResponse = await coursesAPI.getCyclelListAPI();
+      console.log("cycle_list: ", cycleResponse.data);
       return { cycle_list: cycleResponse.data };
     } catch (error) {
       console.log(error);
@@ -48,6 +49,26 @@ export const getClassListRedux = createAsyncThunk(
     } catch (error) {
       console.log(error);
     }
+  }
+);
+
+export const resetClassListRedux = createAsyncThunk(
+  "courses/resetClassList",
+  async () => {
+    return { class_list: [] };
+  }
+);
+
+export const resetLevelListRedux = createAsyncThunk(
+  "courses/resetLevelList",
+  async () => {
+    return { level_list: [] };
+  }
+);
+export const resetCycleListRedux = createAsyncThunk(
+  "courses/resetCycleList",
+  async () => {
+    return { cycle_list: [] };
   }
 );
 
@@ -103,6 +124,24 @@ export const courseSlice = createSlice({
       state.classList = action.payload.class_list;
     },
     [getClassListRedux.rejected]: (state, action) => {
+      state.error = true;
+    },
+    [resetClassListRedux.fulfilled]: (state, action) => {
+      state.classList = action.payload.class_list;
+    },
+    [resetClassListRedux.rejected]: (state, action) => {
+      state.error = true;
+    },
+    [resetLevelListRedux.fulfilled]: (state, action) => {
+      state.levelList = action.payload.level_list;
+    },
+    [resetLevelListRedux.rejected]: (state, action) => {
+      state.error = true;
+    },
+    [resetCycleListRedux.fulfilled]: (state, action) => {
+      state.cycleList = action.payload.cycle_list;
+    },
+    [resetCycleListRedux.rejected]: (state, action) => {
       state.error = true;
     },
     [setSelectedCycleIdRedux.fulfilled]: (state, action) => {

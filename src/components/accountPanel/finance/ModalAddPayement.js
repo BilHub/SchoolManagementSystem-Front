@@ -3,9 +3,8 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import useAddPayement from "./useAddPayement";
 
-const ModalAddPayement = ({ showModal, closeModal, refetch }) => {
+const ModalAddPayement = ({ showModal, closeModal, refetch, studentId }) => {
   const location = useLocation();
-  const student_id = location.pathname.charAt(location.pathname.length - 1);
   const [date, setDate] = useState("");
   const [amount, setAmount] = useState("");
   const [comment, setComment] = useState("");
@@ -17,7 +16,7 @@ const ModalAddPayement = ({ showModal, closeModal, refetch }) => {
       date_of_payement: date,
       amount: amount,
       comment: comment,
-      student_id: student_id,
+      student_id: studentId,
     };
     mutate(payload, {
       onSuccess: () => {

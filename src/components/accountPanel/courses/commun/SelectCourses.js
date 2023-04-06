@@ -11,7 +11,6 @@ const SelectCourses = () => {
 
   return (
     <div className="flex gap-10 justify-center">
-      <p className="text-xl font-semibold italic">Filter</p>
       <SelectLevel />
       <div>
         <span className="text-primary-green font-semibold">Subject: </span>
@@ -20,6 +19,8 @@ const SelectCourses = () => {
           value={selectedClassId}
           className="p-1 bg-gray-100"
         >
+          <option value="default">Select subject...</option>
+
           {classList.map((item, index) => {
             return (
               <option key={item.id} value={item.id}>

@@ -4,6 +4,11 @@ import { IoMdLogOut } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../redux/authSlice";
 import { useLocation, useNavigate } from "react-router-dom";
+import {
+  resetClassListRedux,
+  resetCycleListRedux,
+  resetLevelListRedux,
+} from "../../../redux/courseSlice";
 
 const AccountHeader = () => {
   const navigate = useNavigate();
@@ -30,6 +35,9 @@ const AccountHeader = () => {
         <button
           onClick={() => {
             dispatch(logout());
+            // dispatch(resetCycleListRedux());
+            // dispatch(resetLevelListRedux());
+            // dispatch(resetClassListRedux());
             navigate("/login");
           }}
         >

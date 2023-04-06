@@ -1,12 +1,14 @@
 import axios from "axios";
 
 const getCyclelListAPI = () => {
+  const token = JSON.parse(localStorage.getItem("token"));
   return (
     axios
       .get("http://127.0.0.1:8000/api/v1/cycle/", {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
+          Authorization: "JWT " + token,
         },
       })
       // .then((res) => {
@@ -17,12 +19,14 @@ const getCyclelListAPI = () => {
 };
 
 const getLevelListAPI = (id) => {
+  const token = JSON.parse(localStorage.getItem("token"));
   return (
     axios
       .get(`http://127.0.0.1:8000/api/v1/level/?cycle_id=${id}`, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
+          Authorization: "JWT " + token,
         },
       })
       // .then((response) => setLevelList(response.data))
@@ -31,6 +35,7 @@ const getLevelListAPI = (id) => {
 };
 
 const getClassListAPI = (id1, id2) => {
+  const token = JSON.parse(localStorage.getItem("token"));
   return (
     axios
       .get(
@@ -39,6 +44,7 @@ const getClassListAPI = (id1, id2) => {
           headers: {
             "Content-type": "application/json",
             accept: "application/json",
+            Authorization: "JWT " + token,
           },
         }
       )

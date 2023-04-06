@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import authService from "../services/authService";
+import { getCycleListRedux } from "./courseSlice";
 
 const initialState = {
   msg: "",
@@ -10,11 +11,8 @@ const initialState = {
 };
 
 export const register = createAsyncThunk("user/register", async (body) => {
-  console.log("dispatch action from registerForm executed");
-
   try {
     const response = await authService.registerAPI(body);
-    console.log(response);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -25,7 +23,6 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ username, password }) => {
     const data = await authService.loginAPI({ username, password });
-    console.log("tokens are:", data);
     return { accessToken: data.access, user: data.user };
   }
 );
