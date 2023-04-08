@@ -1,11 +1,18 @@
 import React, { useState } from "react";
 
 import { BiSearchAlt2 } from "react-icons/bi";
+import { useDispatch } from "react-redux";
 import Select from "react-select";
+import {
+  setSelectedClassIdRedux,
+  setSelectedCycleIdRedux,
+  setSelectedLevelIdRedux,
+} from "../../../../redux/courseSlice";
 
 const Search = ({ queryList, getSelectedItem, getAllItems }) => {
   const [selectedItemId, setSelectedItemId] = useState();
   const [selectedOption, setSelectedOption] = useState(null);
+  const dispatch = useDispatch();
 
   const list = queryList.map((item) => {
     const new_item = {
@@ -24,6 +31,9 @@ const Search = ({ queryList, getSelectedItem, getAllItems }) => {
     getSelectedItem(selectedItemId);
     setSelectedOption(null);
     setSelectedItemId(null);
+    dispatch(setSelectedCycleIdRedux("default"));
+    dispatch(setSelectedLevelIdRedux("default"));
+    dispatch(setSelectedClassIdRedux("default"));
   };
 
   return (
