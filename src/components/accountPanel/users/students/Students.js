@@ -78,6 +78,7 @@ const Students = () => {
       .then((response) => {
         console.log("all students are: ", response.data);
         setStudentsList(response.data);
+        setAllStudentsList(response.data);
       })
       .catch((error) => console.log("error: ", error));
   };
@@ -93,7 +94,6 @@ const Students = () => {
       .then((response) => {
         console.log("all students are: ", response.data);
         setStudentsList(response.data);
-        setAllStudentsList(response.data);
       })
       .catch((error) => console.log("error: ", error));
   };
