@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getCycleListRedux,
   getLevelListRedux,
@@ -72,7 +72,7 @@ const AddClass = ({ refetch }) => {
           value={selectedCycleId}
           onChange={handleSelectedCycle}
         >
-          {cycleList.map((item) => {
+          {cycleList?.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.name}
@@ -87,7 +87,7 @@ const AddClass = ({ refetch }) => {
           {...register("level_id", { required: true })}
           className="p-1 bg-gray-100"
         >
-          {levelList.map((item) => {
+          {levelList?.map((item) => {
             return (
               <option key={item.id} value={item.id}>
                 {item.name}
