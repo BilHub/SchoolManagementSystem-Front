@@ -3,13 +3,21 @@ import axios from "axios";
 import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import {
+  getCycleListRedux,
+  getLevelListRedux,
+} from "../../../../redux/courseSlice";
 import coursesService from "../../../../services/coursesService";
 import UserType from "../../users/commun/UserType";
 
 const AddClass = ({ refetch }) => {
+  const dispatch = useDispatch();
   const { cycleList } = useSelector((state) => state.courses);
   const { user } = useSelector((state) => state.auth);
-  console.log("cycleList: ", cycleList);
+  useEffect(() => {
+    dispatch(getCycleListRedux());
+    dispatch(getLevelListRedux());
+  }, []);
   const {
     register,
     handleSubmit,
