@@ -15,6 +15,7 @@ const AddCycle = ({ refetch }) => {
   } = useForm();
 
   const addCycle = (data) => {
+    const token = JSON.parse(localStorage.getItem("token"));
     const payload = {
       ...data,
       school: user.school,
@@ -24,6 +25,7 @@ const AddCycle = ({ refetch }) => {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
+          Authorization: "JWT " + token,
         },
       })
       .then((response) => refetch())
