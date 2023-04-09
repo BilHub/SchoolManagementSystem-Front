@@ -1,9 +1,8 @@
 import { RiDashboardFill } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { GiBookCover } from "react-icons/gi";
-import { BsCalendarCheck, BsChatDotsFill } from "react-icons/bs";
+import { BsCalendarCheck } from "react-icons/bs";
 import { MdAttachMoney } from "react-icons/md";
-import { HiLibrary } from "react-icons/hi";
 import { MdSchedule } from "react-icons/md";
 
 export const AccountSidebarData = [

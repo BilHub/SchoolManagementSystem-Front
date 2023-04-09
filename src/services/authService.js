@@ -1,11 +1,7 @@
-import React from "react";
 import axios from "axios";
-import authHeader from "./authHeader";
-
-const API_URL = "http://127.0.0.1:8000/api/v1/";
-
+import {api, setAuthToken} from "../utils/backend.instance";
 const registerAPI = (body) => {
-  return axios.post(API_URL + "school/create_school_account/", body, {
+  return api.post("api/v1/school/create_school_account/", body, {
     headers: {
       "Content-Type": "application/json",
       accept: "application/json",
@@ -14,12 +10,11 @@ const registerAPI = (body) => {
 };
 
 const loginAPI = (body) => {
-  return axios
-    .post(API_URL + "auth/login/", body, {
-      header: authHeader(),
-    })
+  return api
+    .post("api/v1/auth/login/", body)
     .then((res) => {
       if (res.data.access) {
+        setAuthToken(res.data.access)
         localStorage.setItem("token", JSON.stringify(res.data.access));
         localStorage.setItem("user", JSON.stringify(res.data.user));
         console.log("response from loginAPI:", res);

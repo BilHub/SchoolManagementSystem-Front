@@ -1,10 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import React from "react";
+import {api} from "../utils/backend.instance";
 
 const deletePayement = (id) => {
-  return axios.delete(
-    `http://127.0.0.1:8000/api/v1/finance/student_payement/${id}/`
+  return api.delete(
+    `api/v1/finance/student_payement/${id}/`
   );
 };
 

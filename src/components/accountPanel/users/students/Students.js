@@ -137,10 +137,10 @@ const Students = () => {
     if (selectedLevelId == "default") {
       fetchStudentsCycleList(selectedCycleId);
     } else fetchStudentsLevelList(selectedCycleId, selectedLevelId);
-  }, [selectedLevelId]);
+  }, [selectedLevelId, fetchStudentsCycleList, fetchStudentsLevelList]);
 
   useEffect(() => {
-    if (selectedClassId == "default") {
+    if (selectedClassId === "default") {
       fetchStudentsLevelList(selectedCycleId, selectedLevelId);
     } else
       fetchStudentsSubjectList(
@@ -148,7 +148,7 @@ const Students = () => {
         selectedLevelId,
         selectedClassId
       );
-  }, [selectedClassId]);
+  }, [selectedClassId, fetchStudentsLevelList]);
 
   useEffect(() => {
     getAllStudents();
@@ -156,7 +156,7 @@ const Students = () => {
 
   return (
     <>
-      {pathSubdomain == user.subdomain ? (
+      {pathSubdomain === user.subdomain ? (
         <div className="flex flex-col relative">
           <UserType />
           <Search

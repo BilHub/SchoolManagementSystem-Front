@@ -3,12 +3,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import axios from "axios";
+import {api} from "../../../../utils/backend.instance";
 
 const AddTeacher = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
 
   const schema = yup.object().shape({
     first_name: yup
@@ -35,14 +34,8 @@ const AddTeacher = () => {
     resolver: yupResolver(schema),
   });
   const addTeacher = async (data) => {
-    await axios
-      .post("http://127.0.0.1:8000/api/v1/teachers/", data, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+    await api
+      .post("api/v1/teachers/", data)
       .then((res) => {
         navigate(location.state);
       })

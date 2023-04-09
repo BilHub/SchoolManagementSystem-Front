@@ -5,9 +5,8 @@ import TableTeacher from "./TableTeacher";
 import { useQuery } from "@tanstack/react-query";
 import teachersService from "../../../../services/teachersService";
 import { useLocation, useNavigate } from "react-router-dom";
-import SelectCourses from "../../courses/commun/SelectCourses";
 import Search from "../commun/Search";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
 const Teacher = () => {
@@ -15,7 +14,7 @@ const Teacher = () => {
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const { data: queryTeachersList = [], isLoading } = useQuery(
+  const { data: queryTeachersList = []} = useQuery(
     ["teachers-list"],
     teachersService.getTeachersList
   );
