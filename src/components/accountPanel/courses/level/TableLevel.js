@@ -11,6 +11,7 @@ const TableLevel = memo(({ levelList, refetch, setLevelList }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const deleteLevel = async (id) => {
+    const token = JSON.parse(localStorage.getItem("token"));
     await axios
       .delete(`http://127.0.0.1:8000/api/v1/level/${id}/`, {
         headers: {
