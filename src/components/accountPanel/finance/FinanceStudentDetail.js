@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
+import { api } from "../../../utils/backend.instance";
 import ModalAddPayement from "./ModalAddPayement";
 import TableDetailFinance from "./TableDetailFinance";
 
@@ -18,14 +19,14 @@ const FinanceStudentDetail = () => {
   };
 
   const fetchStudentPayement = (student_id) => {
-    return axios
+    return api
       .get(
         `http://127.0.0.1:8000/api/v1/finance/student_payement/?student=${student_id}`
       )
       .then((response) => response.data);
   };
   const fetchStudentInfos = (student_id) => {
-    return axios
+    return api
       .get(`http://127.0.0.1:8000/api/v1/students/${student_id}`, {
         headers: {
           "Content-Type": "application/json",

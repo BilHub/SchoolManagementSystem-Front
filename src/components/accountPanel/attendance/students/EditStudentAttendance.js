@@ -8,6 +8,7 @@ import Table from "../../../../utils/Table";
 import attendanceService from "../../../../services/attendanceService";
 import { useDispatch, useSelector } from "react-redux";
 import { setDateRedux } from "../../../../redux/courseSlice";
+import { api } from "../../../../utils/backend.instance";
 
 const EditStudentAttendance = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const EditStudentAttendance = () => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const getStudentsAttendance = async () => {
-    return await axios
+    return await api
       .get(
         `http://127.0.0.1:8000/api/v1/student_attendance?attendance=${attendance_id}`,
         {
@@ -103,7 +104,7 @@ const EditStudentAttendance = () => {
     );
 
     const requests = listToUpdate.map((item) => {
-      axios
+      api
         .put(
           `http://127.0.0.1:8000/api/v1/student_attendance/${item.id}/`,
           { status: item.status, comment: item.comment },
@@ -134,7 +135,7 @@ const EditStudentAttendance = () => {
         school: user.school,
       };
     }
-    axios
+    api
       .put(
         `http://127.0.0.1:8000/api/v1/attendance/${attendance_id}/`,
         dataToUpdate,

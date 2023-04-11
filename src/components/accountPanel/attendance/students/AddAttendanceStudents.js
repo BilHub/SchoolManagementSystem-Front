@@ -16,6 +16,7 @@ import ModalAddStudent from "./ModalAddStudent";
 import StudentTeacherSelect from "../../sharedComponents/StudentTeacherSelect";
 import FilterClassAttendance from "./FilterClassAttendance";
 import AddDailyAttendance from "./AddDailyAttendance";
+import { api } from "../../../../utils/backend.instance";
 
 const AddAttendanceStudents = () => {
   const [showModal, setShowModal] = useState(false);
@@ -71,7 +72,7 @@ const AddAttendanceStudents = () => {
     school: user.school,
   };
   const createAttendance = async () => {
-    await axios
+    await api
       .post("http://127.0.0.1:8000/api/v1/attendance/", payload)
       .then((response) => {
         navigate(`${user.subdomain}/admin_panel/attendance/students`);
@@ -83,7 +84,7 @@ const AddAttendanceStudents = () => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const getStudentsList = async () => {
-    await axios
+    await api
       .get(
         `http://127.0.0.1:8000/api/v1/students/students_level/?level_id=${selectedLevelId}`,
         {
@@ -109,7 +110,7 @@ const AddAttendanceStudents = () => {
   };
 
   const deleteStudentAttendance = async (student_id) => {
-    await axios.delete(
+    await api.delete(
       `http://127.0.0.1:8000/api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`,
       {
         headers: {

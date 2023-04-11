@@ -8,13 +8,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Search from "../commun/Search";
 import { useState } from "react";
 import axios from "axios";
+import { api } from "../../../../utils/backend.instance";
 
 const Teacher = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const { data: queryTeachersList = []} = useQuery(
+  const { data: queryTeachersList = [] } = useQuery(
     ["teachers-list"],
     teachersService.getTeachersList
   );
@@ -22,7 +23,7 @@ const Teacher = () => {
   const [teachersList, setTeachersList] = useState(null);
 
   const getSelectedTeacher = async (id) => {
-    await axios
+    await api
       .get(`http://127.0.0.1:8000/api/v1/teachers/${id}/`, {
         headers: {
           "Content-Type": "application/json",
@@ -38,7 +39,7 @@ const Teacher = () => {
   };
 
   const getAllTeachers = async () => {
-    await axios
+    await api
       .get("http://127.0.0.1:8000/api/v1/teachers/", {
         headers: {
           "Content-Type": "application/json",

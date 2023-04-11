@@ -4,6 +4,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import coursesService from "../../../../services/coursesService";
+import { api } from "../../../../utils/backend.instance";
 
 const AddLevel = ({ refetch }) => {
   const { cycleList } = useSelector((state) => state.courses);
@@ -28,7 +29,7 @@ const AddLevel = ({ refetch }) => {
       ...data,
       school_id: user.school,
     };
-    axios
+    api
       .post("http://127.0.0.1:8000/api/v1/level/", payload, {
         headers: {
           "Content-type": "application/json",

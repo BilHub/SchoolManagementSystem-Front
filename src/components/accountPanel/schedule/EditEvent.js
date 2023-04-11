@@ -8,6 +8,7 @@ import {
   setSelectedCycleIdRedux,
   setSelectedLevelIdRedux,
 } from "../../../redux/courseSlice";
+import { api } from "../../../utils/backend.instance";
 import SelectLevel from "../courses/commun/SelectLevel";
 
 const EditEvent = () => {
@@ -26,7 +27,7 @@ const EditEvent = () => {
   const dispatch = useDispatch();
 
   const getEventInfo = async () => {
-    return axios
+    return api
       .get(`http://127.0.0.1:8000/api/v1/schedule/${eventId}/`)
       .then((response) => {
         console.log("response: ", response.data);
@@ -43,7 +44,7 @@ const EditEvent = () => {
 
   const editEvent = (newEvent) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    return axios.put(
+    return api.put(
       `http://127.0.0.1:8000/api/v1/schedule/${eventId}/`,
       newEvent,
       {

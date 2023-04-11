@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { api } from "../utils/backend.instance";
 
 const initialState = {
   studentsAttendance: [],
 };
 
 const getStudentsListAPI = (id) => {
-  return axios.get(
+  return api.get(
     `http://127.0.0.1:8000/api/v1/students/students_subject/?subjectId=${id}`,
     {
       headers: {

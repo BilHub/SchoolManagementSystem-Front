@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import { getStudentsAttendanceRedux } from "../../../../redux/attendanceSlice";
+import { api } from "../../../../utils/backend.instance";
 
 const ModalAddStudent = ({
   visible,
@@ -26,7 +27,7 @@ const ModalAddStudent = ({
   };
 
   const addSubjectToStudent = async () => {
-    await axios.patch(
+    await api.patch(
       `http://127.0.0.1:8000/api/v1/students/subject/${selectedStudentId}/`,
 
       { subject_id: subject_id },

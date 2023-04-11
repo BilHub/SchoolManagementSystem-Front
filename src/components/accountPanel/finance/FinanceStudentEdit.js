@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
+import { api } from "../../../utils/backend.instance";
 
 const FinanceStudentEdit = () => {
   const location = useLocation();
@@ -21,7 +22,7 @@ const FinanceStudentEdit = () => {
     student_id: params.id,
   };
   const getPayementInfo = async () => {
-    await axios
+    await api
       .get(
         `http://127.0.0.1:8000/api/v1/finance/student_payement/${payement_id}/`
       )
@@ -35,7 +36,7 @@ const FinanceStudentEdit = () => {
   }, []);
   const editPayement = async (e) => {
     e.preventDefault();
-    await axios
+    await api
       .put(
         `http://127.0.0.1:8000/api/v1/finance/student_payement/${payement_id}/`,
         body,

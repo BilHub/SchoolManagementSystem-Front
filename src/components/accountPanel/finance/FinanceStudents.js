@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import authHeader from "../../../services/authHeader";
+import { api } from "../../../utils/backend.instance";
 import SelectCourses from "../courses/commun/SelectCourses";
 import StudentTeacherSelect from "../sharedComponents/StudentTeacherSelect";
 import TableFinance from "./TableFinance";
@@ -34,7 +35,7 @@ const FinanceStudents = () => {
   const getAllStudents = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
 
-    await axios
+    await api
       .get("http://127.0.0.1:8000/api/v1/students/", {
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,7 @@ const FinanceStudents = () => {
   };
 
   const fetchStudentsCycleList = async (id1) => {
-    await axios
+    await api
       .get(
         `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
         {
@@ -65,7 +66,7 @@ const FinanceStudents = () => {
   };
 
   const fetchStudentsLevelList = async (id1, id2) => {
-    await axios
+    await api
       .get(
         `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
         {
@@ -79,7 +80,7 @@ const FinanceStudents = () => {
       .catch((error) => console.log("error: ", error));
   };
   const fetchStudentsSubjectList = async (id1, id2, id3) => {
-    await axios
+    await api
       .get(
         `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
         {

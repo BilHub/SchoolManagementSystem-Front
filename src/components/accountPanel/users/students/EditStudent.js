@@ -3,6 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { api } from "../../../../utils/backend.instance";
 
 const EditStudent = () => {
   const location = useLocation();
@@ -52,7 +53,7 @@ const EditStudent = () => {
   const token = JSON.parse(localStorage.getItem("token"));
 
   const getStudentData = async () => {
-    await axios
+    await api
       .get(`http://127.0.0.1:8000/api/v1/students/${params.id}/`, {
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +74,7 @@ const EditStudent = () => {
   const edit = async (e) => {
     e.preventDefault();
     console.log("editData: ", editData);
-    await axios
+    await api
       .put(`http://127.0.0.1:8000/api/v1/students/${params.id}/`, editData, {
         headers: {
           "Content-Type": "application/json",

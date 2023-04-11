@@ -1,9 +1,10 @@
 import axios from "axios";
+import { api } from "../../../../utils/backend.instance";
 
 const getCyclelListAPI = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (
-    axios
+    api
       .get("http://127.0.0.1:8000/api/v1/cycle/", {
         headers: {
           "Content-type": "application/json",
@@ -21,7 +22,7 @@ const getCyclelListAPI = () => {
 const getLevelListAPI = (id) => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (
-    axios
+    api
       .get(`http://127.0.0.1:8000/api/v1/level/?cycle_id=${id}`, {
         headers: {
           "Content-type": "application/json",
@@ -37,7 +38,7 @@ const getLevelListAPI = (id) => {
 const getClassListAPI = (id1, id2) => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (
-    axios
+    api
       .get(
         `http://127.0.0.1:8000/api/v1/subject/?cycle_id=${id1}&level_id=${id2}`,
         {
