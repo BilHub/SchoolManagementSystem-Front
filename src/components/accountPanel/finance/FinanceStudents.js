@@ -36,7 +36,7 @@ const FinanceStudents = () => {
     const token = JSON.parse(localStorage.getItem("token"));
 
     await api
-      .get("http://127.0.0.1:8000/api/v1/students/", {
+      .get("api/v1/students/", {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -53,7 +53,7 @@ const FinanceStudents = () => {
   const fetchStudentsCycleList = async (id1) => {
     await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
+        `api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
         {
           headers: authHeader(),
         }
@@ -68,7 +68,7 @@ const FinanceStudents = () => {
   const fetchStudentsLevelList = async (id1, id2) => {
     await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
+        `api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
         {
           headers: authHeader(),
         }
@@ -82,7 +82,7 @@ const FinanceStudents = () => {
   const fetchStudentsSubjectList = async (id1, id2, id3) => {
     await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+        `api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
         {
           headers: authHeader(),
         }

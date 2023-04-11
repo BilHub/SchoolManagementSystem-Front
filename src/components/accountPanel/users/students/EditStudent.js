@@ -54,7 +54,7 @@ const EditStudent = () => {
 
   const getStudentData = async () => {
     await api
-      .get(`http://127.0.0.1:8000/api/v1/students/${params.id}/`, {
+      .get(`api/v1/students/${params.id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -75,7 +75,7 @@ const EditStudent = () => {
     e.preventDefault();
     console.log("editData: ", editData);
     await api
-      .put(`http://127.0.0.1:8000/api/v1/students/${params.id}/`, editData, {
+      .put(`api/v1/students/${params.id}/`, editData, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

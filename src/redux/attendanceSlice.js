@@ -7,15 +7,12 @@ const initialState = {
 };
 
 const getStudentsListAPI = (id) => {
-  return api.get(
-    `http://127.0.0.1:8000/api/v1/students/students_subject/?subjectId=${id}`,
-    {
-      headers: {
-        "Content-type": "application/json",
-        accept: "application/json",
-      },
-    }
-  );
+  return api.get(`api/v1/students/students_subject/?subjectId=${id}`, {
+    headers: {
+      "Content-type": "application/json",
+      accept: "application/json",
+    },
+  });
   // .then((response) => {
   //   response.data.map((item) => {
   //     return {

@@ -22,7 +22,7 @@ const AddCycle = ({ refetch }) => {
       school: user.school,
     };
     api
-      .post("http://127.0.0.1:8000/api/v1/cycle/", payload, {
+      .post("api/v1/cycle/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",

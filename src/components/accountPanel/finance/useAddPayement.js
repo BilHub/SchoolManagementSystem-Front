@@ -3,16 +3,12 @@ import axios from "axios";
 import { api } from "../../../utils/backend.instance";
 
 const addPayement = async (data) => {
-  return await api.post(
-    "http://127.0.0.1:8000/api/v1/finance/student_payement/",
-    data,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-      },
-    }
-  );
+  return await api.post("api/v1/finance/student_payement/", data, {
+    headers: {
+      "Content-Type": "application/json",
+      accept: "application/json",
+    },
+  });
 };
 const useAddPayement = () => {
   return useMutation(

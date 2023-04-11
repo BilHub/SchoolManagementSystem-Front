@@ -4,7 +4,7 @@ import React from "react";
 import { Navigate } from "react-big-calendar";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-import {api} from "../../../utils/backend.instance";
+import { api } from "../../../utils/backend.instance";
 
 const ModaleEvent = ({
   showModal,
@@ -26,7 +26,7 @@ const ModaleEvent = ({
   });
 
   const deleteEvent = (id) => {
-    return api.delete(`http://127.0.0.1:8000/api/v1/schedule/${id}`);
+    return api.delete(`api/v1/schedule/${id}`);
   };
 
   const deleteFunc = () => {

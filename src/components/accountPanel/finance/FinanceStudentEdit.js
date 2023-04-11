@@ -23,9 +23,7 @@ const FinanceStudentEdit = () => {
   };
   const getPayementInfo = async () => {
     await api
-      .get(
-        `http://127.0.0.1:8000/api/v1/finance/student_payement/${payement_id}/`
-      )
+      .get(`api/v1/finance/student_payement/${payement_id}/`)
       .then((response) => {
         setPayementInfo(response.data);
       })
@@ -37,17 +35,13 @@ const FinanceStudentEdit = () => {
   const editPayement = async (e) => {
     e.preventDefault();
     await api
-      .put(
-        `http://127.0.0.1:8000/api/v1/finance/student_payement/${payement_id}/`,
-        body,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      )
+      .put(`api/v1/finance/student_payement/${payement_id}/`, body, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      })
       .then((response) => console.log("response: ", response.data))
       .catch((error) => console.log("error: ", error));
     navigate(location.state);

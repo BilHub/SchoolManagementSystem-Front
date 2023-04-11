@@ -20,14 +20,12 @@ const FinanceStudentDetail = () => {
 
   const fetchStudentPayement = (student_id) => {
     return api
-      .get(
-        `http://127.0.0.1:8000/api/v1/finance/student_payement/?student=${student_id}`
-      )
+      .get(`api/v1/finance/student_payement/?student=${student_id}`)
       .then((response) => response.data);
   };
   const fetchStudentInfos = (student_id) => {
     return api
-      .get(`http://127.0.0.1:8000/api/v1/students/${student_id}`, {
+      .get(`api/v1/students/${student_id}`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

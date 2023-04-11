@@ -5,7 +5,7 @@ const getCyclelListAPI = () => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (
     api
-      .get("http://127.0.0.1:8000/api/v1/cycle/", {
+      .get("api/v1/cycle/", {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
@@ -23,7 +23,7 @@ const getLevelListAPI = (id) => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (
     api
-      .get(`http://127.0.0.1:8000/api/v1/level/?cycle_id=${id}`, {
+      .get(`api/v1/level/?cycle_id=${id}`, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",
@@ -39,16 +39,13 @@ const getClassListAPI = (id1, id2) => {
   const token = JSON.parse(localStorage.getItem("token"));
   return (
     api
-      .get(
-        `http://127.0.0.1:8000/api/v1/subject/?cycle_id=${id1}&level_id=${id2}`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      )
+      .get(`api/v1/subject/?cycle_id=${id1}&level_id=${id2}`, {
+        headers: {
+          "Content-type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      })
       // .then((response) => {
       //   setClassList(response.data);
       //   console.log("classList: ", response.data);

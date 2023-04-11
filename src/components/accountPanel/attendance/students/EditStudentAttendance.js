@@ -28,16 +28,13 @@ const EditStudentAttendance = () => {
 
   const getStudentsAttendance = async () => {
     return await api
-      .get(
-        `http://127.0.0.1:8000/api/v1/student_attendance?attendance=${attendance_id}`,
-        {
-          headers: {
-            "Content-type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      )
+      .get(`api/v1/student_attendance?attendance=${attendance_id}`, {
+        headers: {
+          "Content-type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      })
       .then((response) => {
         // attendance_id = null;
         return response.data;
@@ -106,7 +103,7 @@ const EditStudentAttendance = () => {
     const requests = listToUpdate.map((item) => {
       api
         .put(
-          `http://127.0.0.1:8000/api/v1/student_attendance/${item.id}/`,
+          `api/v1/student_attendance/${item.id}/`,
           { status: item.status, comment: item.comment },
           {
             headers: {
@@ -136,17 +133,13 @@ const EditStudentAttendance = () => {
       };
     }
     api
-      .put(
-        `http://127.0.0.1:8000/api/v1/attendance/${attendance_id}/`,
-        dataToUpdate,
-        {
-          headers: {
-            "Content-type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      )
+      .put(`api/v1/attendance/${attendance_id}/`, dataToUpdate, {
+        headers: {
+          "Content-type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      })
       .then(() => refetchAttendanceData())
       .catch((error) => console.log(error));
     dispatch(setDateRedux(""));

@@ -73,7 +73,7 @@ const AddAttendanceStudents = () => {
   };
   const createAttendance = async () => {
     await api
-      .post("http://127.0.0.1:8000/api/v1/attendance/", payload)
+      .post("api/v1/attendance/", payload)
       .then((response) => {
         navigate(`${user.subdomain}/admin_panel/attendance/students`);
         console.log("attendance added");
@@ -85,16 +85,13 @@ const AddAttendanceStudents = () => {
 
   const getStudentsList = async () => {
     await api
-      .get(
-        `http://127.0.0.1:8000/api/v1/students/students_level/?level_id=${selectedLevelId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      )
+      .get(`api/v1/students/students_level/?level_id=${selectedLevelId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      })
       .then((response) => {
         const dataList = response.data.map((item) => {
           const new_item = {
@@ -111,7 +108,7 @@ const AddAttendanceStudents = () => {
 
   const deleteStudentAttendance = async (student_id) => {
     await api.delete(
-      `http://127.0.0.1:8000/api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`,
+      `api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`,
       {
         headers: {
           "Content-Type": "application/json",

@@ -24,7 +24,7 @@ const Teacher = () => {
 
   const getSelectedTeacher = async (id) => {
     await api
-      .get(`http://127.0.0.1:8000/api/v1/teachers/${id}/`, {
+      .get(`api/v1/teachers/${id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -40,7 +40,7 @@ const Teacher = () => {
 
   const getAllTeachers = async () => {
     await api
-      .get("http://127.0.0.1:8000/api/v1/teachers/", {
+      .get("api/v1/teachers/", {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

@@ -15,16 +15,13 @@ const EditLevel = memo(() => {
 
   const getLevelInfo = async () => {
     try {
-      const response = await api.get(
-        `http://127.0.0.1:8000/api/v1/level/${level_id}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      );
+      const response = await api.get(`api/v1/level/${level_id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      });
       setValue("name", response.data.name);
       return response.data;
     } catch (error) {

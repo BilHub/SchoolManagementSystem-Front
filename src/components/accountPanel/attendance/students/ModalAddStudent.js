@@ -28,7 +28,7 @@ const ModalAddStudent = ({
 
   const addSubjectToStudent = async () => {
     await api.patch(
-      `http://127.0.0.1:8000/api/v1/students/subject/${selectedStudentId}/`,
+      `api/v1/students/subject/${selectedStudentId}/`,
 
       { subject_id: subject_id },
       {

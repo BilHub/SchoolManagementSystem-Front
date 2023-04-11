@@ -18,7 +18,7 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
   const deleteSubject = async (id) => {
     const token = JSON.parse(localStorage.getItem("token"));
     await api
-      .delete(`http://127.0.0.1:8000/api/v1/subject/${id}/`, {
+      .delete(`api/v1/subject/${id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

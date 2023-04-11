@@ -50,7 +50,7 @@ const AddClass = ({ refetch }) => {
       school_id: user.school,
     };
     api
-      .post("http://127.0.0.1:8000/api/v1/subject/", payload, {
+      .post("api/v1/subject/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",

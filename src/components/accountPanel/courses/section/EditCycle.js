@@ -15,16 +15,13 @@ const EditCycle = memo(() => {
 
   const getCycleInfo = async () => {
     try {
-      const response = await api.get(
-        `http://127.0.0.1:8000/api/v1/cycle/${cycle_id}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      );
+      const response = await api.get(`api/v1/cycle/${cycle_id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      });
       setValue("name", response.data.name);
       return response.data;
     } catch (error) {
@@ -47,7 +44,7 @@ const EditCycle = memo(() => {
     // };
 
     await api
-      .put(`http://127.0.0.1:8000/api/v1/cycle/${cycle_id}/`, data, {
+      .put(`api/v1/cycle/${cycle_id}/`, data, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

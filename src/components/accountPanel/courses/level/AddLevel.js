@@ -30,7 +30,7 @@ const AddLevel = ({ refetch }) => {
       school_id: user.school,
     };
     api
-      .post("http://127.0.0.1:8000/api/v1/level/", payload, {
+      .post("api/v1/level/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",

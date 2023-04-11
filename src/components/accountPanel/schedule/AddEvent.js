@@ -18,7 +18,7 @@ const AddEvent = () => {
 
   const createEvent = (newEvent) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    return axios.post("http://127.0.0.1:8000/api/v1/schedule/", newEvent, {
+    return axios.post("api/v1/schedule/", newEvent, {
       headers: {
         "Content-Type": "application/json",
         accept: "application/json",
