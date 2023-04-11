@@ -22,13 +22,17 @@ const AddCycle = ({ refetch }) => {
       school: user.school,
     };
     api
-      .post("api/v1/cycle/", payload, {
-        headers: {
-          "Content-type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+      .post(
+        "api/v1/cycle/",
+        payload
+        //  {
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     accept: "application/json",
+        //     Authorization: "JWT " + token,
+        //   },
+        // }
+      )
       .then((response) => refetch())
       .catch((error) => console.log(error));
   };
