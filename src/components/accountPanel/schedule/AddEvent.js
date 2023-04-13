@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { api } from "../../../utils/backend.instance";
 import SelectLevel from "../courses/commun/SelectLevel";
 
 const AddEvent = () => {
@@ -18,7 +19,7 @@ const AddEvent = () => {
 
   const createEvent = (newEvent) => {
     // const token = JSON.parse(localStorage.getItem("token"));
-    return axios.post(
+    return api.post(
       "api/v1/schedule/",
       newEvent
       // {

@@ -41,7 +41,7 @@ const EditEvent = () => {
   });
 
   const editEvent = (newEvent) => {
-    const token = JSON.parse(localStorage.getItem("token"));
+    // const token = JSON.parse(localStorage.getItem("token"));
     return api.put(
       `api/v1/schedule/${eventId}/`,
       newEvent
