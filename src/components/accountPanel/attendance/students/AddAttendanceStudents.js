@@ -81,17 +81,20 @@ const AddAttendanceStudents = () => {
       .catch((error) => console.log(error));
   };
 
-  const token = JSON.parse(localStorage.getItem("token"));
+  // const token = JSON.parse(localStorage.getItem("token"));
 
   const getStudentsList = async () => {
     await api
-      .get(`api/v1/students/students_level/?level_id=${selectedLevelId}`, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+      .get(
+        `api/v1/students/students_level/?level_id=${selectedLevelId}`
+        //  {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     accept: "application/json",
+        //     Authorization: "JWT " + token,
+        //   },
+        // }
+      )
       .then((response) => {
         const dataList = response.data.map((item) => {
           const new_item = {
@@ -108,14 +111,14 @@ const AddAttendanceStudents = () => {
 
   const deleteStudentAttendance = async (student_id) => {
     await api.delete(
-      `api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      }
+      `api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     accept: "application/json",
+      //     Authorization: "JWT " + token,
+      //   },
+      // }
     );
     dispatch(getStudentsAttendanceRedux(selectedClassId));
   };

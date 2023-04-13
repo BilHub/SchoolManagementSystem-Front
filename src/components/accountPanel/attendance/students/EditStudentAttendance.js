@@ -28,13 +28,16 @@ const EditStudentAttendance = () => {
 
   const getStudentsAttendance = async () => {
     return await api
-      .get(`api/v1/student_attendance?attendance=${attendance_id}`, {
-        headers: {
-          "Content-type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+      .get(
+        `api/v1/student_attendance?attendance=${attendance_id}`
+        //  {
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     accept: "application/json",
+        //     Authorization: "JWT " + token,
+        //   },
+        // }
+      )
       .then((response) => {
         // attendance_id = null;
         return response.data;
@@ -104,14 +107,14 @@ const EditStudentAttendance = () => {
       api
         .put(
           `api/v1/student_attendance/${item.id}/`,
-          { status: item.status, comment: item.comment },
-          {
-            headers: {
-              "Content-type": "application/json",
-              accept: "application/json",
-              Authorization: "JWT " + token,
-            },
-          }
+          { status: item.status, comment: item.comment }
+          // {
+          //   headers: {
+          //     "Content-type": "application/json",
+          //     accept: "application/json",
+          //     Authorization: "JWT " + token,
+          //   },
+          // }
         )
         .then((response) => refetch())
         .catch((error) => console.log(error));
@@ -133,13 +136,17 @@ const EditStudentAttendance = () => {
       };
     }
     api
-      .put(`api/v1/attendance/${attendance_id}/`, dataToUpdate, {
-        headers: {
-          "Content-type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+      .put(
+        `api/v1/attendance/${attendance_id}/`,
+        dataToUpdate
+        // {
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     accept: "application/json",
+        //     Authorization: "JWT " + token,
+        //   },
+        // }
+      )
       .then(() => refetchAttendanceData())
       .catch((error) => console.log(error));
     dispatch(setDateRedux(""));
