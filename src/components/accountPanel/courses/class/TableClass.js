@@ -3,6 +3,7 @@ import React, { memo, useCallback, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
+import { api } from "../../../../utils/backend.instance";
 
 import Table from "../../../../utils/Table";
 
@@ -16,8 +17,8 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
   console.log("table class rendered");
   const deleteSubject = async (id) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    await axios
-      .delete(`http://127.0.0.1:8000/api/v1/subject/${id}/`, {
+    await api
+      .delete(`api/v1/subject/${id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

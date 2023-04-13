@@ -6,6 +6,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
 import UserType from "../../users/commun/UserType";
 import { useSelector } from "react-redux";
+import { api } from "../../../../utils/backend.instance";
 
 const EditSubject = memo(() => {
   const location = useLocation();
@@ -18,16 +19,13 @@ const EditSubject = memo(() => {
 
   const getSubjectInfo = async () => {
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/v1/subject/${subject_id}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      );
+      const response = await api.get(`api/v1/subject/${subject_id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      });
       console.log("subjectInfo data: ", response.data);
       setValue("subject_name", response.data["subject_name"]);
       return response.data;
@@ -53,7 +51,7 @@ const EditSubject = memo(() => {
     };
 
     await axios
-      .put(`http://127.0.0.1:8000/api/v1/subject/${subject_id}/`, payload, {
+      .put(`api/v1/subject/${subject_id}/`, payload, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

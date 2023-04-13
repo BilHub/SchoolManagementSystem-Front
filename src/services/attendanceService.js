@@ -1,17 +1,8 @@
-import axios from "axios";
-import authHeader from "./authHeader";
-
-const token = JSON.parse(localStorage.getItem("token"));
+import {api} from "../utils/backend.instance";
 
 const getStudentsDailyAttendance = async (id) => {
-  return await axios
-    .get(`http://127.0.0.1:8000/api/v1/attendance/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    })
+  return await api
+    .get(`api/v1/attendance/${id}`)
     .then((response) => response.data);
 };
 
@@ -31,62 +22,29 @@ const getStudentsDailyAttendance = async (id) => {
 // };
 
 export const fetchingClassAttendance = async (id1, id2, id3) => {
-  return await axios.get(
-    `http://127.0.0.1:8000/api/v1/attendance/?cycle_id=${id1}&level_id=${id2}&subject_id=${id3}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    }
+  return await api.get(
+    `api/v1/attendance/?cycle_id=${id1}&level_id=${id2}&subject_id=${id3}`
   );
 };
 
 export const fetchingLevelAttendance = async (id1, id2) => {
-  return await axios.get(
-    `http://127.0.0.1:8000/api/v1/attendance/?cycle_id=${id1}&level_id=${id2}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    }
+  return await api.get(
+    `api/v1/attendance/?cycle_id=${id1}&level_id=${id2}`
   );
 };
 
 export const fetchingCycleAttendance = async (id1) => {
-  return await axios.get(
-    `http://127.0.0.1:8000/api/v1/attendance/?cycle_id=${id1}`,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    }
+  return await api.get(
+    `api/v1/attendance/?cycle_id=${id1}`
   );
 };
 
 export const fetchingDateAttendance = async (d) => {
-  return await axios.get(`http://127.0.0.1:8000/api/v1/attendance/?date=${d}`, {
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-      Authorization: "JWT " + token,
-    },
-  });
+  return await api.get(`api/v1/attendance/?date=${d}`);
 };
 
 export const fetchingAllAttendance = async () => {
-  return await axios.get("http://127.0.0.1:8000/api/v1/attendance/", {
-    headers: {
-      "Content-Type": "application/json",
-      accept: "application/json",
-      Authorization: "JWT " + token,
-    },
-  });
+  return await api.get("api/v1/attendance/");
 };
 
 const attendanceService = {

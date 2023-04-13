@@ -15,6 +15,7 @@ import authHeader from "../../../../services/authHeader";
 import Search from "../commun/Search";
 import { useEffect, useState } from "react";
 import { getCycleListRedux } from "../../../../redux/courseSlice";
+import { api } from "../../../../utils/backend.instance";
 
 const Students = () => {
   const navigate = useNavigate();
@@ -50,8 +51,8 @@ const Students = () => {
   const getSelectedStudent = async (id) => {
     const token = JSON.parse(localStorage.getItem("token"));
 
-    await axios
-      .get(`http://127.0.0.1:8000/api/v1/students/${id}/`, {
+    await api
+      .get(`api/v1/students/${id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -67,8 +68,8 @@ const Students = () => {
   const getAllStudents = async () => {
     const token = JSON.parse(localStorage.getItem("token"));
 
-    await axios
-      .get("http://127.0.0.1:8000/api/v1/students/", {
+    await api
+      .get("api/v1/students/", {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -84,9 +85,9 @@ const Students = () => {
   };
 
   const fetchStudentsCycleList = async (id1) => {
-    await axios
+    await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
+        `api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}`,
         {
           headers: authHeader(),
         }
@@ -99,9 +100,9 @@ const Students = () => {
   };
 
   const fetchStudentsLevelList = async (id1, id2) => {
-    await axios
+    await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
+        `api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}`,
         {
           headers: authHeader(),
         }
@@ -113,9 +114,9 @@ const Students = () => {
       .catch((error) => console.log("error: ", error));
   };
   const fetchStudentsSubjectList = async (id1, id2, id3) => {
-    await axios
+    await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
+        `api/v1/students/students_filter/?school_id=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
         {
           headers: authHeader(),
         }
@@ -137,10 +138,10 @@ const Students = () => {
     if (selectedLevelId == "default") {
       fetchStudentsCycleList(selectedCycleId);
     } else fetchStudentsLevelList(selectedCycleId, selectedLevelId);
-  }, [selectedLevelId]);
+  }, [selectedLevelId, fetchStudentsCycleList, fetchStudentsLevelList]);
 
   useEffect(() => {
-    if (selectedClassId == "default") {
+    if (selectedClassId === "default") {
       fetchStudentsLevelList(selectedCycleId, selectedLevelId);
     } else
       fetchStudentsSubjectList(
@@ -148,7 +149,7 @@ const Students = () => {
         selectedLevelId,
         selectedClassId
       );
-  }, [selectedClassId]);
+  }, [selectedClassId, fetchStudentsLevelList]);
 
   useEffect(() => {
     getAllStudents();
@@ -156,7 +157,7 @@ const Students = () => {
 
   return (
     <>
-      {pathSubdomain == user.subdomain ? (
+      {pathSubdomain === user.subdomain ? (
         <div className="flex flex-col relative">
           <UserType />
           <Search

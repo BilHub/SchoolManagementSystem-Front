@@ -16,6 +16,7 @@ import ModalAddStudent from "./ModalAddStudent";
 import StudentTeacherSelect from "../../sharedComponents/StudentTeacherSelect";
 import FilterClassAttendance from "./FilterClassAttendance";
 import AddDailyAttendance from "./AddDailyAttendance";
+import { api } from "../../../../utils/backend.instance";
 
 const AddAttendanceStudents = () => {
   const [showModal, setShowModal] = useState(false);
@@ -71,8 +72,8 @@ const AddAttendanceStudents = () => {
     school: user.school,
   };
   const createAttendance = async () => {
-    await axios
-      .post("http://127.0.0.1:8000/api/v1/attendance/", payload)
+    await api
+      .post("api/v1/attendance/", payload)
       .then((response) => {
         navigate(`${user.subdomain}/admin_panel/attendance/students`);
         console.log("attendance added");
@@ -80,19 +81,19 @@ const AddAttendanceStudents = () => {
       .catch((error) => console.log(error));
   };
 
-  const token = JSON.parse(localStorage.getItem("token"));
+  // const token = JSON.parse(localStorage.getItem("token"));
 
   const getStudentsList = async () => {
-    await axios
+    await api
       .get(
-        `http://127.0.0.1:8000/api/v1/students/students_level/?level_id=${selectedLevelId}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
+        `api/v1/students/students_level/?level_id=${selectedLevelId}`
+        //  {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     accept: "application/json",
+        //     Authorization: "JWT " + token,
+        //   },
+        // }
       )
       .then((response) => {
         const dataList = response.data.map((item) => {
@@ -109,15 +110,15 @@ const AddAttendanceStudents = () => {
   };
 
   const deleteStudentAttendance = async (student_id) => {
-    await axios.delete(
-      `http://127.0.0.1:8000/api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      }
+    await api.delete(
+      `api/v1/students/subject/${student_id}/?subject_id=${selectedClassId}`
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     accept: "application/json",
+      //     Authorization: "JWT " + token,
+      //   },
+      // }
     );
     dispatch(getStudentsAttendanceRedux(selectedClassId));
   };

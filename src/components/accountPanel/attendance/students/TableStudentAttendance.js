@@ -17,18 +17,11 @@ import {
   getStudentsAttendanceRedux,
 } from "../../../../redux/attendanceSlice";
 import attendanceService from "../../../../services/attendanceService";
-
-const token = JSON.parse(localStorage.getItem("token"));
+import {api} from "../../../../utils/backend.instance";
 
 const deleteAttendance = async (id) => {
-  await axios
-    .delete(`http://127.0.0.1:8000/api/v1/attendance/${id}/`, {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    })
+  await api
+    .delete(`api/v1/attendance/${id}/`)
     .then((response) => window.location.reload());
 };
 

@@ -5,6 +5,7 @@ import "../../../../index.css";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useSelector } from "react-redux";
+import {api} from "../../../../utils/backend.instance";
 
 const schema = yup.object().shape({
   first_name: yup
@@ -46,8 +47,6 @@ const MainAddStudent = () => {
     resolver: yupResolver(schema),
   });
 
-  const token = JSON.parse(localStorage.getItem("token"));
-
   // const token = useState(() => localStrorage.get("item "))
   // lazy state initializer (React)
 
@@ -59,14 +58,8 @@ const MainAddStudent = () => {
       subjects: selectedClassId,
     };
 
-    await axios
-      .post("http://127.0.0.1:8000/api/v1/students/", payload, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+    await api
+      .post("api/v1/students/", payload)
       .then((res) => {
         console.log("location for state is: ", location);
         navigate(

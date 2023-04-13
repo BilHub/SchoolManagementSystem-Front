@@ -4,6 +4,7 @@ import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import coursesService from "../../../../services/coursesService";
+import { api } from "../../../../utils/backend.instance";
 import UserType from "../../users/commun/UserType";
 
 const AddCycle = ({ refetch }) => {
@@ -20,14 +21,18 @@ const AddCycle = ({ refetch }) => {
       ...data,
       school: user.school,
     };
-    axios
-      .post("http://127.0.0.1:8000/api/v1/cycle/", payload, {
-        headers: {
-          "Content-type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+    api
+      .post(
+        "api/v1/cycle/",
+        payload
+        //  {
+        //   headers: {
+        //     "Content-type": "application/json",
+        //     accept: "application/json",
+        //     Authorization: "JWT " + token,
+        //   },
+        // }
+      )
       .then((response) => refetch())
       .catch((error) => console.log(error));
   };

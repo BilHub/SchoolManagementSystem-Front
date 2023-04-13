@@ -6,14 +6,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
 import Table from "../../../../utils/Table";
+import {api} from "../../../../utils/backend.instance";
 
 const TableCycle = memo(({ cycleList, refetch, setCycleList }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const deleteCycle = async (id) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    await axios
-      .delete(`http://127.0.0.1:8000/api/v1/cycle/${id}/`, {
+    await api
+      .delete(`api/v1/cycle/${id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

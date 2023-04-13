@@ -1,16 +1,12 @@
 import { BsArrowLeft } from "react-icons/bs";
 import { useLocation, useNavigate } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import {api} from "../../../../utils/backend.instance";
 
 const EditTeacher = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const token = JSON.parse(localStorage.getItem("token"));
-
   const teacher_id = location.pathname.charAt(location.pathname.length - 1);
   console.log("teacher_id: ", teacher_id);
 
@@ -31,14 +27,8 @@ const EditTeacher = () => {
   // });
 
   const getTeacherInfo = async () => {
-    return await axios
-      .get(`http://127.0.0.1:8000/api/v1/teachers/${teacher_id}/`, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+    return await api
+      .get(`api/v1/teachers/${teacher_id}/`)
       .then((response) => {
         setValue("first_name", response.data.first_name);
         setValue("last_name", response.data.last_name);
@@ -59,21 +49,14 @@ const EditTeacher = () => {
     watch,
     register,
     formState: { errors },
-    reset,
     setValue,
   } = useForm({
     // resolver: yupResolver(schema),
   });
 
   const editTeacher = async (data) => {
-    await axios
-      .put(`http://127.0.0.1:8000/api/v1/teachers/${teacher_id}/`, data, {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      })
+    await api
+      .put(`api/v1/teachers/${teacher_id}/`, data)
       .then((response) => {
         refetch();
         navigate(location.state);

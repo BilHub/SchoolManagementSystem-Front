@@ -1,16 +1,9 @@
 import axios from "axios";
-
-const token = JSON.parse(localStorage.getItem("token"));
+import {api} from "../utils/backend.instance";
 
 const fetchTeachersList = async () => {
-  return axios
-    .get("http://127.0.0.1:8000/api/v1/teachers/", {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    })
+  return api
+    .get("api/v1/teachers/")
     .then((response) => {
       const data = response.data;
       const teachersList = data.map((item) => {
@@ -25,26 +18,14 @@ const fetchTeachersList = async () => {
 };
 
 const getTeachersList = async () => {
-  return await axios
-    .get("http://127.0.0.1:8000/api/v1/teachers/", {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    })
+  return await api
+    .get("api/v1/teachers/")
     .then((response) => response.data);
 };
 
 const deleteTeacher = async (id) => {
-  return await axios
-    .delete(`http://127.0.0.1:8000/api/v1/teachers/${id}`, {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    })
+  return await api
+    .delete(`api/v1/teachers/${id}`)
     .then((res) => {
       window.location.reload(false);
     })

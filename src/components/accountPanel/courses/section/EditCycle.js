@@ -4,6 +4,7 @@ import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
+import { api } from "../../../../utils/backend.instance";
 
 const EditCycle = memo(() => {
   const location = useLocation();
@@ -14,16 +15,13 @@ const EditCycle = memo(() => {
 
   const getCycleInfo = async () => {
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/v1/cycle/${cycle_id}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      );
+      const response = await api.get(`api/v1/cycle/${cycle_id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      });
       setValue("name", response.data.name);
       return response.data;
     } catch (error) {
@@ -45,8 +43,8 @@ const EditCycle = memo(() => {
     //   cycle_id: location.state["cycle_id"],
     // };
 
-    await axios
-      .put(`http://127.0.0.1:8000/api/v1/cycle/${cycle_id}/`, data, {
+    await api
+      .put(`api/v1/cycle/${cycle_id}/`, data, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

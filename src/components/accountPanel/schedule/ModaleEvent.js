@@ -4,6 +4,7 @@ import React from "react";
 import { Navigate } from "react-big-calendar";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { api } from "../../../utils/backend.instance";
 
 const ModaleEvent = ({
   showModal,
@@ -13,7 +14,7 @@ const ModaleEvent = ({
 }) => {
   const navigate = useNavigate();
   const handleCloseModal = (e) => {
-    if (e.target.id == "schedule") closeModal();
+    if (e.target.id === "schedule") closeModal();
   };
 
   const deleteEventMutation = useMutation({
@@ -25,14 +26,7 @@ const ModaleEvent = ({
   });
 
   const deleteEvent = (id) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    return axios.delete(`http://127.0.0.1:8000/api/v1/schedule/${id}`, {
-      headers: {
-        "Content-type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    });
+    return api.delete(`api/v1/schedule/${id}`);
   };
 
   const deleteFunc = () => {

@@ -8,6 +8,7 @@ import {
   setSelectedCycleIdRedux,
   setSelectedLevelIdRedux,
 } from "../../../redux/courseSlice";
+import { api } from "../../../utils/backend.instance";
 import SelectLevel from "../courses/commun/SelectLevel";
 
 const EditEvent = () => {
@@ -26,14 +27,12 @@ const EditEvent = () => {
   const dispatch = useDispatch();
 
   const getEventInfo = async () => {
-    return axios
-      .get(`http://127.0.0.1:8000/api/v1/schedule/${eventId}/`)
-      .then((response) => {
-        console.log("response: ", response.data);
-        dispatch(setSelectedCycleIdRedux(response.data.cycle));
-        dispatch(setSelectedLevelIdRedux(response.data.level));
-        return response.data;
-      });
+    return api.get(`api/v1/schedule/${eventId}/`).then((response) => {
+      console.log("response: ", response.data);
+      dispatch(setSelectedCycleIdRedux(response.data.cycle));
+      dispatch(setSelectedLevelIdRedux(response.data.level));
+      return response.data;
+    });
   };
 
   const { data: queryEventInfo = [] } = useQuery({
@@ -42,17 +41,17 @@ const EditEvent = () => {
   });
 
   const editEvent = (newEvent) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    return axios.put(
-      `http://127.0.0.1:8000/api/v1/schedule/${eventId}/`,
-      newEvent,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          accept: "application/json",
-          Authorization: "JWT " + token,
-        },
-      }
+    // const token = JSON.parse(localStorage.getItem("token"));
+    return api.put(
+      `api/v1/schedule/${eventId}/`,
+      newEvent
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     accept: "application/json",
+      //     Authorization: "JWT " + token,
+      //   },
+      // }
     );
   };
   const create = (data) => {

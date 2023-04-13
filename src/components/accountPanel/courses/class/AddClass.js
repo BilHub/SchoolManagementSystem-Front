@@ -8,6 +8,7 @@ import {
   getLevelListRedux,
 } from "../../../../redux/courseSlice";
 import coursesService from "../../../../services/coursesService";
+import { api } from "../../../../utils/backend.instance";
 import UserType from "../../users/commun/UserType";
 
 const AddClass = ({ refetch }) => {
@@ -48,8 +49,8 @@ const AddClass = ({ refetch }) => {
       ...data,
       school_id: user.school,
     };
-    axios
-      .post("http://127.0.0.1:8000/api/v1/subject/", payload, {
+    api
+      .post("api/v1/subject/", payload, {
         headers: {
           "Content-type": "application/json",
           accept: "application/json",

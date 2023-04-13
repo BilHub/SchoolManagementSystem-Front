@@ -5,17 +5,17 @@ import TableTeacher from "./TableTeacher";
 import { useQuery } from "@tanstack/react-query";
 import teachersService from "../../../../services/teachersService";
 import { useLocation, useNavigate } from "react-router-dom";
-import SelectCourses from "../../courses/commun/SelectCourses";
 import Search from "../commun/Search";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
+import { api } from "../../../../utils/backend.instance";
 
 const Teacher = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const token = JSON.parse(localStorage.getItem("token"));
 
-  const { data: queryTeachersList = [], isLoading } = useQuery(
+  const { data: queryTeachersList = [] } = useQuery(
     ["teachers-list"],
     teachersService.getTeachersList
   );
@@ -23,8 +23,8 @@ const Teacher = () => {
   const [teachersList, setTeachersList] = useState(null);
 
   const getSelectedTeacher = async (id) => {
-    await axios
-      .get(`http://127.0.0.1:8000/api/v1/teachers/${id}/`, {
+    await api
+      .get(`api/v1/teachers/${id}/`, {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",
@@ -39,8 +39,8 @@ const Teacher = () => {
   };
 
   const getAllTeachers = async () => {
-    await axios
-      .get("http://127.0.0.1:8000/api/v1/teachers/", {
+    await api
+      .get("api/v1/teachers/", {
         headers: {
           "Content-Type": "application/json",
           accept: "application/json",

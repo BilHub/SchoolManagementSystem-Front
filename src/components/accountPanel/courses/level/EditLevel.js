@@ -4,6 +4,7 @@ import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/bs";
+import { api } from "../../../../utils/backend.instance";
 
 const EditLevel = memo(() => {
   const location = useLocation();
@@ -14,16 +15,13 @@ const EditLevel = memo(() => {
 
   const getLevelInfo = async () => {
     try {
-      const response = await axios.get(
-        `http://127.0.0.1:8000/api/v1/level/${level_id}/`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            accept: "application/json",
-            Authorization: "JWT " + token,
-          },
-        }
-      );
+      const response = await api.get(`api/v1/level/${level_id}/`, {
+        headers: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+          Authorization: "JWT " + token,
+        },
+      });
       setValue("name", response.data.name);
       return response.data;
     } catch (error) {
@@ -45,7 +43,7 @@ const EditLevel = memo(() => {
       cycle_id: location.state["cycle_id"],
     };
 
-    await axios
+    await api
       .put(`http://127.0.0.1:8000/api/v1/level/${level_id}/`, payload, {
         headers: {
           "Content-Type": "application/json",
