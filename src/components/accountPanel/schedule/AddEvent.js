@@ -17,14 +17,18 @@ const AddEvent = () => {
   });
 
   const createEvent = (newEvent) => {
-    const token = JSON.parse(localStorage.getItem("token"));
-    return axios.post("api/v1/schedule/", newEvent, {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    });
+    // const token = JSON.parse(localStorage.getItem("token"));
+    return axios.post(
+      "api/v1/schedule/",
+      newEvent
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     accept: "application/json",
+      //     Authorization: "JWT " + token,
+      //   },
+      // }
+    );
   };
   const create = (data) => {
     const payload = {

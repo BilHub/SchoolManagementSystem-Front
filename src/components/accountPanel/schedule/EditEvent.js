@@ -42,13 +42,17 @@ const EditEvent = () => {
 
   const editEvent = (newEvent) => {
     const token = JSON.parse(localStorage.getItem("token"));
-    return api.put(`api/v1/schedule/${eventId}/`, newEvent, {
-      headers: {
-        "Content-Type": "application/json",
-        accept: "application/json",
-        Authorization: "JWT " + token,
-      },
-    });
+    return api.put(
+      `api/v1/schedule/${eventId}/`,
+      newEvent
+      // {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     accept: "application/json",
+      //     Authorization: "JWT " + token,
+      //   },
+      // }
+    );
   };
   const create = (data) => {
     const payload = {
