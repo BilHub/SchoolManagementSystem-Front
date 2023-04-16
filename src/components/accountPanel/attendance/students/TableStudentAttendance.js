@@ -17,12 +17,11 @@ import {
   getStudentsAttendanceRedux,
 } from "../../../../redux/attendanceSlice";
 import attendanceService from "../../../../services/attendanceService";
-import {api} from "../../../../utils/backend.instance";
+import { api } from "../../../../utils/backend.instance";
 
 const deleteAttendance = async (id) => {
-  await api
-    .delete(`api/v1/attendance/${id}/`)
-    .then((response) => window.location.reload());
+  await api.delete(`api/v1/attendance/${id}/`);
+  // .then((response) => window.location.reload());
 };
 
 const TableStudentAttendance = memo(

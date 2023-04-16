@@ -5,6 +5,7 @@ const initialState = {
   msg: "",
   user: "",
   accessToken: "",
+  refreshToken: "",
   isLoggedIn: false,
   error: "",
 };
@@ -22,7 +23,11 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ username, password }) => {
     const data = await authService.loginAPI({ username, password });
-    return { accessToken: data.access, user: data.user };
+    return {
+      accessToken: data.access,
+      refreshToken: data.refresh,
+      user: data.user,
+    };
   }
 );
 
@@ -43,6 +48,7 @@ export const authSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       state.isLoggedIn = true;
       state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
       state.user = action.payload.user;
     },
     [login.rejected]: (state, action) => {
@@ -51,6 +57,7 @@ export const authSlice = createSlice({
     [logout.fulfilled]: (state, action) => {
       state.isLoggedIn = false;
       state.accessToken = null;
+      state.refreshToken = null;
       state.user = null;
     },
     [logout.rejected]: (state, action) => {
