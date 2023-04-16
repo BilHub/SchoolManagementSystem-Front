@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
 import Table from "../../../../utils/Table";
-import {api} from "../../../../utils/backend.instance";
+import { api } from "../../../../utils/backend.instance";
 
 const TableLevel = memo(({ levelList, refetch, setLevelList }) => {
   const navigate = useNavigate();
