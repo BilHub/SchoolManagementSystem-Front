@@ -30,8 +30,27 @@ import Staff from "./components/accountPanel/users/staff/Staff";
 import EditStudentAttendance from "./components/accountPanel/attendance/students/EditStudentAttendance";
 import AddEvent from "./components/accountPanel/schedule/AddEvent";
 import EditEvent from "./components/accountPanel/schedule/EditEvent";
+import axios from "axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { api, setAuthToken } from "./utils/backend.instance";
 
 function App() {
+  const { refreshToken } = useSelector((state) => state.auth);
+  const payload = {
+    refresh: refreshToken,
+  };
+
+  const getAccessToken = (refreshToken) => {
+    api.post("api/v1/auth/jwt/refresh", payload).then((response) => {
+      console.log("access token from APP.js: ", response.data.access);
+      setAuthToken(response.data.access);
+    });
+  };
+
+  useEffect(() => {
+    getAccessToken();
+  }, []);
   return (
     <Router>
       <AdminProvider>
