@@ -9,23 +9,9 @@ const registerAPI = (body) => {
   });
 };
 
-// const loginAPI = (body) => {
-//   return api
-//     .post("api/v1/auth/login/", body)
-//     .then((res) => {
-//       if (res.data.access) {
-//         setAuthToken(res.data.access)
-//         localStorage.setItem("token", JSON.stringify(res.data.access));
-//         localStorage.setItem("user", JSON.stringify(res.data.user));
-//         console.log("response from loginAPI:", res);
-//       }
-//       return res.data;
-//     })
-//     .catch((err) => console.log(err));
-// };
 const loginAPI = (body) => {
-  return axios
-    .post("http://164.90.188.42/api/v1/auth/login/", body)
+  return api
+    .post("api/v1/auth/login/", body)
     .then((res) => {
       if (res.data.access) {
         setAuthToken(res.data.access);
