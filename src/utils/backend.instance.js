@@ -2,7 +2,7 @@ import axios from "axios";
 export const api = axios.create({
   // baseURL: "http://127.0.0.1:8000/",
   // baseURL: "http://164.90.188.42/",
-  baseURL: "http://allin1school.com/",
+  baseURL: "https://allin1school.com/",
   // baseURL: "https://api-school.code2bind.com/",
   headers: {
     "Content-Type": "application/json",
