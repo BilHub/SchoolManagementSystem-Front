@@ -19,7 +19,7 @@ const AccountHeader = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="h-[50px] w-screen bg-primary-green flex justify-between px-5 text-white">
+    <div className="h-[50px] bg-primary-green flex justify-between px-5 text-white w-full">
       {headerTitle ? (
         <p className="flex ml-10 md:ml-36 items-center text-3xl font-semibold italic">
           {headerTitle}
@@ -35,9 +35,6 @@ const AccountHeader = () => {
         <button
           onClick={() => {
             dispatch(logout());
-            // dispatch(resetCycleListRedux());
-            // dispatch(resetLevelListRedux());
-            // dispatch(resetClassListRedux());
             navigate("/login");
           }}
         >
