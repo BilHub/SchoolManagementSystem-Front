@@ -25,25 +25,6 @@ const Students = () => {
     (state) => state.courses
   );
   const pathSubdomain = "/" + location.pathname.split("/")[1];
-
-  // const fetchStudentsList = (id1, id2, id3) => {
-  //   return axios
-  //     .get(
-  //       `http://127.0.0.1:8000/api/v1/students/students_filter/?school=${user.school}&cycle_id=${id1}&level_id=${id2}&subjects=${id3}`,
-  //       {
-  //         headers: authHeader(),
-  //       }
-  //     )
-  //     .then((response) => response.data);
-  // };
-
-  // const { data: queryStudentsList = [] } = useQuery(
-  //   ["studentsListQuery", selectedCycleId, selectedLevelId, selectedClassId],
-  //   () =>
-  //     fetchStudentsList(selectedCycleId, selectedLevelId, selectedClassId, {
-  //       onSuccess: setStudentsList(queryStudentsList),
-  //     })
-  // );
   const [studentsList, setStudentsList] = useState([]);
   const [allStudentsList, setAllStudentsList] = useState([]);
   const dispatch = useDispatch();

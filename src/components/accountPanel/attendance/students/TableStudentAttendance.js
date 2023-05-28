@@ -54,7 +54,7 @@ const TableStudentAttendance = memo(
               }}
             />
           </div>
-          <div className="grid grid-cols-6 text-center font-bold italic my-2">
+          <div className="hidden md:grid grid-cols-6 text-center font-bold italic my-2">
             {headerList.map((item, index) => {
               return <p key={index}>{item}</p>;
             })}
@@ -66,11 +66,11 @@ const TableStudentAttendance = memo(
     const renderStudentAtendanceRow = useCallback((item) => {
       return (
         <div className="grid grid-cols-6 text-center p-1">
-          <p>{item?.date}</p>
-          <p>{item?.cycle}</p>
-          <p>{item?.level}</p>
-          <p>{item?.subject}</p>
-          <p>{item?.teacher}</p>
+          <p className="col-span-2 md:col-span-1">{item?.date}</p>
+          <p className="hidden md:inline-block">{item?.cycle}</p>
+          <p className="hidden md:inline-block">{item?.level}</p>
+          <p className="col-span-3 md:col-span-1">{item?.subject}</p>
+          <p className="hidden md:inline-block">{item?.teacher}</p>
 
           <div className="flex gap-3 text-xl justify-center">
             <button

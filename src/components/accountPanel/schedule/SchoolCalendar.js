@@ -89,7 +89,7 @@ const SchoolCalendar = ({ showToolBar }) => {
   );
 
   return (
-    <div className="ml-10 mt-5 h-screen flex flex-col justify-center items-center gap-10 w-full">
+    <div className="md:ml-10 mt-10 h-screen flex flex-col justify-center items-center gap-10 w-full">
       {/* <SelectCourses /> */}
       <ModaleEvent
         showModal={showModal}
@@ -98,7 +98,7 @@ const SchoolCalendar = ({ showToolBar }) => {
         refetchEventsList={refetchEventsList}
       />
       <SelectLevel />
-      <div className="absolute top-0 right-0 md:mt-20 md:mr-36 ">
+      <div className="absolute top-0 right-0 mt-20 mr-5 md:mr-36 ">
         <div
           className="flex gap-3 items-center text-xl text-primary-yellow cursor-pointer
              hover:text-primary-green font-semibold"

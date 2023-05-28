@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +26,6 @@ const AddClass = ({ refetch }) => {
   const [selectedCycleId, setSelectedCycleId] = useState(
     cycleList.length ? cycleList[0].id : null
   );
-  // const { data: cycleListResponse = [] } = useQuery(
-  //   ["cycle-list"],
-  //   coursesService.getCycleList
-  // );
   const { data: levelListResponse = [] } = useQuery(
     ["level-list", selectedCycleId],
     () => coursesService.getLevelList(selectedCycleId)
@@ -62,10 +57,10 @@ const AddClass = ({ refetch }) => {
 
   return (
     <form
-      className=" flex items-center justify-center mt-10 gap-10"
+      className=" flex flex-col md:flex-row items-center justify-center mt-16 gap-5 md:gap-10"
       onSubmit={handleSubmit(addClass)}
     >
-      <div>
+      <div className="flex items-center">
         <label>Cycle: </label>
         <select
           {...register("cycle_id", { required: true })}
@@ -82,7 +77,7 @@ const AddClass = ({ refetch }) => {
           })}
         </select>
       </div>
-      <div>
+      <div className="flex items-center">
         <label>Level: </label>
         <select
           {...register("level_id", { required: true })}

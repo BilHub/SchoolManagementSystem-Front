@@ -7,7 +7,7 @@ const UserTypeMedium = () => {
   const { user } = useSelector((state) => state.auth);
   return (
     <div>
-      <ul className="relative mr-20 my-5 ml-60  justify-between text-primary-green font-semibold italic hidden md:flex">
+      <ul className="relative mr-20 mt-5 ml-60  justify-between text-primary-green font-semibold italic hidden md:flex">
         {UserTypeData.map((value, index) => {
           return (
             <Link

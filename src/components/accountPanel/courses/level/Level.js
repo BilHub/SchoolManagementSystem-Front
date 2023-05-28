@@ -13,7 +13,7 @@ const Level = () => {
 
   const [levelList, setLevelList] = useState(null);
   return (
-    <div className="ml-52 mt-22 mr-16">
+    <div className="mt-22 md:ml-52">
       <CoursesPart />
       <AddLevel refetch={refetch} />
       <TableLevel
