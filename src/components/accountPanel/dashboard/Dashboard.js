@@ -16,12 +16,12 @@ const Dashboard = () => {
     <div className="w-full">
       {isLoggedIn ? (
         <div className="my-10 flex flex-col items-center gap-5">
-          <ul className="grid grid-cols-2 md:grid-cols-4 justify-center gap-10 items-center text-2xl text-white mx-5">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 justify-center gap-10 items-center text-2xl text-white mx-5">
             {DashboardData.map((item) => {
               return (
                 <li
                   key={item.id}
-                  className="flex flex-col justify-center items-center bg-primary-green md:p-10 rounded rounded-lg
+                  className="flex flex-col justify-center items-center bg-primary-green py-3 md:p-10 rounded rounded-lg
                   hover: cursor-pointer hover:bg-primary-yellow w-[150px]"
                   onClick={() => navigate(user.subdomain + "/" + item.link)}
                 >
@@ -31,7 +31,7 @@ const Dashboard = () => {
               );
             })}
           </ul>
-          <ul className="flex justify-center items-center my-5 gap-10 text-xl flex-col">
+          <ul className="flex justify-center items-center my-5 gap-10 text-xl flex-col lg:flex-row">
             {NumbersInfos.map((item) => {
               return (
                 <li
