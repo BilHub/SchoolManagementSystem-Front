@@ -123,7 +123,7 @@ const FinanceStudents = () => {
 
   // const studentsList = [];
   return (
-    <div className="ml-52 mt-10 mr-16">
+    <div className="md:ml-52 mt-10 md:mr-16">
       {/* <StudentTeacherSelect /> */}
       <SelectCourses />
       <TableFinance studentsList={studentsList} />

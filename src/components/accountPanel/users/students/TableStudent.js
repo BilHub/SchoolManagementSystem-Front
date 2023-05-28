@@ -20,7 +20,7 @@ const TableStudent = ({ studentsList }) => {
         <p className="hidden md:grid md:col-span-3 ">{value.email}</p>
         <p className="hidden md:grid md:col-span-2">{value.phone}</p>
         <p className="col-span-2">{value.level.name}</p>
-        <p className="col-span-2 flex gap-3 text-xl">
+        <p className="col-span-1 flex gap-3 text-xl">
           <button
             onClick={() =>
               navigate(`edit_student/${value.id}`, {

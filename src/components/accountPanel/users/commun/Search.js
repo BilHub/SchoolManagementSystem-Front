@@ -37,26 +37,28 @@ const Search = ({ queryList, getSelectedItem, getAllItems }) => {
   };
 
   return (
-    <div className="ml-44 mt-22 flex justify-center items-center my-5 gap-5">
+    <div className="md:ml-44 mt-14 mb-5 flex justify-center items-center gap-1 flex-col md:flex-row">
       <p className="font-semibold italic">Search by name:</p>
-      <Select
-        className="w-64"
-        options={list}
-        onChange={handleSelect}
-        value={selectedOption}
-      />
-      <div
-        onClick={handleSearch}
-        className="text-3xl text-primary-green hover:text-primary-yellow hover:scale-125 cursor-pointer"
-      >
-        <BiSearchAlt2 />
+      <div className="flex gap-1 items-center">
+        <button
+          className="bg-primary-green p-2 rounded-md text-white font-semibold hover:bg-primary-yellow"
+          onClick={getAllItems}
+        >
+          All
+        </button>
+        <Select
+          className="w-64 "
+          options={list}
+          onChange={handleSelect}
+          value={selectedOption}
+        />
+        <div
+          onClick={handleSearch}
+          className="text-3xl text-primary-green hover:text-primary-yellow hover:scale-125 cursor-pointer"
+        >
+          <BiSearchAlt2 />
+        </div>
       </div>
-      <button
-        className="bg-primary-green p-2 rounded-md text-white font-semibold hover:bg-primary-yellow"
-        onClick={getAllItems}
-      >
-        All
-      </button>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const Class = () => {
   const [classList, setClassList] = useState(null);
 
   return (
-    <div className="ml-52 mt-22 mr-16">
+    <div className="mt-22 md:ml-52">
       <CoursesPart />
       <AddClass refetch={refetch} />
       <TableClass

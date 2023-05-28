@@ -43,18 +43,12 @@ const SelectLevel = () => {
     }
   }, [selectedCycleId, selectedLevelId]);
 
-  // useEffect(() => {
-  //   if (classList.length != 0) {
-  //     const subject_id = classList[0].id.toString();
-  //     dispatch(setSelectedClassIdRedux(subject_id));
-  //   }
-  // }, [classList]);
-
   return (
-    <div className="flex gap-10">
-      {/* <p className="text-xl font-semibold italic">Filter</p> */}
+    <div className="flex flex-col md:flex-row gap-5 md:gap-10">
       <div>
-        <span className="text-primary-green font-semibold">Cycle: </span>
+        <span className="text-primary-green font-semibold hidden md:inline-block">
+          Cycle:{" "}
+        </span>
         <select
           onChange={(e) => {
             dispatch(setSelectedCycleIdRedux(e.target.value));
@@ -80,7 +74,9 @@ const SelectLevel = () => {
         </select>
       </div>
       <div>
-        <span className="text-primary-green font-semibold">Level: </span>
+        <span className="text-primary-green font-semibold hidden md:inline-block">
+          Level:{" "}
+        </span>
         <select
           defaultValue="default"
           onChange={(e) => {

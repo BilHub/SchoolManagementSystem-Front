@@ -4,7 +4,6 @@ import { AiFillDelete } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { api } from "../../../../utils/backend.instance";
-
 import Table from "../../../../utils/Table";
 
 const TableClass = memo(({ classList, refetch, setClassList }) => {
@@ -43,7 +42,7 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
     return (
       <div>
         <p className="text-primary-green text-3xl my-5">Class List</p>
-        <div className="grid grid-cols-6 text-center font-bold italic my-2">
+        <div className="hidden md:grid grid-cols-6 text-center font-bold italic my-2">
           {headerList.map((item, index) => {
             return <p key={index}>{item}</p>;
           })}
@@ -53,16 +52,18 @@ const TableClass = memo(({ classList, refetch, setClassList }) => {
   }, [headerList]);
   const renderClassRow = useCallback((item) => {
     return (
-      <div className="grid grid-cols-6 text-center p-1">
-        <p>{item?.subject_name}</p>
-        <p>{item?.cycle?.name}</p>
+      <div className="grid grid-cols-4 md:grid-cols-6 text-center p-1">
+        <p className="grid-span-2 md:grid-span-1">{item?.subject_name}</p>
+        <p className="">{item?.cycle?.name}</p>
         <p>{item?.level?.name}</p>
-        <p>
+        <p className="hidden md:block">
           {item?.teachers_list.map((teacher, index) => (
             <p>{teacher}</p>
           ))}
         </p>
-        <p>{item?.students_number}</p>
+        <p p className="hidden md:block">
+          {item?.students_number}
+        </p>
         <div className="flex gap-3 text-xl justify-center">
           <button
             onClick={() => {
