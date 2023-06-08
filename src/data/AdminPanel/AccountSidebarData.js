@@ -1,7 +1,7 @@
 import { RiDashboardFill } from "react-icons/ri";
 import { FaUsers } from "react-icons/fa";
 import { GiBookCover } from "react-icons/gi";
-import { BsCalendarCheck } from "react-icons/bs";
+import { BsCalendarCheck, BsChatDotsFill } from "react-icons/bs";
 import { MdAttachMoney } from "react-icons/md";
 import { MdSchedule } from "react-icons/md";
 
@@ -42,16 +42,16 @@ export const AccountSidebarData = [
     icon: <MdAttachMoney />,
     link: "admin_panel/finance/students",
   },
+  {
+    id: 7,
+    title: "Chat",
+    icon: <BsChatDotsFill />,
+    link: "admin_panel/chat",
+  },
   // {
-  //   id: 7,
+  //   id: 8,
   //   title: "Library",
   //   icon: <HiLibrary />,
   //   link: "admin_panel/library",
-  // },
-  // {
-  //   id: 8,
-  //   title: "Chat",
-  //   icon: <BsChatDotsFill />,
-  //   link: "admin_panel/chat",
   // },
 ];

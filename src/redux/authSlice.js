@@ -31,6 +31,13 @@ export const login = createAsyncThunk(
   }
 );
 
+export const loadUser = createAsyncThunk("auth/load", async (refreshToken) => {
+  const data = await authService.getAccessToken(refreshToken);
+  return {
+    accessToken: data.access,
+  };
+});
+
 export const logout = createAsyncThunk("auth/logout", async () => {
   await authService.logoutAPI();
 });
@@ -62,6 +69,9 @@ export const authSlice = createSlice({
     },
     [logout.rejected]: (state, action) => {
       state.isLoggedIn = false;
+    },
+    [loadUser.fulfilled]: (state, action) => {
+      state.accessToken = action.payload.accessToken;
     },
   },
 });

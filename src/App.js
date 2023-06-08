@@ -31,25 +31,27 @@ import EditStudentAttendance from "./components/accountPanel/attendance/students
 import AddEvent from "./components/accountPanel/schedule/AddEvent";
 import EditEvent from "./components/accountPanel/schedule/EditEvent";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { api, setAuthToken } from "./utils/backend.instance";
+import Chat from "./components/accountPanel/chat/Chat";
+import { loadUser } from "./redux/authSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const { refreshToken } = useSelector((state) => state.auth);
-  const payload = {
-    refresh: refreshToken,
-  };
 
-  const getAccessToken = (refreshToken) => {
-    api.post("api/v1/auth/jwt/refresh", payload).then((response) => {
-      console.log("access token from APP.js: ", response.data.access);
-      setAuthToken(response.data.access);
-    });
-  };
+  // const getAccessToken = (refreshToken) => {
+  //   api.post("api/v1/auth/jwt/refresh", payload).then((response) => {
+  //     console.log("access token from APP.js: ", response.data.access);
+  //     setAuthToken(response.data.access);
+
+  //   });
+  // };
 
   useEffect(() => {
-    getAccessToken();
+    // getAccessToken();
+    dispatch(loadUser(refreshToken));
   }, []);
   return (
     <Router>
@@ -156,6 +158,7 @@ function App() {
               path="/:subdomain/admin_panel/finance/students/:id/edit"
               element={<FinanceStudentEdit />}
             />
+            <Route path="/:subdomain/admin_panel/chat" element={<Chat />} />
           </Route>
           <Route element={<Layout />}>
             <Route path="/" element={<HomePage />} />

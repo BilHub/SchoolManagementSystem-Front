@@ -29,5 +29,21 @@ const logoutAPI = () => {
   localStorage.removeItem("user");
 };
 
-const authService = { registerAPI, loginAPI, logoutAPI };
+const getAllUsers = async () => {
+  return await api.get("api/v1/auth/users_list/");
+};
+
+const getAccessToken = async (refreshToken) => {
+  return await api
+    .post("api/v1/auth/jwt/refresh", { refresh: refreshToken })
+    .then((response) => response.data);
+};
+
+const authService = {
+  registerAPI,
+  loginAPI,
+  logoutAPI,
+  getAllUsers,
+  getAccessToken,
+};
 export default authService;
