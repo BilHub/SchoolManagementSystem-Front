@@ -41,17 +41,18 @@ function App() {
   const dispatch = useDispatch();
   const { refreshToken } = useSelector((state) => state.auth);
 
-  // const getAccessToken = (refreshToken) => {
-  //   api.post("api/v1/auth/jwt/refresh", payload).then((response) => {
-  //     console.log("access token from APP.js: ", response.data.access);
-  //     setAuthToken(response.data.access);
-
-  //   });
-  // };
+  const getAccessToken = (refreshToken) => {
+    api
+      .post("api/v1/auth/jwt/refresh", { refresh: refreshToken })
+      .then((response) => {
+        console.log("access token from APP.js: ", response.data.access);
+        setAuthToken(response.data.access);
+      });
+  };
 
   useEffect(() => {
-    // getAccessToken();
-    dispatch(loadUser(refreshToken));
+    getAccessToken();
+    // dispatch(loadUser(refreshToken));
   }, []);
   return (
     <Router>
