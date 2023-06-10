@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Layout from "./components/layout/Layout";
 import RegisterForm from "./components/account/RegisterForm";
@@ -8,7 +8,7 @@ import AccountLayout from "./components/accountPanel/accountLayout/AccountLayout
 import Students from "./components/accountPanel/users/students/Students";
 import Teachers from "./components/accountPanel/users/teachers/Teachers";
 import AddStudent from "./components/accountPanel/users/students/AddStudent";
-import { AdminProvider } from "./context/AdminContext";
+import {AdminProvider} from "./context/AdminContext";
 import EditStudent from "./components/accountPanel/users/students/EditStudent";
 import Class from "./components/accountPanel/courses/class/Class";
 import Level from "./components/accountPanel/courses/level/Level";
@@ -30,146 +30,128 @@ import Staff from "./components/accountPanel/users/staff/Staff";
 import EditStudentAttendance from "./components/accountPanel/attendance/students/EditStudentAttendance";
 import AddEvent from "./components/accountPanel/schedule/AddEvent";
 import EditEvent from "./components/accountPanel/schedule/EditEvent";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { api, setAuthToken } from "./utils/backend.instance";
 import Chat from "./components/accountPanel/chat/Chat";
-import { loadUser } from "./redux/authSlice";
+import {PermissionProvider} from "./context/AuthContext";
 
 function App() {
-  const dispatch = useDispatch();
-  const { refreshToken } = useSelector((state) => state.auth);
-
-  const getAccessToken = (refreshToken) => {
-    api
-      .post("api/v1/auth/jwt/refresh", { refresh: refreshToken })
-      .then((response) => {
-        console.log("access token from APP.js: ", response.data.access);
-        setAuthToken(response.data.access);
-      });
-  };
-
-  useEffect(() => {
-    getAccessToken();
-    // dispatch(loadUser(refreshToken));
-  }, []);
-  return (
-    <Router>
-      <AdminProvider>
-        <Routes>
-          <Route element={<AccountLayout />}>
-            <Route
-              path="/:subdomain/admin_panel/dashboard"
-              element={<Dashboard />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/students"
-              element={<Students />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/students/add_student"
-              element={<AddStudent />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/teachers"
-              element={<Teachers />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/parents"
-              element={<Parents />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/staff"
-              element={<Staff />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/teachers/add_teacher"
-              element={<AddTeacher />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/students/edit_student/:id"
-              element={<EditStudent />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/users/teachers/edit_teacher/:id"
-              element={<EditTeacher />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/courses/subject"
-              element={<Class />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/courses/subject/edit_subject/:id"
-              element={<EditSubject />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/courses/level"
-              element={<Level />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/courses/level/edit_level/:id"
-              element={<EditLevel />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/courses/cycle"
-              element={<Cycle />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/courses/cycle/edit_cycle/:id"
-              element={<EditCycle />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/attendance/students"
-              element={<AttendanceStudents />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/attendance/teachers"
-              element={<AttendanceTeachers />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/attendance/students/edit_attendance/:id"
-              element={<EditStudentAttendance />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/attendance/students/add_attendance"
-              element={<AddAttendanceStudents />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/schedule"
-              element={<SchoolCalendar />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/schedule/add_event"
-              element={<AddEvent />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/schedule/edit_event/:id"
-              element={<EditEvent />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/finance/students"
-              element={<FinanceStudents />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/finance/students/:id"
-              element={<FinanceStudentDetail />}
-            />
-            <Route
-              path="/:subdomain/admin_panel/finance/students/:id/edit"
-              element={<FinanceStudentEdit />}
-            />
-            <Route path="/:subdomain/admin_panel/chat" element={<Chat />} />
-          </Route>
-          <Route element={<Layout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/login" element={<LoginForm />} />
-          </Route>
-        </Routes>
-      </AdminProvider>
-    </Router>
-  );
+    return (
+        <PermissionProvider>
+            <Router>
+                <AdminProvider>
+                    <Routes>
+                        <Route element={<AccountLayout/>}>
+                            <Route
+                                path="/:subdomain/admin_panel/dashboard"
+                                element={<Dashboard/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/students"
+                                element={<Students/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/students/add_student"
+                                element={<AddStudent/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/teachers"
+                                element={<Teachers/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/parents"
+                                element={<Parents/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/staff"
+                                element={<Staff/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/teachers/add_teacher"
+                                element={<AddTeacher/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/students/edit_student/:id"
+                                element={<EditStudent/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/users/teachers/edit_teacher/:id"
+                                element={<EditTeacher/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/courses/subject"
+                                element={<Class/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/courses/subject/edit_subject/:id"
+                                element={<EditSubject/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/courses/level"
+                                element={<Level/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/courses/level/edit_level/:id"
+                                element={<EditLevel/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/courses/cycle"
+                                element={<Cycle/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/courses/cycle/edit_cycle/:id"
+                                element={<EditCycle/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/attendance/students"
+                                element={<AttendanceStudents/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/attendance/teachers"
+                                element={<AttendanceTeachers/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/attendance/students/edit_attendance/:id"
+                                element={<EditStudentAttendance/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/attendance/students/add_attendance"
+                                element={<AddAttendanceStudents/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/schedule"
+                                element={<SchoolCalendar/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/schedule/add_event"
+                                element={<AddEvent/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/schedule/edit_event/:id"
+                                element={<EditEvent/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/finance/students"
+                                element={<FinanceStudents/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/finance/students/:id"
+                                element={<FinanceStudentDetail/>}
+                            />
+                            <Route
+                                path="/:subdomain/admin_panel/finance/students/:id/edit"
+                                element={<FinanceStudentEdit/>}
+                            />
+                            <Route path="/:subdomain/admin_panel/chat" element={<Chat/>}/>
+                        </Route>
+                        <Route element={<Layout/>}>
+                            <Route path="/" element={<HomePage/>}/>
+                            <Route path="/register" element={<RegisterForm/>}/>
+                            <Route path="/login" element={<LoginForm/>}/>
+                        </Route>
+                    </Routes>
+                </AdminProvider>
+            </Router>
+        </PermissionProvider>
+    );
 }
 
 export default App;
