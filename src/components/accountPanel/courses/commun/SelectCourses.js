@@ -10,10 +10,12 @@ const SelectCourses = () => {
   const { classList, selectedClassId } = useSelector((state) => state.courses);
 
   return (
-    <div className="flex gap-10 justify-center">
+    <div className="flex flex-col lg:flex-row gap-5 md:gap-10 justify-center items-center ">
       <SelectLevel />
       <div>
-        <span className="text-primary-green font-semibold">Subject: </span>
+        <span className="text-primary-green font-semibold hidden md:inline-block">
+          Subject:
+        </span>
         <select
           onChange={(e) => dispatch(setSelectedClassIdRedux(e.target.value))}
           value={selectedClassId}

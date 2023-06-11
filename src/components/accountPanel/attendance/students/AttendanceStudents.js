@@ -22,28 +22,6 @@ const AttendanceStudents = () => {
 
   const [attendanceList, setAttendanceList] = useState([]);
 
-  // const {
-  //   data: queryAttendanceList = [],
-  //   refetch,
-  //   isLoading,
-  //   error,
-  // } = useQuery(
-  //   [
-  //     "daily-attendance",
-  //     selectedCycleId,
-  //     selectedLevelId,
-  //     selectedClassId,
-  //     date,
-  //   ],
-  //   () =>
-  //     attendanceService.fetchingAttendance(
-  //       selectedCycleId,
-  //       selectedLevelId,
-  //       selectedClassId,
-  //       date
-  //     )
-  // );
-
   useEffect(() => {
     attendanceService
       .fetchingAllAttendance()
@@ -94,15 +72,8 @@ const AttendanceStudents = () => {
         .then((response) => setAttendanceList(response.data));
   }, [selectedClassId]);
 
-  // useEffect(() => {
-  //   if (classList.length) {
-  //     const value = classList[0].id;
-  //     dispatch(setSelectedClassIdRedux(value.toString()));
-  //   }
-  // }, []);
-
   return (
-    <div className="ml-52 mr-10 flex flex-col gap-5 mt-10">
+    <div className="md:ml-52 md:mr-10 flex flex-col gap-5 mt-10">
       <FilterClassAttendance />
       <TableStudentAttendance studentAtendanceList={attendanceList} />
     </div>

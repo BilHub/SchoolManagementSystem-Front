@@ -13,7 +13,7 @@ const Cycle = () => {
 
   const [cycleList, setCycleList] = useState(null);
   return (
-    <div className="ml-52 mt-22 mr-16">
+    <div className="md:ml-52 mt-22 md:mr-16">
       <CoursesPart />
       <AddCycle refetch={refetch} />
       <TableCycle

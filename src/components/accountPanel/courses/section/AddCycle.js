@@ -39,10 +39,10 @@ const AddCycle = ({ refetch }) => {
 
   return (
     <form
-      className=" flex items-center justify-center mt-10 gap-10"
+      className=" flex flex-col md:flex-row items-center justify-center mt-16 gap-5 md:gap-10"
       onSubmit={handleSubmit(addCycle)}
     >
-      <div className="flex gap-3 items-center">
+      <div className="flex flex-col gap-3 items-center md:flex-row">
         <label>Cycle: </label>
         <input
           {...register("name", { required: true })}

@@ -2,8 +2,8 @@ import React from "react";
 
 const Table = ({ dataList, renderHeader, renderRow }) => {
   return (
-    <div className="md:overflow-x-auto mr-3 md:mr-20">
-      <div className="md:min-w-[800px]">
+    <div className="lg:overflow-x-auto mr-3 lg:mr-20">
+      <div className="lg:min-w-[800px]">
         {renderHeader()}
 
         <ul>

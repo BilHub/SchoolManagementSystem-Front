@@ -11,7 +11,7 @@ const TableFinance = ({ studentsList }) => {
     return (
       <div>
         <p className="text-primary-green text-3xl my-5">Students</p>
-        <div className="grid grid-cols-4 text-center font-bold italic my-2">
+        <div className="hidden md:grid grid-cols-4 text-center font-bold italic my-2">
           {headerList.map((item, index) => {
             return <p key={index}>{item}</p>;
           })}
@@ -30,10 +30,10 @@ const TableFinance = ({ studentsList }) => {
           })
         }
       >
-        <p>
+        <p className="col-span-2 md:col-span-1">
           {item.first_name} {item.last_name}
         </p>
-        <p>{item.cycle.name}</p>
+        <p className="hidden md:inline-block">{item.cycle.name}</p>
         <p>{item.level.name}</p>
         <p>{item.last_payement}</p>
       </div>

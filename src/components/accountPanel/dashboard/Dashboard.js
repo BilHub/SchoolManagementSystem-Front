@@ -13,26 +13,25 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const { isLoggedIn, user } = useSelector((state) => state.auth);
   return (
-    <div className="ml-40">
+    <div className="w-full">
       {isLoggedIn ? (
         <div className="my-10 flex flex-col items-center gap-5">
-          <ul className="flex justify-center gap-32 items-center text-2xl text-white">
+          <ul className="grid grid-cols-2 lg:grid-cols-4 justify-center gap-10 items-center text-2xl text-white mx-5">
             {DashboardData.map((item) => {
               return (
                 <li
                   key={item.id}
-                  className="flex flex-col justify-center items-center bg-primary-green p-10 rounded rounded-lg gap-3
-                hover: cursor-pointer hover:bg-primary-yellow
-                "
+                  className="flex flex-col justify-center items-center bg-primary-green py-3 md:p-10 rounded rounded-lg
+                  hover: cursor-pointer hover:bg-primary-yellow w-[150px]"
                   onClick={() => navigate(user.subdomain + "/" + item.link)}
                 >
-                  <p className="text-5xl">{item.icon}</p>
+                  <p className="md:text-5xl text-3xl">{item.icon}</p>
                   <p>{item.title}</p>
                 </li>
               );
             })}
           </ul>
-          <ul className="flex justify-center items-center my-5 gap-10 text-xl">
+          <ul className="flex justify-center items-center my-5 gap-10 text-xl flex-col lg:flex-row">
             {NumbersInfos.map((item) => {
               return (
                 <li
@@ -52,7 +51,9 @@ const Dashboard = () => {
               );
             })}
           </ul>
-          <StudentNumberGraph />
+          <div className="mr-5">
+            <StudentNumberGraph width={280} height={200} />
+          </div>
           {/* <SchoolCalendar showToolBar={false} /> */}
           {/* <FinanceBarChart /> */}
         </div>

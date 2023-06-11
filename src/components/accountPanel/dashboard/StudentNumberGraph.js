@@ -8,7 +8,7 @@ import {
   Legend,
 } from "recharts";
 
-const StudentNumberGraph = () => {
+const StudentNumberGraph = ({ width, height }) => {
   const StudentsNumberData = [
     {
       name: "August",
@@ -62,7 +62,7 @@ const StudentNumberGraph = () => {
 
   return (
     <div>
-      <LineChart width={600} height={300} data={StudentsNumberData}>
+      <LineChart width={width} height={height} data={StudentsNumberData}>
         <Line
           type="monotone"
           dataKey="numberOfStudents"

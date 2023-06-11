@@ -24,7 +24,7 @@ const TableLevel = memo(({ levelList, refetch, setLevelList }) => {
   const renderLevelHeader = useCallback(() => {
     return (
       <div>
-        <p className="text-primary-green text-3xl my-5">Class List</p>
+        <p className="text-primary-green text-3xl my-5">Level List</p>
         <div className="grid grid-cols-3 text-center font-bold italic my-2">
           {headerList.map((item, index) => {
             return <p key={index}>{item}</p>;
