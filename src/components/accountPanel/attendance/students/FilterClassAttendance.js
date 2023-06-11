@@ -14,11 +14,7 @@ const FilterClassAttendance = () => {
         </p>
         <SelectCourses />
       </div>
-<<<<<<< HEAD
       <div className="hidden md:flex justify-center items-center gap-5">
-=======
-      <div className="hidden md:flex justify-center items-center gap-5  ">
->>>>>>> 57605ac4c1da55c38a102c0ca39781f5acdcbac3
         <p className="italic font-semibold text-xl mx-10">Or By</p>
         <DateSelectCourses />
       </div>

@@ -3,7 +3,6 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { UserTypeData } from "../../../../data/AdminPanel/UsersTypeData";
-import { useSelector } from "react-redux";
 
 const UserTypeMobile = () => {
   const location = useLocation();

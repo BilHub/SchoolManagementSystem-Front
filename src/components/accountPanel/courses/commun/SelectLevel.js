@@ -47,11 +47,7 @@ const SelectLevel = () => {
     <div className="flex flex-col md:flex-row gap-5 md:gap-10">
       <div>
         <span className="text-primary-green font-semibold hidden md:inline-block">
-<<<<<<< HEAD
           Cycle:
-=======
-          Cycle:{" "}
->>>>>>> 57605ac4c1da55c38a102c0ca39781f5acdcbac3
         </span>
         <select
           onChange={(e) => {
@@ -79,11 +75,7 @@ const SelectLevel = () => {
       </div>
       <div>
         <span className="text-primary-green font-semibold hidden md:inline-block">
-<<<<<<< HEAD
           Level:
-=======
-          Level:{" "}
->>>>>>> 57605ac4c1da55c38a102c0ca39781f5acdcbac3
         </span>
         <select
           defaultValue="default"
