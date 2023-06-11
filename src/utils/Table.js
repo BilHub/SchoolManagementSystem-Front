@@ -5,7 +5,6 @@ const Table = ({ dataList, renderHeader, renderRow }) => {
     <div className="lg:overflow-x-auto mr-3 lg:mr-20">
       <div className="lg:min-w-[800px]">
         {renderHeader()}
-
         <ul>
           {dataList.map((item, index) => {
             return (

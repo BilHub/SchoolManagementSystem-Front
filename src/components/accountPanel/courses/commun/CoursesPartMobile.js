@@ -3,12 +3,22 @@ import { AiOutlineMenuFold } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { CoursesPartsData } from "../../../../data/AdminPanel/CoursesPartsData";
+<<<<<<< HEAD
 const CoursePartMobile = () => {
   const location = useLocation();
   const prsentLink = location.pathname;
   const { user } = useSelector((state) => state.auth);
   const [showMenu, setShowMenu] = useState(false);
 
+=======
+
+const CoursePartMobile = () => {
+  const location = useLocation();
+  const prsentLink = location.pathname;
+  const { user } = useSelector((state) => state.auth);
+  const [showMenu, setShowMenu] = useState(false);
+
+>>>>>>> 57605ac4c1da55c38a102c0ca39781f5acdcbac3
   return (
     <div className="relative flex justify-center">
       <button

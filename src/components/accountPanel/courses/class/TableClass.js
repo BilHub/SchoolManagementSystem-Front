@@ -4,7 +4,6 @@ import { AiFillDelete } from "react-icons/ai";
 import { BiShow } from "react-icons/bi";
 import { useLocation, useNavigate } from "react-router-dom";
 import { api } from "../../../../utils/backend.instance";
-
 import Table from "../../../../utils/Table";
 
 const TableClass = memo(({ classList, refetch, setClassList }) => {

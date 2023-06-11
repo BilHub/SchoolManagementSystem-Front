@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { memo, useEffect, useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +26,6 @@ const AddClass = ({ refetch }) => {
   const [selectedCycleId, setSelectedCycleId] = useState(
     cycleList.length ? cycleList[0].id : null
   );
-  // const { data: cycleListResponse = [] } = useQuery(
-  //   ["cycle-list"],
-  //   coursesService.getCycleList
-  // );
   const { data: levelListResponse = [] } = useQuery(
     ["level-list", selectedCycleId],
     () => coursesService.getLevelList(selectedCycleId)

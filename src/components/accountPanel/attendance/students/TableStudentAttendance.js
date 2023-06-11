@@ -54,7 +54,7 @@ const TableStudentAttendance = memo(
               }}
             />
           </div>
-          <div className="grid grid-cols-6 text-center font-bold italic my-2">
+          <div className="hidden md:grid grid-cols-6 text-center font-bold italic my-2">
             {headerList.map((item, index) => {
               return <p key={index}>{item}</p>;
             })}

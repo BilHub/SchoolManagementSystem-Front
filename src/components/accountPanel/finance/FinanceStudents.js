@@ -124,6 +124,10 @@ const FinanceStudents = () => {
   // const studentsList = [];
   return (
     <div className="md:ml-52 mt-10 md:mr-16">
+<<<<<<< HEAD
+=======
+      {/* <StudentTeacherSelect /> */}
+>>>>>>> 57605ac4c1da55c38a102c0ca39781f5acdcbac3
       <SelectCourses />
       <TableFinance studentsList={studentsList} />
     </div>
